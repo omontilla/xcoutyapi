@@ -6,7 +6,7 @@ HOST: http://190.216.254.173:3090/businesscore/api/v1
 Lista de servicios Back-End API
 
 ## Usuario Login/Registro [/user/login]
-### POST - Login [POST]
+### Login [POST]
 
 + Request (application/json)
 + Attributes
@@ -51,7 +51,7 @@ Lista de servicios Back-End API
             }
 
 
-### POST - Registro [POST /user/register]
+### Registro [POST /user/register]
 
 + Request (application/json)
 + Attributes
@@ -90,7 +90,7 @@ Lista de servicios Back-End API
 
   {"error_code": "M0006","fields": [{"code": "M0006","field": "password","issue": "The two passwords supplied do not match"},{"code": "M0006","field": "password_repeated","issue": "The two passwords supplied do not match"}]}
 
-### POST - Login/Registro Facebook [POST /user/login/facebook]
+### Login/Registro Facebook [POST /user/login/facebook]
 
 + Request (application/json)
 + Attributes
@@ -132,17 +132,20 @@ Lista de servicios Back-End API
   {"error_code": "M0008","message": "The supplied token is not valid"}
 
 ## Biografia [/user/{userId}/biography]
-### GET - Obtener Biografia [GET]
+
+### Obtener Biografia [GET]
 
 
 + Parameters
-    + userId (number) - Identificador de usuario
+    + userId: `1` (required,number) - Identificador de usuario
     
++ Request (application/json) 
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+        
+   
 + Response 200 (application/json)   
  
-   + Headers
-     Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
-            
    + Body
         {
             "configuration": {
@@ -169,19 +172,21 @@ Lista de servicios Back-End API
 + Response 400 (application/json)         
   El identificador de userId no existe en el sistema
   
-    + Headers
-     Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
-         
     + Body
     {"error_code": "M0009","message": "no found userId"}
 
-### PUT - Actualizar Biografia [PUT]
+### Actualizar Biografia [PUT /user/{userId}/biographyForm]
 
 + Parameters
-    + userId (number) - Identificador de usuario
-    
-+ Request (application/json)
-     + Attributes
+    + userId: `1` (required,number) - Identificador de usuario
+
++ Request (application/json) 
+
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+  
+    + Body
+    + Attributes
         + gender_code: `GE001` (optional) - Genero de usuario
         + academic_code: `AL001` (optional) - Nivel academico de usuario
         + marital_code: `MS001` (optional) - Estado civil de usuario
@@ -200,22 +205,19 @@ Lista de servicios Back-End API
      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
             
    + Body
-   {
-    "message": "update"
-   }
+   {"message": "update"}
    
 ## ComboBox del Sistema [/user/{userId}/comboBox/]
-### GET - ComboBox de deportes [GET /user/{userId}/comboBox/SPORT]
+### ComboBox de deportes [GET /user/{userId}/comboBox/SPORT]
 
 + Parameters
-    + userId (number) - Identificador de usuario
-
+    + userId: `1` (required,number) - Identificador de usuario
+    
++ Request (application/json) 
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
         
 + Response 200 (application/json)   
-
-  + Headers
-     Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
-            
    + Body
     {
         "sports": [
@@ -239,16 +241,16 @@ Lista de servicios Back-End API
        
 ## Deportes de usuario [/user/{userId}/sport]
 
-### GET - Obtener Deportes [GET /user/{userId}/sport] 
+### Obtener Deportes [GET /user/{userId}/sport] 
 
 + Parameters
-    + userId (number) - Identificador de usuario
-
+    + userId: `1` (required,number) - Identificador de usuario
+    
++ Request (application/json) 
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+        
 + Response 200 (application/json)   
-
-  + Headers
-     Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
-            
    + Body
        {
         "sports": [
@@ -352,24 +354,29 @@ Lista de servicios Back-End API
         ]
 }
 
-### POST - Registrar Deporte [POST /user/{userId}/sport]
+### Registrar Deporte [POST /user/{userId}/sport]
 
 + Parameters
-    + userId (number) - Identificador de usuario
-
-+ Request (application/json)
+    + userId: `1` (required,number) - Identificador de usuario
+    
++ Request (application/json) 
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
 
    + Body
-    {"sport_code": "CS001",
+    {
+    "sport_code": "CS001",
     "attributes":  ["Arquero", "Lateral", "volante"],
     "video": "",
     "video_preview":"",
-    "careers": [{"description":"juegos internacionales 2017",
+    "careers": 
+    [{"description":"juegos internacionales 2017",
     "date_init": "2017-12-14",
     "date_end":"",
     "present":true,
     "title": "Centro campista"}],
-    "certificatios":[{"authority": "Juegos internacionales","date_end": "",
+    "certificatios":
+    [{"authority": "Juegos internacionales","date_end": "",
     "expired": true,
     "date_init": "2018-08-14",
     "licence_number": "54s55ajnsjs",
@@ -378,32 +385,27 @@ Lista de servicios Back-End API
     
 + Response 200 (application/json)   
 
-  + Headers
-     Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
-            
   + Body
   {"id": 3}
  
 + Response 400 (application/json)         
   El deporte ya se encuentra registrado para el usuario.
   
-    + Headers
-     Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
-         
-    + Body
-    {"error_code": "M0011","message": "The sport (:sport) is already registered"}
+  + Body
+  {"error_code": "M0011","message": "The sport (:sport) is already registered"}
     
-### DELETE - Registrar Deporte [DELETE /user/{userId}/sport/{sportId}]
+### Eliminar Deporte [DELETE /user/{userId}/sport/{sportId}]
 
 + Parameters
-    + userId (number) - Identificador de usuario
-    + sportId (number) - Identificador de deporte
+    + userId: `1` (required,number) - Identificador de usuario
+    + sportId: `1` (required,number) - Identificador de deporte
     
++ Request (application/json) 
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+
 + Response 200 (application/json)   
 
-  + Headers
-     Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
-            
 + Response 400 (application/json)         
   El identificador de userId no existe en el sistema
 
@@ -415,3 +417,188 @@ Lista de servicios Back-End API
 
   + Body
   {"error_code": "M0009","message": "no found sportId"}
+  
+## Certificaciones de un deporte [/user/1/sport/1/certification]
+
+### Obtener certificaciones [GET /user/{userId}/sport/{sportId}/certification] 
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario
+    + sportId: `1` (required,number) - Identificador de deporte
+    + page = `0` (optional, number, `1`) ... The page to retrieve
+    + items = `0` (optional, number, `1`) ... The number of items per page.
+    
++ Request (application/json) 
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+
++ Response 200 (application/json)   
+  + Body
+  {
+    "certifications": [
+        {
+            "certification_id": 1,
+            "authority": "Juegos internacionales",
+            "date_init": "2018-11-16",
+            "licence_number": "54s55ajnsjs",
+            "title": "balon de oro",
+            "expired": true
+        }
+    ],
+    "total_items_certifications": 1
+  }
+
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+  
++ Response 400 (application/json) 
+  El identificador de sportId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found sportId"}
+  
+### Registrar certificacion [POST /user/{userId}/sport/{sportId}/certification] 
+  
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario
+    + sportId: `1` (required,number) - Identificador de deporte
+    
++ Request (application/json) 
+  
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+    
+    + Body
+    + Attributes
+        + title: titulo (required) - titulo de la certificacion
+        + authority: `autoridad` (required) - autoridad de la certificacion
+        + date_init: `2018-09-14`  (required) - Fecha de inicio de la certificacion
+        + licence_number: `123456` (required) - Numero de licencia de la certificacion
+        + expired: true (required,boolean) - Si ha expirado o no la certificacion
+
++ Response 200 (application/json)   
+  + Body        
+  {
+    "certifications": [
+        {
+            "certification_id": 3,
+            "authority": "autización",
+            "date_init": "2018-08-14",
+            "licence_number": "123456",
+            "title": "titulo",
+            "expired": false
+        },
+        {
+            "certification_id": 1,
+            "authority": "Juegos internacionales",
+            "date_init": "2018-11-16",
+            "licence_number": "54s55ajnsjs",
+            "title": "balon de oro",
+            "expired": true
+        }
+    ],
+    "total_items_certifications": 2
+}
+
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+  
++ Response 400 (application/json) 
+  El identificador de sportId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found sportId"}
+  
+### Actualizar certificacion [PUT /user/{userId}/sport/{sportId}/certification] 
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario
+    + sportId: `1` (required,number) - Identificador de deporte
+    
++ Request (application/json) 
+  
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+    
+    + Body
+    + Attributes
+        + certification_id: `1` (required) - Identificador de certificacion
+        + title: titulo (optional) - titulo de la certificacion
+        + authority: `autoridad` (optional) - autoridad de la certificacion
+        + date_init: `2018-09-14`  (optional) - Fecha de inicio de la certificacion
+        + licence_number: `123456` (optional) - Numero de licencia de la certificacion
+        + expired: true (optional,boolean) - Si ha expirado o no la certificacion
+        
++ Response 200 (application/json)   
+  + Body
+  {
+    "certifications": [
+        {
+            "certification_id": 1,
+            "authority": "autizaciónmnnnnnnnnn",
+            "date_init": "2018-09-14",
+            "licence_number": "123456",
+            "title": "dsadsadsadsadsa",
+            "expired": true
+        }
+    ],
+    "total_items_certifications": 1
+}
+
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+  
++ Response 400 (application/json) 
+  El identificador de sportId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found sportId"}
+  
++ Response 400 (application/json) 
+  El identificador de certification_id no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found certification_id"}
+  
+### Eliminar certificacion [DELETE /user/{userId}/sport/{sportId}/certification/{certificationId}] 
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario
+    + sportId: `1` (required,number) - Identificador de deporte
+    + certificationId: `1` (required,number) - Identificador de certificacion
+    
++ Request (application/json) 
+  
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+
++ Response 200 (application/json)   
+  Se elimino la certificacion
+  + body  
+  
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+  
++ Response 400 (application/json) 
+  El identificador de sportId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found sportId"}
+  
++ Response 400 (application/json) 
+  El identificador de certification_id no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found certificationId"}
