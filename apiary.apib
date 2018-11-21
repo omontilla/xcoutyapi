@@ -1,0 +1,168 @@
+FORMAT: 1A
+HOST: http://190.216.254.173:3090/businesscore/api/v1/user/
+
+# stalfy-businessCore
+
+Polls is a simple API allowing consumers to view polls and vote in them.
+
+
+
+
+## Login User Normal [/login]
+
+### User Login [POST]
+
++ Request (application/json)
++ Attributes
+    + email: `the user's email` (required)
+    + password: `the user's password` (required)
+    + lenguage: JavaScript (enum, required)
+        + EN
+        + ES
+ 
++ Body
+        {
+        "email":"montilla.t31@gmail.com",
+        "password":"12345678",
+        "lenguage":"EN"
+        }
+
++ Response 200 (application/json)
+
+    + Headers
+
+            Location: /questions/2
+
+    + Body
+
+            {
+               "id":1,
+               "name":"oscar",
+               "last_name":"Montilla",
+               "email":"montilla.t31@gmail.com",
+               "image_profile":"http://35.227.223.87/image120181010154016319.jpg",
+               "access_token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTU0Mjc3NTkxNywic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.isK6QGCjLFudqXA0NHNyPgWNMwGq5MDgjlwwMOx5WRqwQ6Ba3gVj5PEzem_2CpHXCG8Rqlfr6tijeSVyvEd0ww"
+            }
+            
++ Response 400 (application/json)         
+
+    The supplied user does not exist.
+
+  + Body
+
+            {
+               "error_code": "M0001",
+               "message": "The email mtilla.t31@gmail.com is not registered in the system"
+            }
+            
++ Response 400 (application/json)         
+
+    The supplied password is incorrect.
+
+  + Body
+
+            {
+               "error_code": "M0002",
+               "message": "The password provided is invalid"
+            }
+
+## User Register Normal [/register]
+
+### User Register [POST]
+
++ Request (application/json)
++ Attributes
+    + name: `the name of the user`  (required)
+    + email: `the user's email` (required)
+    + password: `the user's password` (required)
+    + password_repeated: `the user's repeated password` (required)
+    + lenguage: `EN` (enum, required)
+        + EN
+        + ES
+ 
++ Body
+        {
+        "name":"Eduardo",
+        "email":"xxxxx@xxxxx",
+        "password":"xxxxx",
+        "password_repeated":"xxxxx",
+        "lenguage":"EN"
+        }
+        
++ Response 201 (application/json)
+  
+            {
+               "id":1,
+               "name":"Eduardo",
+               "email":"xxxx@xxxx",
+               "image_profile":"URL"
+            }
+
++ Response 400 (application/json)         
+
+    The email is already registered in our system.
+
+  + Body
+
+            {
+             "message":"El email ya está registrado en nuestro sistema"
+            }
++ Response 400 (application/json)         
+
+    The supplied passwords do not match.
+
+  + Body
+
+            {
+             "message":"Las contraseñas suministradas no coinciden"
+            }
+
+## Login User Facebook [/login/facebook]
+
+### User Login/Register [POST]
+
++ Request (application/json)
++ Attributes
+    + token: `the token provided by the facebook api` (required)
+    + email: `the user's email` (required)
+    + lenguage: JavaScript (enum, required)
+        + EN
+        + ES
+ 
++ Body
+        {
+        "token":"TOKEN",
+        "email":"xxxx@xxxx"
+        "lenguage":"EN"
+        }
+        
++ Response 200 (application/json)
+  
+            {
+               "id":1,
+               "name":"Eduardo",
+               "last_name":"Gonzales",
+               "email":"xxxx@xxxx",
+               "image_profile":"URL"
+            }
+            
++ Response 201 (application/json)
+  
+            {
+               "id":1,
+               "name":"Eduardo",
+               "last_name":"Gonzales",
+               "email":"xxxx@xxxx",
+               "image_profile":"URL"
+            }
+
+
++ Response 400 (application/json)         
+
+    The supplied token is invalid.
+
+  + Body
+
+            {
+             "message":"El token suministrado es inválido"
+            }
