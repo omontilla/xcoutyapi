@@ -1,37 +1,22 @@
 FORMAT: 1A
-HOST: http://190.216.254.173:3090/businesscore/api/v1/user/
+HOST: http://190.216.254.173:3090/businesscore/api/v1
 
-# stalfy-businessCore
+# xcouty-businessCore
 
-Polls is a simple API allowing consumers to view polls and vote in them.
+Lista de servicios Back-End API
 
-
-
-
-## Login User Normal [/login]
-
-### User Login [POST]
+## Usuario Login/Registro [/user/login]
+### POST - Login [POST]
 
 + Request (application/json)
 + Attributes
-    + email: `the user's email` (required)
-    + password: `the user's password` (required)
-    + lenguage: JavaScript (enum, required)
+    + email: `montilla.t31@gmail.com` (required) - Email de usuario
+    + password: `12345678` (required) - Contraseña de usuario
+    + lenguage: `EN` (enum, optional) - Lenguaje utilizado desde el celular
         + EN
         + ES
- 
-+ Body
-        {
-        "email":"montilla.t31@gmail.com",
-        "password":"12345678",
-        "lenguage":"EN"
-        }
-
+        
 + Response 200 (application/json)
-
-    + Headers
-
-            Location: /questions/2
 
     + Body
 
@@ -46,19 +31,18 @@ Polls is a simple API allowing consumers to view polls and vote in them.
             
 + Response 400 (application/json)         
 
-    The supplied user does not exist.
+  El usuario no existe en el systema
 
   + Body
 
             {
                "error_code": "M0001",
-               "message": "The email mtilla.t31@gmail.com is not registered in the system"
+               "message": "The email (:email) is not registered in the system"
             }
             
 + Response 400 (application/json)         
 
-    The supplied password is incorrect.
-
+  La contraseña suministrada es invalida 
   + Body
 
             {
@@ -66,103 +50,368 @@ Polls is a simple API allowing consumers to view polls and vote in them.
                "message": "The password provided is invalid"
             }
 
-## User Register Normal [/register]
 
-### User Register [POST]
+### POST - Registro [POST /user/register]
 
 + Request (application/json)
 + Attributes
-    + name: `the name of the user`  (required)
-    + email: `the user's email` (required)
-    + password: `the user's password` (required)
-    + password_repeated: `the user's repeated password` (required)
-    + lenguage: `EN` (enum, required)
+    + name: `Oscar`  (required) - Nombre de usuario
+    + las_name: `Montilla` (required) - Apellido de usuario
+    + email: `montilla.t31@gmail.com` (required) - Email de usuario
+    + password: `12345678` (required) - Contraseña de usuario
+    + password_repeated: `12345678` (required) - Campo para repetir contraseña
+    + lenguage: `EN` (enum, required) -  Lenguaje utilizado desde el celular
         + EN
         + ES
  
-+ Body
-        {
-        "name":"Eduardo",
-        "email":"xxxxx@xxxxx",
-        "password":"xxxxx",
-        "password_repeated":"xxxxx",
-        "lenguage":"EN"
-        }
-        
 + Response 201 (application/json)
   
             {
-               "id":1,
-               "name":"Eduardo",
-               "email":"xxxx@xxxx",
-               "image_profile":"URL"
+                "id": 1,
+                "name": "Oscar",
+                "last_name": "Montilla",
+                "email": "montilla.t31@gmail.com",
+                "image_url": "http://35.227.223.87/image120181010154016319.jpg"
             }
 
 + Response 400 (application/json)         
 
-    The email is already registered in our system.
+    El email ya se encuentra registrado en el systema
 
   + Body
 
-            {
-             "message":"El email ya está registrado en nuestro sistema"
-            }
-+ Response 400 (application/json)         
+  {"error_code": "M0004","message": "The email (:email) is already registered in our system"}
+    
++ Response 400 (application/json)     
 
-    The supplied passwords do not match.
+  El campo de password no coincide con el campo password_repeated
 
   + Body
 
-            {
-             "message":"Las contraseñas suministradas no coinciden"
-            }
+  {"error_code": "M0006","fields": [{"code": "M0006","field": "password","issue": "The two passwords supplied do not match"},{"code": "M0006","field": "password_repeated","issue": "The two passwords supplied do not match"}]}
 
-## Login User Facebook [/login/facebook]
-
-### User Login/Register [POST]
+### POST - Login/Registro Facebook [POST /user/login/facebook]
 
 + Request (application/json)
 + Attributes
-    + token: `the token provided by the facebook api` (required)
-    + email: `the user's email` (required)
-    + lenguage: JavaScript (enum, required)
+    + token: `dsahjdqwfcghauasidwqdiuchsaui;dwqqw` (required) - Token suministrado por la API de facebook
+    + email: `montilla.t31@gmail.com` (required) - Email suministrado por la API de facebook
+    + lenguage: EN (enum, optional)
         + EN
         + ES
  
-+ Body
-        {
-        "token":"TOKEN",
-        "email":"xxxx@xxxx"
-        "lenguage":"EN"
-        }
-        
-+ Response 200 (application/json)
-  
++ Response 200 (application/json)   
+  Login de usuario
+
+   + Body
             {
                "id":1,
                "name":"Eduardo",
                "last_name":"Gonzales",
-               "email":"xxxx@xxxx",
-               "image_profile":"URL"
+               "email":"montilla.t31@gmail.com",
+               "image_url": "http://35.227.223.87/image120181010154016319.jpg"
             }
             
 + Response 201 (application/json)
+  Registro de usuario
   
+   + Body
             {
                "id":1,
                "name":"Eduardo",
                "last_name":"Gonzales",
-               "email":"xxxx@xxxx",
+               "email":"montilla.t31@gmail.com",
                "image_profile":"URL"
             }
 
 
 + Response 400 (application/json)         
-
-    The supplied token is invalid.
+  El token suministrado no es valido
 
   + Body
+  {"error_code": "M0008","message": "The supplied token is not valid"}
 
+## Biografia [/user/{userId}/biography]
+### GET - Obtener Biografia [GET]
+
+
++ Parameters
+    + userId (number) - Identificador de usuario
+    
++ Response 200 (application/json)   
+ 
+   + Headers
+     Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+            
+   + Body
+        {
+            "configuration": {
+                "phone": true,
+                "address": true
+            },
+            "biography": {
+                "user_id": 1,
+                "disability": "visual",
+                "disability_code": "DI002",
+                "marital_status": "single",
+                "marital_status_code": "MS001",
+                "academic_level": "student",
+                "academic_level_code": "AL001",
+                "gender": "male",
+                "gender_code": "GE001",
+                "image_profile": "http://35.227.223.87/image120181010154016319.jpg",
+                "name": "oscar",
+                "last_name": "Montilla",
+                "nickname": "omontilla"
+                 }
+        }
+
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+  
+    + Headers
+     Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+         
+    + Body
+    {"error_code": "M0009","message": "no found userId"}
+
+### PUT - Actualizar Biografia [PUT]
+
++ Parameters
+    + userId (number) - Identificador de usuario
+    
++ Request (application/json)
+     + Attributes
+        + gender_code: `GE001` (optional) - Genero de usuario
+        + academic_code: `AL001` (optional) - Nivel academico de usuario
+        + marital_code: `MS001` (optional) - Estado civil de usuario
+        + disability_code: `DI002` (optional) - Discapacidad de usuario
+        + about_me: `about` (optional) - Descripcion del usuario 
+        + phone: `5519278` (optional) - Telefono de usuario
+        + address: `Av. El centro` (optional) - Direccion de usuario
+        + nick_name: `omontilla` (optional) - Nick de usuario
+        + name: `Oscar` (optional) - Nombre de usuario
+        + last_name: `Montilla` (optional) - Apellido de usuario
+        
+        
++ Response 200 (application/json)   
+
+  + Headers
+     Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+            
+   + Body
+   {
+    "message": "update"
+   }
+   
+## ComboBox del Sistema [/user/{userId}/comboBox/]
+### GET - ComboBox de deportes [GET /user/{userId}/comboBox/SPORT]
+
++ Parameters
+    + userId (number) - Identificador de usuario
+
+        
++ Response 200 (application/json)   
+
+  + Headers
+     Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+            
+   + Body
+    {
+        "sports": [
             {
-             "message":"El token suministrado es inválido"
+                "name": "Volleyball",
+                "code": "CS001",
+                "image_url": "https://www.shareicon.net/data/128x128/2016/12/23/866375_ball_512x512.png"
+            },
+            {
+                "name": "Futbol",
+                "code": "CS002",
+                "image_url": "https://www.shareicon.net/data/128x128/2016/11/15/852637_team_512x512.png"
+            },
+            {
+                "name": "Tennis",
+                "code": "CS004",
+                "image_url": "https://www.shareicon.net/data/128x128/2016/11/15/852637_team_512x512.png"
             }
+        ]
+    }
+       
+## Deportes de usuario [/user/{userId}/sport]
+
+### GET - Obtener Deportes [GET /user/{userId}/sport] 
+
++ Parameters
+    + userId (number) - Identificador de usuario
+
++ Response 200 (application/json)   
+
+  + Headers
+     Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+            
+   + Body
+       {
+        "sports": [
+            {
+                "sport_id": 2,
+                "sport_code": "CS003",
+                "image_url": "https://www.shareicon.net/data/128x128/2016/11/15/852643_game_512x512.png",
+                "certifications": [],
+                "total_items_certifications": 0,
+                "careers": [
+                    {
+                        "career_id": 13,
+                        "description": "s,pa",
+                        "date_init": "2018-10-18",
+                        "title": "poask"
+                    },
+                    {
+                        "career_id": 12,
+                        "description": "kasml",
+                        "date_init": "2018-10-18",
+                        "title": "oisjao"
+                    },
+                    {
+                        "career_id": 11,
+                        "description": "kmas",
+                        "date_init": "2018-10-18",
+                        "title": "oiasjo"
+                    },
+                    {
+                        "career_id": 10,
+                        "description": "klasm",
+                        "date_init": "2018-10-18",
+                        "title": "pokas"
+                    },
+                    {
+                        "career_id": 9,
+                        "description": "kamsl",
+                        "date_init": "2018-10-18",
+                        "title": "kasml"
+                    },
+                    {
+                        "career_id": 8,
+                        "description": "ioasi",
+                        "date_init": "2018-10-18",
+                        "title": "lkasm"
+                    },
+                    {
+                        "career_id": 7,
+                        "description": "kmas",
+                        "date_init": "2018-10-18",
+                        "title": "iuas"
+                    },
+                    {
+                        "career_id": 6,
+                        "description": "pokas",
+                        "date_init": "2018-10-18",
+                        "title": "poask"
+                    },
+                    {
+                        "career_id": 5,
+                        "description": "kamsd",
+                        "date_init": "2018-10-18",
+                        "title": "jkansk"
+                    }
+                ],
+                "total_items_careers": 11,
+                "attributes": [],
+                "references": [],
+                "total_items_references": 0,
+                "is_principal": false
+            },
+            {
+                "sport_id": 1,
+                "sport_code": "CS005",
+                "image_url": "https://www.shareicon.net/data/128x128/2016/11/15/852637_team_512x512.png",
+                "certifications": [
+                    {
+                        "certification_id": 1,
+                        "authority": "Juegos internacionales",
+                        "date_init": "2018-11-16",
+                        "licence_number": "54s55ajnsjs",
+                        "title": "balon de oro",
+                        "expired": true
+                    }
+                ],
+                "total_items_certifications": 1,
+                "careers": [
+                    {
+                        "career_id": 1,
+                        "description": "juegos internacionales 2017",
+                        "date_init": "2018-11-16",
+                        "title": "Centro campista"
+                    }
+                ],
+                "total_items_careers": 1,
+                "attributes": [],
+                "references": [],
+                "total_items_references": 0,
+                "is_principal": false
+            }
+        ]
+}
+
+### POST - Registrar Deporte [POST /user/{userId}/sport]
+
++ Parameters
+    + userId (number) - Identificador de usuario
+
++ Request (application/json)
+
+   + Body
+    {"sport_code": "CS001",
+    "attributes":  ["Arquero", "Lateral", "volante"],
+    "video": "",
+    "video_preview":"",
+    "careers": [{"description":"juegos internacionales 2017",
+    "date_init": "2017-12-14",
+    "date_end":"",
+    "present":true,
+    "title": "Centro campista"}],
+    "certificatios":[{"authority": "Juegos internacionales","date_end": "",
+    "expired": true,
+    "date_init": "2018-08-14",
+    "licence_number": "54s55ajnsjs",
+    "title": "balon de oro"
+    }}
+    
++ Response 200 (application/json)   
+
+  + Headers
+     Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+            
+  + Body
+  {"id": 3}
+ 
++ Response 400 (application/json)         
+  El deporte ya se encuentra registrado para el usuario.
+  
+    + Headers
+     Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+         
+    + Body
+    {"error_code": "M0011","message": "The sport (:sport) is already registered"}
+    
+### DELETE - Registrar Deporte [DELETE /user/{userId}/sport/{sportId}]
+
++ Parameters
+    + userId (number) - Identificador de usuario
+    + sportId (number) - Identificador de deporte
+    
++ Response 200 (application/json)   
+
+  + Headers
+     Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+            
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+  
++ Response 400 (application/json) 
+  El identificador de sportId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found sportId"}
