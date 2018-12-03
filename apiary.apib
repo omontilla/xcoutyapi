@@ -131,6 +131,72 @@ Lista de servicios Back-End API
   + Body
   {"error_code": "M0008","message": "The supplied token is not valid"}
 
+## Ajustes de usuario [/user/{userId}/setting]
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario 
+
+### Obtener parametros de ajuste de usuario[GET]
+
++ Request (application/json) 
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+
++ Response 200 (application/json)   
+  + Body
+     {
+        "language_code": "EN",
+        "language_name": "ENGLISH",
+        "weight_code": "Lb",
+        "weight_name": "POUNDS",
+        "height_code": "ft",
+        "height_name": "FOOT"
+        }
+
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+
+
+### Actualizar parametros de ajuste de usuario[PUT]
+
++ Attributes
+    + height_code: `FT` (enum) - Codigo del enumerado de configuracion de peso
+        + FT - PIES
+        + M - METROS
+    + weight_code: `KG` (enum) - Codigo del enumerado de configuracion de altura
+        + KG - KILOGRAMO
+        + LB - LIBRAS
+    + language_code: `EN` (enum) -  codigo del enumerado de configuracion de lenguaje
+        + EN - ENGLISH
+        + ES - SPANISH
+
++ Request (application/json) 
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+
++ Response 200 (application/json)   
+  + Body
+     {
+        "language_code": "EN",
+        "language_name": "ENGLISH",
+        "weight_code": "Lb",
+        "weight_name": "POUNDS",
+        "height_code": "ft",
+        "height_name": "FOOT"
+        }
+
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+
+
+
+
 ## Biografia [/user/{userId}/biography]
 
 ### Obtener Biografia [GET]
