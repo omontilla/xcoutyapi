@@ -883,18 +883,17 @@ Lista de servicios Back-End API
 
   + Body
   {"error_code": "M0009","message": "no found careerId"}
-    
 
 ## Notificaciones [/user/{userId}/notifications]
 
 ### Obtener Notificaciones [GET /user/{userId}/notifications?lat={lat}&lng={lng}]
 
 + Parameters
-    + userId: `1` (required,number) - Identificador de usuario path
-    + page: `0` (optional, string)  - Numero de pagina queryParameter
-    + items: `10` (optional, string) - Cantidad de registros a consultar queryParameter
-    + lat: `19.4284700` (required, string) - latitud del usuario queryParameter
-    + lng: `99.1276600` (required, string) - longitud del usuario queryParameter
+    + userId: `1` (required,number) - Identificador de usuario
+    + page: `0` (optional, string)  - Numero de pagina
+    + items: `10` (optional, string) - Cantidad de registros a consultar
+    + lat: `19.4284700` (required, string) - Latitud del usuario
+    + lng: `99.1276600` (required, string) - Longitud del usuario
     
 + Request (application/json) 
     + Headers
@@ -912,7 +911,7 @@ Lista de servicios Back-End API
         }
     ],
     "total_items_notifications": 1
-}
+    }
 
 + Response 400 (application/json)         
   El identificador de userId no existe en el sistema
@@ -925,3 +924,105 @@ Lista de servicios Back-End API
   
   + Body
   {"error_code": "M0003","message": "The field is required"}
+  
+### Enviar Referencia [POST /user/{userId}/notifications/reference/{userIdInvite}]
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario
+    + userIdInvite: `2` (required,number) - Identificador del usuario al que se envio la referencia
+    + page = `0` (optional, number, `1`) - La Cantidad de paginas
+    + items = `0` (optional, number, `1`) - Cantidad de items por pagina.
+    
+        
++ Request (application/json) 
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+
++ Attributes
+    + sport_id: `1` (required,number) - Identificador de deporte del usuario al que se envio la referencia
+    + description: `Comentario de la referencia` (required,string) - Nivel academico de usuario
+  
+
++ Response 201 (application/json)
+  La referencia se ha enviado 
+  + body
+    
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+  
++ Response 400 (application/json)         
+  Ya has enviado una referencia.
+
+  + Body
+  {"error_code": "M0014","message": "You have already sent a reference"}  
+  
++ Response 400 (application/json) 
+  El identificador de sport_id no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found sport_id"}
+  
+### Enviar Solicitud de amistad [POST /user/{userId}/notifications/friend/{userIdInvite}]
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario
+    + userIdInvite: `2` (required,number) - Identificador del usuario al que se envio la referencia
+    + page = `0` (optional, number, `1`) - La Cantidad de paginas
+    + items = `0` (optional, number, `1`) - Cantidad de items por pagina.
+
++ Request (application/json) 
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+
++ Response 201 (application/json)
+  La referencia se ha enviado 
+  + body      
+  
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+  
++ Response 400 (application/json)         
+  Ya has enviado una solicitud de amistad.
+
+  + Body
+  {"error_code": "M0013","message": "You have already sent a friend request"}  
+  
+### Aceptar/declinar solicitudes de amistad o referencia [POST /user/{userId}/notifications/{notificationId}/condition/{condition}]
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario.
+    + notificationId: `2` (required,number) - Identificador de notificacion.
+    + condition = true (required,boolean, `true`) - Condicion si acepta o declina la notificacion
+
++ Request (application/json) 
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+
+
++ Response 200 (application/json)
+  Has aceptado la referencia enviada por (name)
+  + body     
+    {
+    "error_code": "M0017",
+    "message": "You have accepted the reference sent by (name)."
+    }
+    
++ Response 200 (application/json)
+  Ahora (name) son y tus amigos.
+  + body     
+    {
+    "error_code": "M0015",
+    "message": "Now (name) are and your friends."
+    }
+    
++ Response 400 (application/json)         
+  El identificador de notificationId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found notificationId"}
