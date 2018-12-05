@@ -232,6 +232,8 @@ Lista de servicios Back-End API
                 "name": "oscar",
                 "last_name": "Montilla",
                 "nickname": "omontilla"
+                "weight": "120 Lb",
+                "height": "1.50 ft"
                  }
         }
 
@@ -263,6 +265,8 @@ Lista de servicios Back-End API
         + nick_name: `omontilla` (optional) - Nick de usuario
         + name: `Oscar` (optional) - Nombre de usuario
         + last_name: `Montilla` (optional) - Apellido de usuario
+        + weight: `70` (optional) - Peso de usuario
+        + height: `1.50` (optional) - Altura de usuario
         
         
 + Response 200 (application/json)   
@@ -507,8 +511,108 @@ Lista de servicios Back-End API
 
   + Body
   {"error_code": "M0009","message": "no found sportId"}
-  
-  
+
+## Localizaciones o Ubicaciones de usuario [/user/{userId}/locations]
+
+### Obtener ubicaciones [GET /user/{userId}/locations]
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario.
+    + items: `2` (optional,string) - Cantidad de registros a mostrar hasta un maximo de 1000, si no se envia muestra el mas reciente.
+
++ Request (application/json)
+    + Headers
+    Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+
++ Response 200 (application/json)
+    
+  + Body
+    {
+    "locations_user": [
+        {
+            "id": 12,
+            "lat": "51.5072",
+            "lng": "-0.1275",
+            "createDate": "2018-12-04 18:34:28"
+        },
+        {
+            "id": 11,
+            "lat": "19.4284700",
+            "lng": "-99.1276600",
+            "createDate": "2018-12-04 13:57:11"
+        }
+    ]
+    }
+
++ Response 400 (application/json)
+El identificador de userId no existe en el sistema
+
+   + Body
+  {"error_code": "M0009","message": "no found userId"}
+
+### Registrar Ubicacion [POST /user/{userId}/locations]
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario.
+
++ Request (application/json) 
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+      
+    + Body
+    + Attributes
+        + lat: `51.5072` (required) - latitud del usuario
+        + lng: `-0.1275` (required) - longitud del usuario
+        
++ Response 200 (application/json)
+    + Body
+    {
+        "id": 13,
+        "lat": "51.5072",
+        "lng": "-0.1275",
+        "createDate": "2018-12-05 09:25:12"
+    }
+    
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+
++ Response 400 (application/json)         
+  El campo es requerido, o los campos son requeridos
+
+  + Body
+  {
+    "error_code": "M0003",
+    "fields": [
+        {
+            "code": "M0003",
+            "field": "lng",
+            "issue": "The field is required"
+        }
+    ]
+   }
+
++ Response 400 (application/json)         
+  El campo es requerido, o los campos son requeridos
+
+  + Body
+  {
+    "error_code": "M0003",
+    "fields": [
+        {
+            "code": "M0003",
+            "field": "lat",
+            "issue": "The field is required"
+        },
+        {
+            "code": "M0003",
+            "field": "lng",
+            "issue": "The field is required"
+        }
+    ]
+  }
+
 ## Certificaciones de un deporte [/user/1/sport/1/certification]
 
 ### Obtener certificaciones [GET /user/{userId}/sport/{sportId}/certification] 
@@ -886,7 +990,7 @@ Lista de servicios Back-End API
 
 ## Notificaciones [/user/{userId}/notifications]
 
-### Obtener Notificaciones [GET /user/{userId}/notifications?lat={lat}&lng={lng}]
+### Obtener Notificaciones [GET /user/{userId}/notifications]
 
 + Parameters
     + userId: `1` (required,number) - Identificador de usuario
@@ -906,6 +1010,7 @@ Lista de servicios Back-End API
         {
             "notification_id": 1,
             "code": "MN001",
+            "message": "Jose Duin has sent a reference request about your sport Baseball",
             "image": "http://35.227.223.87/image120181010154016319.jpg",
             "time": "2018-11-30 13:02:33"
         }
@@ -1026,3 +1131,17 @@ Lista de servicios Back-End API
 
   + Body
   {"error_code": "M0009","message": "no found notificationId"}
+  
+## Configuraciones de Sistema [/system/config]
+
+### Obtener configuraciones de Sistema [GET /system/config]
+
++ Parameters
+    + key: `user` (optional,number) - Ilike de la columna de key
+    + value: `0` (optional, string)  - Ilike de la columna value
+    + description: `10` (optional, string) - Ilike de la columna description
+    + order: `create_date` (optional, string) - Order by del tipo de columna que se desee, si necesita ser desc debe colocarse un - al principio del valor
+
++ Request (application/json) 
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
