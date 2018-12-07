@@ -1145,3 +1145,295 @@ El identificador de userId no existe en el sistema
 + Request (application/json) 
     + Headers
       Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+      
+## Videos Home [/user/{userId}/videohome]
+
+### Registrar Video [POST /user/{userId}/videohome]
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario
+    
++ Request (application/json) 
+  
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+    
+    + Body
+    + Attributes
+        + name: `video presentacion` (required) - nombre para el video
+        + description: `sube tu video` (required) - Descripcion del video
+        + video: `data:video/mp4;base64,...`  (required) - video en base64
+        + image: `data:image/jpeg;base64,...` (required) - imagen en base64
+        + imageType: `jpg` (required) - extension/tipo de la imagen
+        + videoType: `mp4` (required) - extension/tipo del video
+
++ Response 200 (application/json)   
+  + Body
+
+  {
+    "id": 2,
+    "name": "video presentacion",
+    "description": "sube tu video",
+    "url": "http://35.227.223.87/image120181207133521988.jpg",
+    "createDate": "2018-12-07 09:35:23",
+    "image": "http://35.227.223.87/image120181207133521988.jpg",
+    "imageType": "jpg",
+    "videoType": "mp4",
+    "active": true
+}
+
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+  
++ Response 400 (application/json) 
+  El o los campos son requeridos
+
+  + Body
+
+  {
+    "error_code": "M0003",
+    "fields": [
+        {
+            "code": "M0003",
+            "field": "name",
+            "issue": "The field is required"
+        },
+        {
+            "code": "M0003",
+            "field": "description",
+            "issue": "The field is required"
+        }
+    ]
+}
+
+### Actualizar Video [PUT /user/{userId}/videohome/{videoHomeId}]
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario
+    + videoHomeId: `3` (required,number) - Identificador de video
+    
++ Request (application/json) 
+  
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+    
+    + Body
+    + Attributes
+        + name: `video presentacion 3` (required) - nombre para el video
+        + description: `eres deportista o te gusta el deporte` (required) - Descripcion del video
+
++ Response 200 (application/json)   
+  + Body   
+  
+    {
+        "id": 3,
+        "name": "video presentacion 3",
+        "description": "eres deportista o te gusta el deporte",
+        "url": "http://35.227.223.87/image120181207140526854.jpg",
+        "createDate": "2018-12-07 10:05:28",
+        "image": "http://35.227.223.87/image120181207140526854.jpg",
+        "imageType": "jpg",
+        "videoType": "mp4",
+        "active": true
+    }
+
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+  
++ Response 400 (application/json)         
+  El identificador de videoHomeId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009", "message": "no found videoHomeId"}
+  
++ Response 400 (application/json) 
+  El o los campos son requeridos
+
+  + Body
+
+
+  {
+    "error_code": "M0003",
+    "fields": [
+        {
+            "code": "M0003",
+            "field": "name",
+            "issue": "The field is required"
+        },
+        {
+            "code": "M0003",
+            "field": "description",
+            "issue": "The field is required"
+        }
+    ]
+    }
+
+### Activar Video [PUT /user/{userId}/videohome/{videoHomeId}/active]
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario
+    + videoHomeId: `3` (required,number) - Identificador de video
+    
++ Request (application/json) 
+  
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+    
+    + Body
+    
+    {}
++ Response 200 (application/json)   
+  + Body   
+
+  
+    {
+        "id": 3,
+        "name": "video presentacion 3",
+        "description": "eres deportista o te gusta el deporte",
+        "url": "http://35.227.223.87/image120181207140526854.jpg",
+        "createDate": "2018-12-07 10:05:28",
+        "image": "http://35.227.223.87/image120181207140526854.jpg",
+        "imageType": "jpg",
+        "videoType": "mp4",
+        "active": true
+    }
+
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+  
++ Response 400 (application/json)         
+  El identificador de videoHomeId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009", "message": "no found videoHomeId"}
+  
+
+### Inactivar Video [PUT /user/{userId}/videohome/{videoHomeId}/inactive]
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario
+    + videoHomeId: `3` (required,number) - Identificador de video
+    
++ Request (application/json) 
+  
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+    
+    + Body
+    
+    {}
++ Response 200 (application/json)   
+  + Body   
+  
+  
+    {
+        "id": 3,
+        "name": "video presentacion 3",
+        "description": "eres deportista o te gusta el deporte",
+        "url": "http://35.227.223.87/image120181207140526854.jpg",
+        "createDate": "2018-12-07 10:05:28",
+        "image": "http://35.227.223.87/image120181207140526854.jpg",
+        "imageType": "jpg",
+        "videoType": "mp4",
+        "active": false
+    }
+
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+  
++ Response 400 (application/json)         
+  El identificador de videoHomeId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009", "message": "no found videoHomeId"}
+ 
+
+### Obtener Video [GET /user/{userId}/videohome]
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario
+    + lat: `19.4284700` (optional,number) - latitud del usuario
+    + lng: `-99.1276600` (optional,number) - longitud del usuario
+    + items: `4` (optional,number) - cantidad de items a consultar, maximo 1000
+    + page: `0` (optional,number) - numero de pagina
+    
++ Request (application/json) 
+  
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+
++ Response 200 (application/json)   
+  + Body   
+
+  
+    {
+    "videos_home": [
+        {
+            "id": 4,
+            "name": "video presentacion",
+            "description": "eres deportista o te gusta el deporte, sube tu propio video",
+            "url": "http://35.227.223.87/video120181207141220164.mp4",
+            "createDate": "2018-12-07 08:12:36",
+            "image": "http://35.227.223.87/image120181207141234799.jpg",
+            "imageType": "jpg",
+            "videoType": "mp4",
+            "active": true
+        },
+        {
+            "id": 3,
+            "name": "video presentacion",
+            "description": "eres deportista o te gusta el deporte, sube tu propio video",
+            "url": "http://35.227.223.87/video120181207140525567.mp4",
+            "createDate": "2018-12-07 08:05:28",
+            "image": "http://35.227.223.87/image120181207140526854.jpg",
+            "imageType": "jpg",
+            "videoType": "mp4",
+            "active": true
+        }
+    ]
+ }
+
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+
+
+### Delete Video [DELETE /user/{userId}/videohome/{videoHomeId}/delete]
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario
+    + videoHomeId: `3` (required,number) - Identificador de video
+    
++ Request (application/json) 
+  
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+
+    + Response 200 (application/json)   
+        Se elimino el video
+
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+  
++ Response 400 (application/json)         
+  El identificador de videoHomeId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009", "message": "no found videoHomeId"}
