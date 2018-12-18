@@ -1170,9 +1170,9 @@ El identificador de userId no existe en el sistema
                     }
                 ]
         }
-## Videos Home [/user/{userId}/videohome]
+## Videos Deportivos [/user/{userId}/sportingvideo]
 
-### Registrar Video [POST /user/{userId}/videohome]
+### Registrar Video Deportivo[POST /user/{userId}/sportingvideo]
 
 + Parameters
     + userId: `1` (required,number) - Identificador de usuario
@@ -1233,11 +1233,11 @@ El identificador de userId no existe en el sistema
     ]
 }
 
-### Actualizar Video [PUT /user/{userId}/videohome/{videoHomeId}]
+### Actualizar Video Deportivo[PUT /user/{userId}/sportingvideo/{sportingVideoId}]
 
 + Parameters
     + userId: `1` (required,number) - Identificador de usuario
-    + videoHomeId: `3` (required,number) - Identificador de video
+    + sportingVideoId: `3` (required,number) - Identificador de video
     
 + Request (application/json) 
   
@@ -1271,10 +1271,10 @@ El identificador de userId no existe en el sistema
   {"error_code": "M0009","message": "no found userId"}
   
 + Response 400 (application/json)         
-  El identificador de videoHomeId no existe en el sistema
+  El identificador de sportingVideoId no existe en el sistema
 
   + Body
-  {"error_code": "M0009", "message": "no found videoHomeId"}
+  {"error_code": "M0009", "message": "no found sportingVideoId"}
   
 + Response 400 (application/json) 
   El o los campos son requeridos
@@ -1298,11 +1298,11 @@ El identificador de userId no existe en el sistema
     ]
     }
 
-### Activar Video [PUT /user/{userId}/videohome/{videoHomeId}/active]
+### Activar Video Deportivo[PUT /user/{userId}/sportingvideo/{sportingVideoId}/active]
 
 + Parameters
     + userId: `1` (required,number) - Identificador de usuario
-    + videoHomeId: `3` (required,number) - Identificador de video
+    + sportingVideoId: `3` (required,number) - Identificador de video
     
 + Request (application/json) 
   
@@ -1335,17 +1335,17 @@ El identificador de userId no existe en el sistema
   {"error_code": "M0009","message": "no found userId"}
   
 + Response 400 (application/json)         
-  El identificador de videoHomeId no existe en el sistema
+  El identificador de sportingVideoId no existe en el sistema
 
   + Body
-  {"error_code": "M0009", "message": "no found videoHomeId"}
+  {"error_code": "M0009", "message": "no found sportingVideoId"}
   
 
-### Inactivar Video [PUT /user/{userId}/videohome/{videoHomeId}/inactive]
+### Inactivar Video Deportivo[PUT /user/{userId}/sportingvideo/{sportingVideoId}/inactive]
 
 + Parameters
     + userId: `1` (required,number) - Identificador de usuario
-    + videoHomeId: `3` (required,number) - Identificador de video
+    + sportingVideoId: `3` (required,number) - Identificador de video
     
 + Request (application/json) 
   
@@ -1378,13 +1378,13 @@ El identificador de userId no existe en el sistema
   {"error_code": "M0009","message": "no found userId"}
   
 + Response 400 (application/json)         
-  El identificador de videoHomeId no existe en el sistema
+  El identificador de sportingVideoId no existe en el sistema
 
   + Body
-  {"error_code": "M0009", "message": "no found videoHomeId"}
+  {"error_code": "M0009", "message": "no found sportingVideoId"}
  
 
-### Obtener Video [GET /user/{userId}/videohome]
+### Obtener Videos Deportivos [GET /user/{userId}/sportingvideo]
 
 + Parameters
     + userId: `1` (required,number) - Identificador de usuario
@@ -1403,7 +1403,7 @@ El identificador de userId no existe en el sistema
 
   
     {
-    "videos_home": [
+    "sporting_videos": [
         {
             "id": 4,
             "name": "video presentacion",
@@ -1427,7 +1427,7 @@ El identificador de userId no existe en el sistema
             "active": true
         }
     ],
-    "total_items_videoshome": 15
+    "total_items_sportingvideos": 15
  }
 
 + Response 400 (application/json)         
@@ -1437,19 +1437,20 @@ El identificador de userId no existe en el sistema
   {"error_code": "M0009","message": "no found userId"}
 
 
-### Delete Video [DELETE /user/{userId}/videohome/{videoHomeId}/delete]
+### Eliminar Video Deportivo[DELETE /user/{userId}/sportingvideo/{sportingVideoId}/delete]
 
 + Parameters
     + userId: `1` (required,number) - Identificador de usuario
-    + videoHomeId: `3` (required,number) - Identificador de video
+    + sportingVideoId: `3` (required,number) - Identificador de video
     
 + Request (application/json) 
   
     + Headers
       Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
 
-    + Response 200 (application/json)   
-        Se elimino el video
++ Response 200 (application/json)   
+    Se elimino el video
+  + Body
 
 + Response 400 (application/json)         
   El identificador de userId no existe en el sistema
@@ -1458,10 +1459,294 @@ El identificador de userId no existe en el sistema
   {"error_code": "M0009","message": "no found userId"}
   
 + Response 400 (application/json)         
-  El identificador de videoHomeId no existe en el sistema
+  El identificador de sportingVideoId no existe en el sistema
 
   + Body
-  {"error_code": "M0009", "message": "no found videoHomeId"}
+  {"error_code": "M0009", "message": "no found sportingVideoId"}
+
+### Comentar Video Deportivo [POST /user/{userId}/sportingvideo/{sportingVideoId}/comment]
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario
+    + sportingVideoId: `3` (required,number) - Identificador de video deportivo
+    
++ Request (application/json) 
+  
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+    
+    + Body
+    + Attributes
+        + content: `buen video` (required) - contenido del comentario
+        + level: `0` (required) - Nivel del comentario
+        + idPadre: `0`  (optional) - identificador del comentario padre
+
++ Response 200 (application/json)   
+  + Body
+
+    {
+        "id": 9,
+        "content": "buen video",
+        "createDate": "2018-12-18 08:58:54",
+        "updateDate": "2018-12-18 08:58:54",
+        "isActive": true,
+        "idSportingVideo": 3,
+        "level": 0
+    }
+
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+
++ Response 400 (application/json)         
+  El identificador de sportingVideoId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found sportingVideoId"}
+  
++ Response 400 (application/json) 
+  El o los campos son requeridos
+
+  + Body
+
+{
+    "error_code": "M0003",
+    "fields": [
+        {
+            "code": "M0003",
+            "field": "content",
+            "issue": "The field is required"
+        },
+        {
+            "code": "M0003",
+            "field": "level",
+            "issue": "The field is required"
+        }
+    ]
+}
+
+### Modificar Comentario de Video Deportivo [PUT /user/{userId}/commentsportingvideo/{commentSportingVideoId}]
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario
+    + commentSportingVideoId: `9` (required,number) - Identificador de comentario de video deportivo
+    
++ Request (application/json) 
+  
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+    
+    + Body
+    + Attributes
+        + content: `muy buen video` (required) - contenido del comentario
+        + level: `0` (optional) - Nivel del comentario
+        + idPadre: `0`  (optional) - identificador del comentario padre
+
++ Response 200 (application/json)   
+  + Body
+
+    {
+    "id": 9,
+    "content": "muy buen video",
+    "createDate": "2018-12-18 08:58:54",
+    "updateDate": "2018-12-18 09:06:51",
+    "isActive": true,
+    "idSportingVideo": 3,
+    "level": 0
+    }
+
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+
++ Response 400 (application/json)         
+  El identificador de sportingVideoId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found sportingVideoId"}
+
++ Response 400 (application/json)         
+  El identificador de userId no es propietario del comentario
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+  
++ Response 400 (application/json) 
+  El o los campos son requeridos
+
+  + Body
+
+{
+    "error_code": "M0003",
+    "fields": [
+        {
+            "code": "M0003",
+            "field": "content",
+            "issue": "The field is required"
+        }
+    ]
+}
+
+### Obtener Comentarios de Video Deportivo [GET /user/{userId}/sportingvideo/{sportingVideoId}/comment]
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario
+    + sportingVideoId: `1` (required,number) - Identificador de video deportivo
+    + lat: `19.4284700` (optional,number) - latitud del usuario
+    + lng: `-99.1276600` (optional,number) - longitud del usuario
+    + items: `4` (optional,number) - cantidad de items a consultar
+    + page: `0` (optional,number) - numero de pagina
+    
++ Request (application/json) 
+  
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+
++ Response 200 (application/json)   
+  + Body   
+
+  
+{
+    "comments_sporting_videos": [
+        {
+            "id": 3,
+            "content": "video padre",
+            "createDate": "2018-12-17 13:51:40",
+            "updateDate": "2018-12-17 13:51:40",
+            "isActive": true,
+            "idSportingVideo": 1,
+            "level": 0,
+            "sonsComment": [
+                {
+                    "id": 4,
+                    "content": "video hijo",
+                    "createDate": "2018-12-17 15:52:17",
+                    "isActive": true,
+                    "idSportingVideo": 1
+                }
+            ]
+        },
+        {
+            "id": 7,
+            "content": "que vas a saber tu",
+            "createDate": "2018-12-18 06:57:47",
+            "updateDate": "2018-12-18 06:57:47",
+            "isActive": true,
+            "idSportingVideo": 1,
+            "level": 0
+        }
+    ],
+    "total_items_comments": 3
+}
+
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+  
++ Response 400 (application/json)         
+  El identificador de sportingVideoId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found sportingVideoId"}
+
+  
+### Obtener Comentarios hijos, de Video Deportivo [GET /user/{userId}/commentsportingvideo/{commentSportingVideoId}]
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario
+    + commentSportingVideoId: `1` (required,number) - Identificador de comentario de video deportivo
+    + lat: `19.4284700` (optional,number) - latitud del usuario
+    + lng: `-99.1276600` (optional,number) - longitud del usuario
+    + items: `4` (optional,number) - cantidad de items a consultar
+    + page: `0` (optional,number) - numero de pagina
+    
++ Request (application/json) 
+  
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+
++ Response 200 (application/json)   
+  + Body   
+
+  
+{
+    "comments_sporting_video": [
+        {
+            "id": 4,
+            "content": "video hijo",
+            "createDate": "2018-12-17 15:52:17",
+            "updateDate": "2018-12-17 15:52:17",
+            "isActive": true,
+            "idSportingVideo": 1
+        },
+        {
+            "id": 7,
+            "content": "que vas a saber tu",
+            "createDate": "2018-12-18 08:57:47",
+            "updateDate": "2018-12-18 08:57:47",
+            "isActive": true,
+            "idSportingVideo": 1
+        },
+        {
+            "id": 9,
+            "content": "muy buen video",
+            "createDate": "2018-12-18 08:58:54",
+            "updateDate": "2018-12-18 09:06:51",
+            "isActive": true,
+            "idSportingVideo": 1
+        }
+    ],
+    "total_items_comments": 3
+}
+
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+  
++ Response 400 (application/json)         
+  El identificador de commentSportingVideoId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found commentSportingVideoId"}
+
+### Eliminar Comentario de Video Deportivo [DELETE /user/{userId}/commentsportingvideo/{commentSportingVideoId}]
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario
+    + commentSportingVideoId: `3` (required,number) - Identificador de video
+    
++ Request (application/json) 
+  
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+
++ Response 200 (application/json)   
+    Se elimino el comentario
+  + Body
+
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+  
++ Response 400 (application/json)         
+  El identificador de commentSportingVideoId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009", "message": "no found commentSportingVideoId"}
+  
++ Response 400 (application/json)         
+  El identificador de userId no es propietario del comentario
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+
   
 ## Historias de usuario [/user/{userId}/history]
 
