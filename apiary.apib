@@ -150,7 +150,9 @@ Lista de servicios Back-End API
         "weight_code": "Lb",
         "weight_name": "POUNDS",
         "height_code": "ft",
-        "height_name": "FOOT"
+        "height_name": "FOOT",
+        "shoe_size_code":"US",
+        "shirt_size_code":"IN"
         }
 
 + Response 400 (application/json)         
@@ -172,6 +174,15 @@ Lista de servicios Back-End API
     + language_code: `EN` (enum) -  codigo del enumerado de configuracion de lenguaje
         + EN - ENGLISH
         + ES - SPANISH
+    + shoe_size_code: `US` (enum) - Codigo del enumerado de talla de zapato
+        + US - USA
+        + UK - Reino unido
+        + EU - Europea
+        + CM 
+    + shirt_size_code: `US` (enum) - Codigo del enumerado de talla de camisa
+        + IN - INTERNATIONAL
+        + US - USA
+     
 
 + Request (application/json) 
     + Headers
@@ -185,7 +196,9 @@ Lista de servicios Back-End API
         "weight_code": "Lb",
         "weight_name": "POUNDS",
         "height_code": "ft",
-        "height_name": "FOOT"
+        "height_name": "FOOT",
+        "shoe_size_code":"US",
+        "shirt_size_code":"IN"
         }
 
 + Response 400 (application/json)         
@@ -194,7 +207,37 @@ Lista de servicios Back-End API
   + Body
   {"error_code": "M0009","message": "no found userId"}
 
+### ComboBox de deportes [GET /user/1/system/combox/SHIRT]
 
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario
+    
++ Request (application/json) 
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+        
++ Response 200 (application/json)   
+   + Body
+    {
+        "sports": [
+            {
+                "name": "Volleyball",
+                "code": "CS001",
+                "image_url": "https://www.shareicon.net/data/128x128/2016/12/23/866375_ball_512x512.png"
+            },
+            {
+                "name": "Futbol",
+                "code": "CS002",
+                "image_url": "https://www.shareicon.net/data/128x128/2016/11/15/852637_team_512x512.png"
+            },
+            {
+                "name": "Tennis",
+                "code": "CS004",
+                "image_url": "https://www.shareicon.net/data/128x128/2016/11/15/852637_team_512x512.png"
+            }
+        ]
+    }
+     
 
 
 ## Biografia [/user/{userId}/biography]
@@ -277,38 +320,6 @@ Lista de servicios Back-End API
    + Body
    {"message": "update"}
    
-## ComboBox del Sistema [/user/{userId}/comboBox/]
-### ComboBox de deportes [GET /user/{userId}/comboBox/SPORT]
-
-+ Parameters
-    + userId: `1` (required,number) - Identificador de usuario
-    
-+ Request (application/json) 
-    + Headers
-      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
-        
-+ Response 200 (application/json)   
-   + Body
-    {
-        "sports": [
-            {
-                "name": "Volleyball",
-                "code": "CS001",
-                "image_url": "https://www.shareicon.net/data/128x128/2016/12/23/866375_ball_512x512.png"
-            },
-            {
-                "name": "Futbol",
-                "code": "CS002",
-                "image_url": "https://www.shareicon.net/data/128x128/2016/11/15/852637_team_512x512.png"
-            },
-            {
-                "name": "Tennis",
-                "code": "CS004",
-                "image_url": "https://www.shareicon.net/data/128x128/2016/11/15/852637_team_512x512.png"
-            }
-        ]
-    }
-       
 ## Deportes de usuario [/user/{userId}/sport]
 
 ### Obtener Deportes [GET /user/{userId}/sport] 
@@ -1170,6 +1181,8 @@ El identificador de userId no existe en el sistema
                     }
                 ]
         }
+        
+        
 ## Videos Deportivos [/user/{userId}/sportingvideo]
 
 ### Registrar Video Deportivo[POST /user/{userId}/sportingvideo]
@@ -1860,6 +1873,973 @@ El identificador de userId no existe en el sistema
   
 + Response 400 (application/json)         
   El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+
+## Videos de Usuario [/user/{userId}/uservideo]
+
+### Registrar Video de Usuario[POST /user/{userId}/uservideo]
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario
+    
++ Request (application/json) 
+  
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+    
+    + Body
+    + Attributes
+        + description: `mi video` (required) - Descripcion del video
+        + video: `data:video/mp4;base64,...`  (required) - video en base64
+        + image: `data:image/jpeg;base64,...` (required) - imagen en base64
+        + imageType: `jpg` (required) - extension/tipo de la imagen
+        + videoType: `mp4` (required) - extension/tipo del video
+
++ Response 200 (application/json)   
+  + Body
+  
+  {
+        "id": 4,
+        "description": "mi video",
+        "urlVideo": "http://35.227.223.87/video120181228133600262.mp4",
+        "createDate": "2018-12-28 09:36:04",
+        "urlImage": "http://35.227.223.87/image120181228133604153.jpg",
+        "imageType": "jpg",
+        "videoType": "mp4",
+        "active": true
+  }
+
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+  
++ Response 400 (application/json) 
+  El o los campos son requeridos
+
+  + Body
+
+  {
+    "error_code": "M0003",
+    "fields": [
+        {
+            "code": "M0003",
+            "field": "description",
+            "issue": "The field is required"
+        }
+    ]
+  }
+
+### Actualizar Video de Usuario[PUT /user/{userId}/uservideo/{userVideoId}]
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario
+    + userVideoId: `4` (required,number) - Identificador de video
+    
++ Request (application/json) 
+  
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+    
+    + Body
+    + Attributes
+        + description: `excelente video` (required) - Descripcion del video
+
++ Response 200 (application/json)   
+  + Body   
+  
+    {
+    "id": 4,
+    "description": "excelente video",
+    "urlVideo": "http://35.227.223.87/video120181228133600262.mp4",
+    "createDate": "2018-12-28 09:36:04",
+    "updateDate": "2018-12-28 09:41:29",
+    "urlImage": "http://35.227.223.87/image120181228133604153.jpg",
+    "imageType": "jpg",
+    "videoType": "mp4",
+    "active": true
+    }
+
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+  
++ Response 400 (application/json)         
+  El identificador de userVideoId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009", "message": "no found userVideoId"}
+  
++ Response 400 (application/json) 
+  El o los campos son requeridos
+
+  + Body
+
+
+  {
+    "error_code": "M0003",
+    "fields": [
+        {
+            "code": "M0003",
+            "field": "description",
+            "issue": "The field is required"
+        }
+    ]
+    }
+
+### Obtener Videos de Usuario [GET /user/{userId}/uservideo]
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario
+    + lat: `19.4284700` (optional,number) - latitud del usuario
+    + lng: `-99.1276600` (optional,number) - longitud del usuario
+    + items: `2` (optional,number) - cantidad de items a consultar, maximo 1000
+    + page: `0` (optional,number) - numero de pagina
+    
++ Request (application/json) 
+  
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+
++ Response 200 (application/json)   
+  + Body   
+
+  
+    {
+    "user_videos": [
+        {
+            "id": 4,
+            "description": "excelente video",
+            "urlVideo": "http://35.227.223.87/video120181228133600262.mp4",
+            "createDate": "2018-12-28 07:36:04",
+            "urlImage": "http://35.227.223.87/image120181228133604153.jpg",
+            "imageType": "jpg",
+            "videoType": "mp4",
+            "active": true
+        },
+        {
+            "id": 3,
+            "description": "mi video",
+            "urlVideo": "http://35.227.223.87/video120181227144628107.mp4",
+            "createDate": "2018-12-27 08:46:34",
+            "urlImage": "http://35.227.223.87/image120181227144634248.jpg",
+            "imageType": "jpg",
+            "videoType": "mp4",
+            "active": true
+        }
+    ],
+    "total_items_uservideos": 2
+    }
+
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+
+
+### Eliminar Video de Usuario[DELETE /user/{userId}/uservideo/{userVideoId}]
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario
+    + userVideoId: `4` (required,number) - Identificador de video
+    
++ Request (application/json) 
+  
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+
++ Response 200 (application/json)   
+    Se elimino el video
+  + Body
+
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+  
++ Response 400 (application/json)         
+  El identificador de userVideoId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009", "message": "no found userVideoId"}
+
+
+### Registrar Denuncia[POST /user/{userId}/uservideo/{userVideoId}/report]
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario
+    + userVideoId: `3` (required,number) - Identificador de video
+    
++ Request (application/json) 
+  
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+    
+    + Body
+    + Attributes
+        + description: `es un video inapropiado` (required) - Descripcion de la denuncia
+
++ Response 200 (application/json)   
+  + Body
+    {
+    "id": 3,
+    "userVideoId": 3,
+    "userId": 1,
+    "description": "es un video inapropiado",
+    "createDate": "2018-12-28 13:54:40",
+    "updateDate": "2018-12-28 13:54:40"
+    }
+
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+
++ Response 400 (application/json)         
+  El identificador de userVideoId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userVideoId"}
+  
++ Response 400 (application/json) 
+  El o los campos son requeridos
+
+  + Body
+
+  {
+    "error_code": "M0003",
+    "fields": [
+        {
+            "code": "M0003",
+            "field": "description",
+            "issue": "The field is required"
+        }
+    ]
+  }
+
+### Actualizar Denuncia [PUT /user/{userId}/uservideoreport/{userVideoReportId}]
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario
+    + userVideoReportId: `4` (required,number) - Identificador de denuncia
+    
++ Request (application/json) 
+  
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+    
+    + Body
+    + Attributes
+        + description: `denunciado porque es muy malo` (required) - Descripcion de denuncia
+
++ Response 200 (application/json)   
+  + Body   
+  
+    {
+    "id": 4,
+    "userVideoId": 3,
+    "userId": 1,
+    "description": "denunciado porque es muy malo",
+    "createDate": "2018-12-28 10:01:54",
+    "updateDate": "2018-12-28 13:57:55"
+    }
+
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+
++ Response 400 (application/json)         
+  El identificador de userVideoReportId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userVideoReportId"}
+  
++ Response 400 (application/json) 
+  El o los campos son requeridos
+
+  + Body
+
+  {
+    "error_code": "M0003",
+    "fields": [
+        {
+            "code": "M0003",
+            "field": "description",
+            "issue": "The field is required"
+        }
+    ]
+    }
+
+### Obtener Denuncias [GET /user/{userId}/uservideoreport]
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario
+    + lat: `19.4284700` (optional,number) - latitud del usuario
+    + lng: `-99.1276600` (optional,number) - longitud del usuario
+    + items: `2` (optional,number) - cantidad de items a consultar, maximo 1000
+    + page: `0` (optional,number) - numero de pagina
+    
++ Request (application/json) 
+  
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+
++ Response 200 (application/json)   
+  + Body   
+
+
+    {
+    "user_video_reports": [
+        {
+            "id": 2,
+            "userVideoId": 3,
+            "userId": 1,
+            "description": "denunciado por malo",
+            "createDate": "2018-12-28 08:01:54",
+            "updateDate": "2018-12-28 08:01:54"
+        }
+    ],
+    "total_items_uservideoreport": 1
+}
+
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+
+
+### Eliminar Denuncia [DELETE /user/{userId}/uservideoreport/{userVideoReportId}]
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario
+    + userVideoReportId: `2` (required,number) - Identificador de video
+    
++ Request (application/json) 
+  
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+
++ Response 200 (application/json)   
+    Se elimino la denuncia
+  + Body
+
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+  
++ Response 400 (application/json)         
+  El identificador de userVideoReportId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009", "message": "no found userVideoReportId"}
+ 
++ Response 400 (application/json)         
+  El usuario no es propietario de la denuncia
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+
+### Compartir Video [POST /user/{userId}/uservideo/{userVideoId}/share]
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario
+    + userVideoId: `3` (required,number) - Identificador de video
+    
++ Request (application/json) 
+  
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+    
+    + Body
+    + Attributes
+        + description: `que buen video` (required) - Descripcion
+
++ Response 200 (application/json)   
+  + Body
+    {
+        "id": 2,
+        "userVideoId": 3,
+        "userId": 1,
+        "description": "que buen video",
+        "createDate": "2018-12-28 10:21:28",
+        "updateDate": "2018-12-28 10:21:28"
+    }
+
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+
++ Response 400 (application/json)         
+  El identificador de userVideoId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userVideoId"}
+  
++ Response 400 (application/json) 
+  El o los campos son requeridos
+
+  + Body
+
+  {
+    "error_code": "M0003",
+    "fields": [
+        {
+            "code": "M0003",
+            "field": "description",
+            "issue": "The field is required"
+        }
+    ]
+  }
+
+### Actualizar Video Compartido [PUT /user/{userId}/uservideoshare/{userVideoShareId}]
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario
+    + userVideoShareId: `2` (required,number) - Identificador de video compartido
+    
++ Request (application/json) 
+  
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+    
+    + Body
+    + Attributes
+        + description: `video muy bueno` (required) - Descripcion de denuncia
+
++ Response 200 (application/json)   
+  + Body   
+  
+   {
+    "id": 2,
+    "userVideoId": 3,
+    "userId": 1,
+    "description": "video muy bueno",
+    "createDate": "2018-12-28 10:21:28",
+    "updateDate": "2018-12-28 14:05:16"
+    }
+
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+
++ Response 400 (application/json)         
+  El identificador de userVideoShareId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userVideoShareId"}
+  
++ Response 400 (application/json) 
+  El o los campos son requeridos
+
+  + Body
+
+  {
+    "error_code": "M0003",
+    "fields": [
+        {
+            "code": "M0003",
+            "field": "description",
+            "issue": "The field is required"
+        }
+    ]
+    }
+
+### Obtener Videos Compartidos [GET /user/{userId}/uservideoshare]
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario
+    + lat: `19.4284700` (optional,number) - latitud del usuario
+    + lng: `-99.1276600` (optional,number) - longitud del usuario
+    + items: `2` (optional,number) - cantidad de items a consultar, maximo 1000
+    + page: `0` (optional,number) - numero de pagina
+    
++ Request (application/json) 
+  
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+
++ Response 200 (application/json)   
+  + Body   
+
+    {
+    "user_video_shares": [
+        {
+            "id": 2,
+            "userVideoId": 3,
+            "userId": 1,
+            "description": "que buen video",
+            "createDate": "2018-12-28 08:21:28",
+            "updateDate": "2018-12-28 08:21:28"
+        }
+    ],
+    "total_items_uservideoshare": 1
+    }
+
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+
+
+### Eliminar Video Compartido [DELETE /user/{userId}/uservideoshare/{userVideoShareId}]
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario
+    + userVideoShareId: `2` (required,number) - Identificador de video compartido
+    
++ Request (application/json) 
+  
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+
++ Response 200 (application/json)   
+    Se elimino el video compartido
+  + Body
+
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+  
++ Response 400 (application/json)         
+  El identificador de userVideoShareId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009", "message": "no found userVideoShareId"}
+ 
++ Response 400 (application/json)         
+  El usuario no es propietario del video compartido
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+
+### Registrar Like [POST /user/{userId}/uservideo/{userVideoId}/like]
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario
+    + userVideoId: `3` (required,number) - Identificador de video
+    
++ Request (application/json) 
+  
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+    
+    + Body
+    + Attributes
+        + tipoLikeId: `1` (required) - Descripcion
+
++ Response 200 (application/json)   
+  + Body
+    {
+    "id": 2,
+    "userVideoId": 3,
+    "userId": 1,
+    "createDate": "2018-12-28 10:47:13",
+    "updateDate": "2018-12-28 10:47:13",
+    "typeLikeId": 1
+    }
+
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+
++ Response 400 (application/json)         
+  El identificador de userVideoId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userVideoId"}
+
++ Response 400 (application/json)         
+  El identificador de tipoLikeId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found tipoLikeId"}
+  
++ Response 400 (application/json) 
+  El o los campos son requeridos
+
+  + Body
+
+  {
+    "error_code": "M0003",
+    "fields": [
+        {
+            "code": "M0003",
+            "field": "tipoLikeId",
+            "issue": "The field is required"
+        }
+    ]
+  }
+
+### Actualizar Like [PUT /user/{userId}/uservideolike/{userVideoLikeId}]
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario
+    + userVideoLikeId: `2` (required,number) - Identificador de video like
+    
++ Request (application/json) 
+  
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+    
+    + Body
+    + Attributes
+        + tipoLikeId: `2` (required) - Descripcion de denuncia
+
++ Response 200 (application/json)   
+  + Body   
+  
+    {
+    "id": 2,
+    "userVideoId": 3,
+    "userId": 1,
+    "createDate": "2018-12-28 10:47:13",
+    "updateDate": "2018-12-28 10:48:08",
+    "typeLikeId": 2
+    }
+
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+
++ Response 400 (application/json)         
+  El identificador de userVideoLikeId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userVideoLikeId"}
+  
++ Response 400 (application/json) 
+  El o los campos son requeridos
+
+  + Body
+
+  {
+    "error_code": "M0003",
+    "fields": [
+        {
+            "code": "M0003",
+            "field": "tipoLikeId",
+            "issue": "The field is required"
+        }
+    ]
+    }
+
+### Obtener Likes [GET /user/{userId}/uservideo/{userVideoId}/likes]
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario
+    + userVideoId: `3` (required,number) - Identificador de video de usuario
+    + lat: `19.4284700` (optional,number) - latitud del usuario
+    + lng: `-99.1276600` (optional,number) - longitud del usuario
+    + items: `2` (optional,number) - cantidad de items a consultar, maximo 1000
+    + page: `0` (optional,number) - numero de pagina
+    
++ Request (application/json) 
+  
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+
++ Response 200 (application/json)   
+  + Body   
+
+    {
+    "user_video_likes": [
+        {
+            "id": 2,
+            "userVideoId": 3,
+            "userId": 1,
+            "createDate": "2018-12-28 08:47:13",
+            "updateDate": "2018-12-28 08:48:08",
+            "typeLikeId": 2
+        }
+    ],
+    "total_items_uservideolike": 1
+    }
+
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+
++ Response 400 (application/json)         
+  El identificador de userVideoId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userVideoId"}
+
+
+### Eliminar Like [DELETE /user/{userId}/uservideo/{userVideoId}]
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario
+    + userVideoId: `2` (required,number) - Identificador de video
+    
++ Request (application/json) 
+  
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+
++ Response 200 (application/json)   
+    Se elimino el like
+  + Body
+
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+
++ Response 400 (application/json)         
+  El usuario userId no tiene like para el video userVideoId
+
+  + Body
+  {"error_code": "M0009","message": "no found userVideo"}
+  
++ Response 400 (application/json)         
+  El identificador de userVideoId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009", "message": "no found userVideoId"}
+ 
+
+### Registrar Comentario [POST /user/{userId}/uservideo/{userVideoId}/comment]
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario
+    + userVideoId: `3` (required,number) - Identificador de video
+    
++ Request (application/json) 
+  
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+    
+    + Body
+    + Attributes
+        + idPadre: `0` (optional) - identificador del comentario padre
+        + content: `muy bueno el video` (required) - contenido del comentario
+        + level: `0` (required) - nivel del comentario
+
++ Response 200 (application/json)   
+  + Body
+    {
+    "id": 3,
+    "content": "muy bueno el video",
+    "createDate": "2018-12-28 11:16:55",
+    "updateDate": "2018-12-28 11:16:55",
+    "isActive": true,
+    "userVideoId": 1,
+    "level": 0
+    }
+
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+
++ Response 400 (application/json)         
+  El identificador de userVideoId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userVideoId"}
+  
++ Response 400 (application/json) 
+  El o los campos son requeridos
+
+  + Body
+
+  {
+    "error_code": "M0003",
+    "fields": [
+        {
+            "code": "M0003",
+            "field": "content",
+            "issue": "The field is required"
+        },
+        {
+            "code": "M0003",
+            "field": "level",
+            "issue": "The field is required"
+        }
+    ]
+  }
+
+### Actualizar Comentario [PUT /user/{userId}/commentuservideo/{commentUserVideoId}/comment]
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario
+    + commentUserVideoId: `3` (required,number) - Identificador de comentario
+    
++ Request (application/json) 
+  
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+    
+    + Body
+    + Attributes
+        + idPadre: `0` (optional) - identificador del comentario padre
+        + content: `que vas a saber tu de videos` (required) - contenido del comentario
+        + level: `0` (optional) - nivel del comentario
+
++ Response 200 (application/json)   
+  + Body   
+  
+    {
+    "id": 3,
+    "content": "que vas a saber tu de videos",
+    "createDate": "2018-12-27 14:38:17",
+    "updateDate": "2018-12-28 11:23:19",
+    "isActive": true,
+    "userVideoId": 3,
+    "level": 0
+    }
+
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+
++ Response 400 (application/json)         
+  El identificador de commentUserVideoId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found commentUserVideoId"}
+  
++ Response 400 (application/json) 
+  El o los campos son requeridos
+
+  + Body
+
+  {
+    "error_code": "M0003",
+    "fields": [
+        {
+            "code": "M0003",
+            "field": "content",
+            "issue": "The field is required"
+        }
+    ]
+    }
+
+### Obtener Comentarios [GET /user/{userId}/uservideo/{userVideoId}/comment]
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario
+    + userVideoId: `3` (required,number) - Identificador de video de usuario
+    + lat: `19.4284700` (optional,number) - latitud del usuario
+    + lng: `-99.1276600` (optional,number) - longitud del usuario
+    + items: `2` (optional,number) - cantidad de items a consultar, maximo 1000
+    + page: `0` (optional,number) - numero de pagina
+    
++ Request (application/json) 
+  
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+
++ Response 200 (application/json)   
+  + Body   
+
+{
+    "comments_user_videos": [
+        {
+            "id": 1,
+            "content": "que vas a saber tu de videos",
+            "createDate": "2018-12-27 12:38:17",
+            "updateDate": "2018-12-28 09:23:19",
+            "isActive": true,
+            "userVideoId": 3,
+            "level": 0
+        },
+        {
+            "id": 3,
+            "content": "muy bueno el video",
+            "createDate": "2018-12-28 09:16:55",
+            "updateDate": "2018-12-28 09:16:55",
+            "isActive": true,
+            "userVideoId": 3,
+            "level": 0,
+            "sonsComment": [
+                {
+                    "id": 4,
+                    "content": "si que si",
+                    "createDate": "2018-12-28 11:28:13",
+                    "isActive": true,
+                    "userVideoId": 3,
+                    "level": 1
+                }
+            ]
+        }
+    ],
+    "total_items_comments": 2
+}
+
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+
++ Response 400 (application/json)         
+  El identificador de userVideoId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userVideoId"}
+
+
+### Eliminar Comentario [DELETE /user/{userId}/commentuservideo/{commentUserVideoId}]
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario
+    + commentUserVideoId: `4` (required,number) - Identificador de comentario
+    
++ Request (application/json) 
+  
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+
++ Response 200 (application/json)   
+    Se elimino el comentario
+  + Body
+
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+  
++ Response 400 (application/json)         
+  El identificador de commentUserVideoId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009", "message": "no found commentUserVideoId"}
+ 
++ Response 400 (application/json)         
+  El usuario no es propietario del comentario
 
   + Body
   {"error_code": "M0009","message": "no found userId"}
