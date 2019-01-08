@@ -3231,10 +3231,22 @@ El identificador de userId no existe en el sistema
 
 + Parameters
     + userId: `1` (required,number) - Identificador de usuario
-    + lat: `19.4284700` (optional,number) - latitud del usuario
-    + lng: `-99.1276600` (optional,number) - longitud del usuario
-    + items: `2` (optional,number) - cantidad de items a consultar, maximo 1000
-    + page: `0` (optional,number) - numero de pagina
+    + lat: `19.4284700` (optional,number) - Latitud del usuario
+    + lng: `-99.1276600` (optional,number) - Longitud del usuario
+    + items: `2` (optional,number) - Cantidad de items a consultar, maximo 1000
+    + page: `0` (optional,number) - Numero de pagina
+    + sortby: `-id,+description` (optional,string) - Ordenamiento - es desc y + asc
+    + videoid: `1` (optional,number) - Identificador de video de usuario
+    + userprofileid:  `1` (optional,number) - Identificador de usuario propietario del video
+    + description:  `1` (optional,string) - Descripcion del video
+    + createdate:  `2019-01-04` (optional,string) - Fecha de creacion del video YYYY-MM-dd 
+    + updatedate: `2019-01-05` (optional,string) - Fecha de ultima actualizacion YYYY-MM-dd
+    + imagetype:  `jpg` (optional,string) - Tipo de imagen 
+    + videotype:  `mp4` (optional,string) - Tipo de video
+    + active:  `true` (optional,boolean) - Estado activo o inactivo 
+    + from:  `2019-01-01` (optional,string) - Fecha creacion desde, si no se especifica to toma mayor o igual YYYY-MM-dd
+    + to:  `2019-01-06` (optional,string) - Fecha de creacion hasta, si no se especifica from toma menor o igual YYYY-MM-dd
+    + typelikeid:  `1` (optional,number) - Identificador de tipo de like, si se especifica, retorna los que mas tengan este tipo
     
 + Request (application/json) 
   
@@ -3255,7 +3267,8 @@ El identificador de userId no existe en el sistema
             "urlImage": "http://35.227.223.87/image120181228133604153.jpg",
             "imageType": "jpg",
             "videoType": "mp4",
-            "active": true
+            "active": true,
+            "likes": 1
         },
         {
             "id": 3,
@@ -3265,7 +3278,8 @@ El identificador de userId no existe en el sistema
             "urlImage": "http://35.227.223.87/image120181227144634248.jpg",
             "imageType": "jpg",
             "videoType": "mp4",
-            "active": true
+            "active": true,
+            "likes": 2
         }
     ],
     "total_items_uservideos": 2
