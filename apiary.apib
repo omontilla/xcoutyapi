@@ -3290,6 +3290,12 @@ El identificador de userId no existe en el sistema
 
   + Body
   {"error_code": "M0009","message": "no found userId"}
+  
++ Response 400 (application/json)         
+  Existe algun error en la peticion y/o se ha generado un error interno
+
+  + Body
+  {"error_code":"M0019","message":"Internal error - Bad request"}
 
 
 ### Eliminar Video de Usuario[DELETE /user/{userId}/uservideo/{userVideoId}]
