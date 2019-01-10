@@ -384,6 +384,129 @@ Lista de servicios Back-End API
 + Response 200 (application/json)   
 
 
+## Atributos de usuario [/user/{userId}/sport/{sportId}/attribute]
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario
+    + sportId: `1` (required,number) - Identificador de deporte
+  
+### Obtener atributos [GET]
+    
++ Parameters    
+    + isRegister = true (optional,boolean, `true`) - Condicion para obtener los datos registrados por el usuario
+   
++ Request (application/json) 
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+        
+    
++ Response 200 (application/json)   
+   + Body
+    {
+    "attributes": [
+        {
+            "name": "Lead",
+            "code": "CA029"
+        },
+        {
+            "name": "Agile",
+            "code": "CA030"
+        },
+        {
+            "name": "Concentration",
+            "code": "CA031"
+        },
+        {
+            "name": "Control",
+            "code": "CA032"
+        },
+        {
+            "name": "Frustration tolerance",
+            "code": "CA033"
+        },
+        {
+            "name": "Patience",
+            "code": "CA034"
+        },
+        {
+            "name": "Teamwork",
+            "code": "CA035"
+        }
+    ]
+}
+
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+  
+    + Body
+    {"error_code": "M0009","message": "no found userId"}
+
++ Response 400 (application/json) 
+  El identificador de sportId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found sportId"}
+
+
+### Registrar atributo [POST]
+
++ Request (application/json)
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+
+    + Body
+    + Attributes
+        + attribute_code: `CA029` (optional) - Codigo identificador del atributo
+        + name: `Compacion` (optional) - Nombre del nuevo atributo suministrado por el usuario
+
++ Response 200 (application/json)   
+
++ Response 201 (application/json)   
+
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+  
+    + Body
+    {"error_code": "M0009","message": "no found userId"}
++ Response 400 (application/json) 
+  El identificador de sportId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found sportId"}
++ Response 400 (application/json) 
+  El codigo del atributo suministrado ya se encuentra registrado
+
+  + Body
+  {"error_code": "M0019", "message": "El attribute CA029 already register"}
+
+
+### Eliminar atributo [DELETE /user/{userId}/sport/{sportId}/attribute/{attributeCode}]
+
++ Parameters
+    + attributeCode: `CA029` (required) - Codigo identificador del atributo 
+
++ Request (application/json)
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+
++ Response 200 (application/json)   
+
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+  
+    + Body
+    {"error_code": "M0009","message": "no found userId"}
++ Response 400 (application/json) 
+  El identificador de sportId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found sportId"}
++ Response 400 (application/json) 
+  No consigue el atributo suministrado
+
+  + Body
+  {"error_code": "M0009","message": "no found attributeCode"}
+    
 ## Biografia [/user/{userId}/biography]
 
 ### Obtener Biografia [GET]
@@ -591,7 +714,9 @@ Lista de servicios Back-End API
    + Body
     {
     "sport_code": "CS001",
-    "attributes":  ["Arquero", "Lateral", "volante"],
+    "attributes":[
+    {"attribute_code":"CA032"},
+    {"name":"NuevoAtributo"}],
     "video": "",
     "video_preview":"",
     "careers": 
