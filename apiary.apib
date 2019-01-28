@@ -586,6 +586,217 @@ Lista de servicios Back-End API
             
    + Body
    {"message": "update"}
+
+## Nivel academico de usuario [/user/{userId}/useracademiclevel]
+
+### Registrar [POST /user/{userId}/useracademiclevel]
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario
+    
++ Request (application/json) 
+  
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+    
+    + Body
+    + Attributes
+        + academicLevelId: `1` (required, number) - identificador del nivel academico
+        + academicLevelInstitutionId: `2` (required, number) - identificador de la institucion
+        + beginDate: `2015-01-10` (required, string) - fecha de inicio
+        + finalDate: `2019-01-10` (required, string) - fecha de finalizacion
+        + avgAcademicLevel: `12` (required, number) - promedio academico
+
++ Response 200 (application/json)   
+  + Body
+
+    {
+        "id": 1,
+        "academicLevelId": 1,
+        "academicLevelInstitutionId": 2,
+        "beginDate": "2019-01-20 00:00:00",
+        "finalDate": "2019-01-25 23:59:59",
+        "createDate": "2019-01-28 09:59:15",
+        "updateDate": "2019-01-28 09:59:15",
+        "avgAcademicLevel": 12
+    }
+
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+
++ Response 400 (application/json)         
+  El identificador de academicLevelId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found academicLevelId"}
+
++ Response 400 (application/json)         
+  El identificador academicLevelInstitutionId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found academicLevelInstitutionId"}
+  
++ Response 400 (application/json) 
+  El o los campos son requeridos
+
+  + Body
+
+{
+    "error_code": "M0003",
+    "fields": [
+        {
+            "code": "M0003",
+            "field": "finalDate",
+            "issue": "The field is required"
+        },
+        {
+            "code": "M0003",
+            "field": "avgAcademicLevel",
+            "issue": "The field is required"
+        }
+    ]
+}
+
+### Actualizar [PUT /user/{userId}/useracademiclevel/{userAcademicLevelId}]
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario
+    + userAcademicLevelId: `2` (required,number) - Identificador de nivel academico del usuario
+    
++ Request (application/json) 
+  
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+    
+    + Body
+    + Attributes
+        + academicLevelId: `1` (required, number) - identificador del nivel academico
+        + academicLevelInstitutionId: `2` (required, number) - identificador de la institucion
+        + beginDate: `2015-01-10` (required, string) - fecha de inicio
+        + finalDate: `2019-01-10` (required, string) - fecha de finalizacion
+        + avgAcademicLevel: `12` (required, number) - promedio academico
+
++ Response 200 (application/json)   
+  + Body   
+  
+    {
+        "id": 2,
+        "academicLevelId": 1,
+        "academicLevelInstitutionId": 2,
+        "beginDate": "2019-01-20 00:00:00",
+        "finalDate": "2019-01-25 23:59:59",
+        "createDate": "2019-01-28 09:59:15",
+        "updateDate": "2019-01-28 10:12:48",
+        "avgAcademicLevel": 13
+    }
+
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+
++ Response 400 (application/json)         
+  El identificador de userAcademicLevelId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userAcademicLevelId"}
+  
++ Response 400 (application/json)         
+  El identificador de academicLevelInstitutionId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found academicLevelInstitutionId"}
+  
++ Response 400 (application/json) 
+  El o los campos son requeridos
+
+  + Body
+
+{
+    "error_code": "M0003",
+    "fields": [
+        {
+            "code": "M0003",
+            "field": "academicLevelInstitutionId",
+            "issue": "The field is required"
+        },
+        {
+            "code": "M0003",
+            "field": "beginDate",
+            "issue": "The field is required"
+        }
+    ]
+}
+
+
+  
+### Obtener [GET /user/{userId}/useracademiclevel]
+    
++ Parameters    
+    + userId: `1` (required,number) - Identificador de usuario
+    + useracademiclevelid: `3` (optional,number) - Identificador de video de usuario
+    + lat: `19.4284700` (optional,number) - latitud del usuario
+    + lng: `-99.1276600` (optional,number) - longitud del usuario
+    + items: `2` (optional,number) - cantidad de items a consultar, maximo 1000
+    + page: `0` (optional,number) - numero de pagina
+    
++ Request (application/json) 
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+        
+    
++ Response 200 (application/json)   
+   + Body
+{
+    "user_academic_levels": [
+        {
+            "id": 1,
+            "academicLevelId": 1,
+            "academicLevelInstitutionId": 2,
+            "beginDate": "2019-01-20 00:00:00",
+            "finalDate": "2019-01-25 23:59:59",
+            "createDate": "2019-01-28 09:59:15",
+            "updateDate": "2019-01-28 10:12:48",
+            "avgAcademicLevel": 13
+        }
+    ],
+    "total_items_useracademiclevels": 1
+}
+
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+  
+    + Body
+    {"error_code": "M0009","message": "no found userId"}
+
+### Eliminar Deporte [DELETE /user/{userId}/useracademiclevel/{userAcademicLevelId}]
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario
+    + userAcademicLevelId: `1` (required,number) - Identificador de deporte
+    
++ Request (application/json) 
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+
++ Response 200 (application/json)   
+
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+  
++ Response 400 (application/json) 
+  El identificador de userAcademicLevelId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userAcademicLevelId"}
+
    
 ## Deportes de usuario [/user/{userId}/sport]
 
@@ -3126,10 +3337,11 @@ El identificador de userId no existe en el sistema
 + Parameters
     + userId: `1` (required,number) - Identificador de usuario
     + historyId: `1` (required,number) - Identificador de historia
+    + likeid: `1` (required,number) - Identificador de like de un usuario en una historia
+    + likeCode: `CL001` (required,number) - Codigo identificadro de tipo de like
  
  
-
-### Obtener Historias de usuario [GET /user/{userId}/history]
+### Obtener Historias de amigos [GET /user/{userId}/histories]
 
 + Request (application/json) 
     + Headers
@@ -3138,19 +3350,20 @@ El identificador de userId no existe en el sistema
    
 + Response 200 (application/json)   
 {
-    "history": [
+    "my_history": {
+        "user_id": 2,
+        "full_name": "Mis historias",
+        "image_profile": "image120181010154016319.jpg",
+        "preview_history": "Imagenes/Presentacion/image220190125010800411.jpg",
+        "number_histories": 1
+    },
+    "histories": [
         {
-            "history_id": 3,
-            "history": "image120181210181135825.jpg",
-            "create_date": "2018-12-10 14:11:36",
-            "is_image": true
-        },
-        {
-            "history_id": 2,
-            "history": "video120181210181103109.jpg",
-            "history_preview:image32387312321321.jpg
-            "create_date": "2018-12-10 14:11:04",
-            "is_image": true
+            "user_id": 1,
+            "full_name": "oscar Montilla",
+            "image_profile": "image120181010154016319.jpg",
+            "preview_history": "Imagenes/Presentacion/image120190125010644468.jpg",
+            "number_histories": 1
         }
     ]
 }
@@ -3161,9 +3374,50 @@ El identificador de userId no existe en el sistema
   + Body
   {"error_code": "M0009","message": "no found userId"}
   
+ 
+### Obtener Historias de usuario [GET /user/{userId}/history]
+
++ Request (application/json) 
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+
+   
++ Response 200 (application/json)   
+    {
+        "history": [
+            {
+                "history_id": 1,
+                "history": "Imagenes/Presentacion/image220190125220326946.jpg",
+                "history_preview": "Imagenes/Presentacion/image220190125220326946.jpg",
+                "description": "Mis historia de prueba",
+                "number_likes": 1,
+                "number_comments": 0,
+                "create_date": "2019-01-25 18:03:34",
+                "likes": [
+                    {
+                        "like_id": 1,
+                        "like_code": "CL001",
+                        "like_image": "Imagenes/likeType/like.png",
+                        "user_id": 1,
+                        "full_Name": "oscar Montilla",
+                        "nick_name": "omontilla",
+                        "create_date": "2019-01-25 18:03:54"
+                    }
+                ],
+                "is_image": true,
+                "is_view": false
+            }
+        ],
+        "total_history": 1
+    }
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+  
 ### Registrar Historia de usuario [POST /user/{userId}/history]
  
-
 + Request (application/json) 
     + Body
     + Attributes
@@ -3177,21 +3431,15 @@ El identificador de userId no existe en el sistema
 
 + Response 200 (application/json)   
 {
-    "history": [
-        {
-            "history_id": 3,
-            "history": "image120181210181135825.jpg",
-            "create_date": "2018-12-10 14:11:36",
-            "is_image": true
-        },
-        {
-            "history_id": 2,
-            "history": "video120181210181103109.jpg",
-            "history_preview:image32387312321321.jpg
-            "create_date": "2018-12-10 14:11:04",
-            "is_image": true
-        }
-    ]
+    "history_id": 1,
+    "history": "Imagenes/Presentacion/image120190124215224781.jpg",
+    "description": "Mis historia de prueba",
+    "number_views": 0,
+    "number_likes": 0,
+    "number_comments": 0,
+    "create_date": "2019-01-24 17:52:26",
+    "is_view": true,
+    "is_image": true
 }
 
 + Response 400 (application/json)         
@@ -3207,35 +3455,177 @@ El identificador de userId no existe en el sistema
     + Headers
       Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
 
- 
     
  + Response 200 (application/json)   
     La historia se ha eliminado
     
     + body
-    {
-        "history": [
-            {
-                "history_id": 3,
-                "history": "image120181210181135825.jpg",
-                "create_date": "2018-12-10 14:11:36",
-                "is_image": true
-            },
-            {
-                "history_id": 2,
-                "history": "video120181210181103109.jpg",
-                "history_preview:image32387312321321.jpg
-                "create_date": "2018-12-10 14:11:04",
-                "is_image": true
-            }
-        ]
-    }
-  
+     {
+    "history": [
+        {
+            "history_id": 3,
+            "history": "Imagenes/Presentacion/image120190124202132474.jpg",
+            "description": "Mis historia de prueba",
+            "number_views": 0,
+            "number_likes": 0,
+            "number_comments": 0,
+            "create_date": "2019-01-24 16:21:34",
+            "is_image": true
+        },
+        {
+            "history_id": 2,
+            "history": "Imagenes/Presentacion/image120190124201600565.jpg",
+            "description": "Mis historia de prueba",
+            "number_views": 0,
+            "number_likes": 0,
+            "number_comments": 0,
+            "create_date": "2019-01-24 16:16:03",
+            "is_image": true
+        }
+    ]
+}
+    
 + Response 400 (application/json)         
   El identificador de userId no existe en el sistema
 
   + Body
   {"error_code": "M0009","message": "no found userId"}
+  
+### Registrar vista de Usuario [POST /user/{userId}/history/{historyId}/view]
+
++ Request (application/json) 
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+
++ Response 200 (application/json)   
+
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+
+  
+### Obtener Vistas de Usuario de una historia [GET /user/{userId}/history/{historyId}/view]
+
++ Request (application/json) 
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+
+
++ Response 200 (application/json)  
+    {
+        "views": [
+            {
+                "user_id": 2,
+                "full_name": "Jose Duin",
+                "nick_name": "JoseDuin",
+                "imagen_profile": "image120181010154016319.jpg",
+                "create_date": "2019-01-24 16:45:29"
+            }
+        ]
+    }
+   
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+
+### Obtener likes de una historia [GET /user/{userId}/history/{historyId}/like]
+
++ Request (application/json) 
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+
++ Response 200 (application/json)  
+    {
+        "likes": [
+            {
+                "like_id": 1,
+                "like_code": "CL001",
+                "like_image": "Imagenes/likeType/like.png",
+                "user_id": 1,
+                "full_Name": "oscar Montilla",
+                "nick_name": "omontilla",
+                "create_date": "2019-01-25 15:59:35"
+            }
+        ],
+        "number_likes": 1
+    }
+   
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+
+### Registrar like de una historia [POST /user/{userId}/history/{historyId}/like/{likeCode}]
+
++ Request (application/json) 
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+
++ Response 200 (application/json)  
+        {
+            "like": {
+                "like_id": 1,
+                "like_code": "CL001",
+                "like_image": "Imagenes/likeType/like.png",
+                "user_id": 1,
+                "full_Name": "oscar Montilla",
+                "nick_name": "omontilla",
+                "create_date": "2019-01-25 18:03:54"
+            },
+            "number_likes": 1
+        }
+
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+
+### Cambiar el like de una historia [PUT /user/{userId}/history/{historyId}/like/{likeid}]
+
++ Request (application/json) 
+    + Body
+    + Attributes
+        + like_code: `CL002` (required,enum) - Codigo de tipo de like
+        
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+
++ Response 200 (application/json)  
+    {
+        "like": {
+            "like_id": 1,
+            "like_code": "CL002",
+            "like_image": "Imagenes/likeType/notLike.png",
+            "user_id": 1,
+            "full_Name": "oscar Montilla",
+            "nick_name": "omontilla",
+            "create_date": "2019-01-25 15:59:35"
+        },
+        "number_likes": 1
+    }
+    
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+
+### Eliminar like de una historia [PUT /user/{userId}/history/{historyId}/like/{likeid}]
+
++ Request (application/json) 
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+
++ Response 200 (application/json)  
+    {
+        "number_likes": 0
+    }
 
 ## Videos de Usuario [/user/{userId}/uservideo]
 
