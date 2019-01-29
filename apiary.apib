@@ -605,20 +605,37 @@ Lista de servicios Back-End API
         + academicLevelInstitutionId: `2` (required, number) - identificador de la institucion
         + beginDate: `2015-01-10` (required, string) - fecha de inicio
         + finalDate: `2019-01-10` (required, string) - fecha de finalizacion
+        + isPresent: `false` (required, boolean) - indicador al presente
         + avgAcademicLevel: `12` (required, number) - promedio academico
 
 + Response 200 (application/json)   
   + Body
 
     {
-        "id": 1,
-        "academicLevelId": 1,
-        "academicLevelInstitutionId": 2,
-        "beginDate": "2019-01-20 00:00:00",
-        "finalDate": "2019-01-25 23:59:59",
-        "createDate": "2019-01-28 09:59:15",
-        "updateDate": "2019-01-28 09:59:15",
-        "avgAcademicLevel": 12
+    "user_academic_levels": [
+        {
+            "id": 11,
+            "academicLevelId": 1,
+            "academicLevelInstitutionId": 2,
+            "beginDate": "2019-01-20 00:00:00",
+            "finalDate": "2021-01-20 23:59:59",
+            "createDate": "2019-01-29 10:25:18",
+            "isPresent": false,
+            "updateDate": "2019-01-29 10:25:18",
+            "avgAcademicLevel": 12
+        },
+        {
+            "id": 10,
+            "academicLevelId": 2,
+            "academicLevelInstitutionId": 2,
+            "beginDate": "2019-01-20 00:00:00",
+            "createDate": "2019-01-29 10:00:35",
+            "isPresent": false,
+            "updateDate": "2019-01-29 10:00:35",
+            "avgAcademicLevel": 12
+        }
+    ],
+    "total_items_useracademiclevels": 2
     }
 
 + Response 400 (application/json)         
@@ -676,21 +693,37 @@ Lista de servicios Back-End API
         + academicLevelId: `1` (required, number) - identificador del nivel academico
         + academicLevelInstitutionId: `2` (required, number) - identificador de la institucion
         + beginDate: `2015-01-10` (required, string) - fecha de inicio
-        + finalDate: `2019-01-10` (required, string) - fecha de finalizacion
+        + finalDate: `` (required, string) - fecha de finalizacion
+        + isPresent: `true` (required, boolean) - indicador al presente
         + avgAcademicLevel: `12` (required, number) - promedio academico
 
 + Response 200 (application/json)   
   + Body   
   
     {
-        "id": 2,
-        "academicLevelId": 1,
-        "academicLevelInstitutionId": 2,
-        "beginDate": "2019-01-20 00:00:00",
-        "finalDate": "2019-01-25 23:59:59",
-        "createDate": "2019-01-28 09:59:15",
-        "updateDate": "2019-01-28 10:12:48",
-        "avgAcademicLevel": 13
+    "user_academic_levels": [
+        {
+            "id": 11,
+            "academicLevelId": 1,
+            "academicLevelInstitutionId": 3,
+            "beginDate": "2019-01-20 00:00:00",
+            "createDate": "2019-01-29 10:25:18",
+            "isPresent": true,
+            "updateDate": "2019-01-29 10:32:24",
+            "avgAcademicLevel": 13
+        },
+        {
+            "id": 10,
+            "academicLevelId": 2,
+            "academicLevelInstitutionId": 2,
+            "beginDate": "2019-01-20 00:00:00",
+            "createDate": "2019-01-29 10:00:35",
+            "isPresent": false,
+            "updateDate": "2019-01-29 10:00:35",
+            "avgAcademicLevel": 12
+        }
+    ],
+    "total_items_useracademiclevels": 2
     }
 
 + Response 400 (application/json)         
