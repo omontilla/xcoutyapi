@@ -601,8 +601,10 @@ Lista de servicios Back-End API
     
     + Body
     + Attributes
-        + academicLevelId: `1` (required, number) - identificador del nivel academico
-        + academicLevelInstitutionId: `2` (required, number) - identificador de la institucion
+        + academicLevelId: `1` (required, number) - identificador del nivel academico, 0 sino se dispone
+        + academicLevelName: `PostDoctor` (optional, string) - Nombre del nivel academico
+        + academicLevelInstitutionId: `2` (required, number) - identificador de la institucion, 0 sino se dispone
+        + academicLevelInstitutionName: `IUTEMBI` (optional, string) - Nombre del nivel academico
         + beginDate: `2015-01-10` (required, string) - fecha de inicio
         + finalDate: `2019-01-10` (required, string) - fecha de finalizacion
         + isPresent: `false` (required, boolean) - indicador al presente
@@ -690,8 +692,10 @@ Lista de servicios Back-End API
     
     + Body
     + Attributes
-        + academicLevelId: `1` (required, number) - identificador del nivel academico
-        + academicLevelInstitutionId: `2` (required, number) - identificador de la institucion
+        + academicLevelId: `1` (required, number) - identificador del nivel academico, 0 sino se dispone
+        + academicLevelName: `PostDoctor` (optional, string) - Nombre del nivel academico
+        + academicLevelInstitutionId: `2` (required, number) - identificador de la institucion, 0 sino se dispone
+        + academicLevelInstitutionName: `IUTEMBI` (optional, string) - Nombre del nivel academico
         + beginDate: `2015-01-10` (required, string) - fecha de inicio
         + finalDate: `` (required, string) - fecha de finalizacion
         + isPresent: `true` (required, boolean) - indicador al presente
@@ -806,7 +810,7 @@ Lista de servicios Back-End API
     + Body
     {"error_code": "M0009","message": "no found userId"}
 
-### Eliminar [DELETE /user/{userId}/useracademicLevel/{userAcademicLevelId}]
+### Eliminar [DELETE /user/{userId}/useracademicLevel/{userAcademiclevelId}]
 
 + Parameters
     + userId: `1` (required,number) - Identificador de usuario
