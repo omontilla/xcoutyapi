@@ -589,7 +589,402 @@ Lista de servicios Back-End API
 
 ## Nivel academico de usuario [/user/{userId}/useracademiclevel]
 
-### Registrar [POST /user/{userId}/useracademiclevel]
+### Registrar en Catalogo de Nivel [POST /user/{userId}/academiclevel]
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario
+    
++ Request (application/json) 
+  
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+    
+    + Body
+    + Attributes
+        + name: `Bachiller` (required, string) - Nombre del nivel academico
+        + code: `BACH` (required, number) - codigo del nivel academico
+        + language: `ES` (required, string) - idioma del nivel academico
+
+
++ Response 200 (application/json)   
+  + Body
+
+    {
+        "id": 13,
+        "name": "Bachiller",
+        "createDate": "2019-01-30 13:56:12",
+        "updateDate": "2019-01-30 13:56:12",
+        "language": "ES",
+        "isActive": true
+    }
+
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+
+  
++ Response 400 (application/json) 
+  El o los campos son requeridos
+
+  + Body
+
+{
+    "error_code": "M0003",
+    "fields": [
+        {
+            "code": "M0003",
+            "field": "name",
+            "issue": "The field is required"
+        },
+        {
+            "code": "M0003",
+            "field": "code",
+            "issue": "The field is required"
+        }
+    ]
+}
+
+### Actualizar en Catalogo de Nivel[PUT /user/{userId}/academiclevel/{academicLevelId}]
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario
+    + academicLevelId: `13` (required,number) - Identificador de nivel academico
+    
++ Request (application/json) 
+  
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+    
+    + Body
+    + Attributes
+        + name: `Bachiller 2` (required, string) - Nombre del nivel academico
+        + code: `BACH` (required, number) - codigo del nivel academico
+        + language: `ES` (required, string) - idioma del nivel academico
+        + isActive: `true` (required, boolean) - Estado activo o inactivo
+
++ Response 200 (application/json)   
+  + Body   
+  
+    {
+        "id": 13,
+        "name": "Bachiller 2",
+        "createDate": "2019-01-30 13:56:12",
+        "updateDate": "2019-01-30 13:59:42",
+        "language": "ES",
+        "isActive": true
+    }
+
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+
++ Response 400 (application/json)         
+  El identificador de academicLevelId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found academicLevelId"}
+  
++ Response 400 (application/json) 
+  El o los campos son requeridos
+
+  + Body
+
+{
+    "error_code": "M0003",
+    "fields": [
+        {
+            "code": "M0003",
+            "field": "name",
+            "issue": "The field is required"
+        },
+        {
+            "code": "M0003",
+            "field": "code",
+            "issue": "The field is required"
+        }
+    ]
+}
+
+
+  
+### Obtener en Catalogo de Nivel [GET /user/{userId}/academiclevel]
+    
++ Parameters    
+    + userId: `1` (required,number) - Identificador de usuario
+    + academiclevelid: `3` (optional,number) - Identificador de nivel
+    + lat: `19.4284700` (optional,number) - latitud del usuario
+    + lng: `-99.1276600` (optional,number) - longitud del usuario
+    + items: `2` (optional,number) - cantidad de items a consultar, maximo 1000
+    + page: `0` (optional,number) - numero de pagina
+    + description: `Bachi` (optional,string) - nombre del nivel
+    
++ Request (application/json) 
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+        
+    
++ Response 200 (application/json)   
+   + Body
+{
+    "academic_levels": [
+        {
+            "id": 1,
+            "name": "student",
+            "createDate": "2019-01-25 17:48:58",
+            "updateDate": "2019-01-25 17:48:58",
+            "language": "EN",
+            "isActive": true
+        },
+        {
+            "id": 2,
+            "name": "estudiante",
+            "createDate": "2019-01-25 17:48:58",
+            "updateDate": "2019-01-25 17:48:58",
+            "language": "ES",
+            "isActive": true
+        },
+        {
+            "id": 3,
+            "name": "undergraduate",
+            "createDate": "2019-01-25 17:48:58",
+            "updateDate": "2019-01-25 17:48:58",
+            "language": "EN",
+            "isActive": true
+        }
+    ],
+    "total_items_academiclevels": 3
+}
+
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+  
+    + Body
+    {"error_code": "M0009","message": "no found userId"}
+
+### Eliminar de Catalogo de Nivel [DELETE /user/{userId}/academicLevel/{academiclevelId}]
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario
+    + academicLevelId: `1` (required,number) - Identificador de nivel
+    
++ Request (application/json) 
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+
++ Response 200 (application/json)   
+
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+  
++ Response 400 (application/json) 
+  El identificador de academicLevelId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found academicLevelId"}
+  
+  
+
+### Registrar Institucion [POST /user/{userId}/academiclevelinstitution]
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario
+    
++ Request (application/json) 
+  
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+    
+    + Body
+    + Attributes
+        + name: `UCLA` (required, string) - Nombre de la institucion
+        + code: `UCLA` (required, number) - codigo de la institucion
+        + language: `ES` (required, string) - idioma de la institucion
+
+
++ Response 200 (application/json)   
+  + Body
+
+    {
+        "id": 9,
+        "code": "UCLA",
+        "name": "UCLA",
+        "languageEnum": "ES",
+        "createDate": "2019-01-30 14:08:31",
+        "updateDate": "2019-01-30 14:08:31"
+    }
+
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+
+  
++ Response 400 (application/json) 
+  El o los campos son requeridos
+
+  + Body
+
+{
+    "error_code": "M0003",
+    "fields": [
+        {
+            "code": "M0003",
+            "field": "name",
+            "issue": "The field is required"
+        },
+        {
+            "code": "M0003",
+            "field": "code",
+            "issue": "The field is required"
+        }
+    ]
+}
+
+### Actualizar Institucion [PUT /user/{userId}/academiclevelinstitution/{academicLevelInstitutionId}]
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario
+    + academicLevelInstitutionId: `13` (required,number) - Identificador de institucion
+    
++ Request (application/json) 
+  
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+    
+    + Body
+    + Attributes
+        + name: `Santa Mendria` (required, string) - Nombre de la institucion
+        + code: `SAMA` (required, number) - codigo de la institucion
+        + language: `ES` (required, string) - idioma de la institucion
+        + isActive: `true` (required, boolean) - Estado activo o inactivo
+
++ Response 200 (application/json)   
+  + Body   
+  
+    {
+        "id": 9,
+        "code": "SAMA",
+        "name": "Santa Maria",
+        "languageEnum": "ES",
+        "createDate": "2019-01-30 14:08:31",
+        "updateDate": "2019-01-30 14:11:28"
+    }
+
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+
++ Response 400 (application/json)         
+  El identificador de academicLevelinstitutionId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found academicLevelinstitutionId"}
+  
++ Response 400 (application/json) 
+  El o los campos son requeridos
+
+  + Body
+
+{
+    "error_code": "M0003",
+    "fields": [
+        {
+            "code": "M0003",
+            "field": "name",
+            "issue": "The field is required"
+        },
+        {
+            "code": "M0003",
+            "field": "code",
+            "issue": "The field is required"
+        }
+    ]
+}
+
+
+  
+### Obtener Instituciones [GET /user/{userId}/academiclevel]
+    
++ Parameters    
+    + userId: `1` (required,number) - Identificador de usuario
+    + academiclevelinstitutionid: `3` (optional,number) - Identificador de institucion
+    + lat: `19.4284700` (optional,number) - latitud del usuario
+    + lng: `-99.1276600` (optional,number) - longitud del usuario
+    + items: `2` (optional,number) - cantidad de items a consultar, maximo 1000
+    + page: `0` (optional,number) - numero de pagina
+    + description: `Bachi` (optional,string) - nombre de la institucion
+    
++ Request (application/json) 
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+        
+    
++ Response 200 (application/json)   
+   + Body
+{
+    "academic_level_institutions": [
+        {
+            "id": 3,
+            "code": "ALI003",
+            "name": "UCLA",
+            "languageEnum": "ES",
+            "createDate": "2019-01-25 17:48:58",
+            "updateDate": "2019-01-25 17:48:58"
+        },
+        {
+            "id": 4,
+            "code": "ALI004",
+            "name": "UAM",
+            "languageEnum": "ES",
+            "createDate": "2019-01-25 17:48:58",
+            "updateDate": "2019-01-25 17:48:58"
+        }
+    ],
+    "total_items_academiclevelinstitutions": 2
+}
+
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+  
+    + Body
+    {"error_code": "M0009","message": "no found userId"}
+
+### Eliminar Institucion [DELETE /user/{userId}/academicLevelinstitution/{academiclevelInstitutionId}]
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario
+    + academiclevelInstitutionId: `1` (required,number) - Identificador de institucion
+    
++ Request (application/json) 
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+
++ Response 200 (application/json)   
+
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+  
++ Response 400 (application/json) 
+  El identificador de academiclevelInstitutionId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found academiclevelInstitutionId"}
+  
+
+### Registrar Nivel Academico del Usuario [POST /user/{userId}/useracademiclevel]
 
 + Parameters
     + userId: `1` (required,number) - Identificador de usuario
@@ -679,7 +1074,7 @@ Lista de servicios Back-End API
     ]
 }
 
-### Actualizar [PUT /user/{userId}/useracademiclevel/{userAcademicLevelId}]
+### Actualizar Nivel Academico del Usuario [PUT /user/{userId}/useracademiclevel/{userAcademicLevelId}]
 
 + Parameters
     + userId: `1` (required,number) - Identificador de usuario
@@ -771,11 +1166,11 @@ Lista de servicios Back-End API
 
 
   
-### Obtener [GET /user/{userId}/useracademiclevel]
+### Obtener Niveles Academicos del Usuario [GET /user/{userId}/useracademiclevel]
     
 + Parameters    
     + userId: `1` (required,number) - Identificador de usuario
-    + useracademiclevelid: `3` (optional,number) - Identificador de video de usuario
+    + useracademiclevelid: `3` (optional,number) - Identificador de nivel macademico del usuario
     + lat: `19.4284700` (optional,number) - latitud del usuario
     + lng: `-99.1276600` (optional,number) - longitud del usuario
     + items: `2` (optional,number) - cantidad de items a consultar, maximo 1000
@@ -810,11 +1205,11 @@ Lista de servicios Back-End API
     + Body
     {"error_code": "M0009","message": "no found userId"}
 
-### Eliminar [DELETE /user/{userId}/useracademicLevel/{userAcademiclevelId}]
+### Eliminar Nivel Academico del Usuario [DELETE /user/{userId}/useracademicLevel/{userAcademiclevelId}]
 
 + Parameters
     + userId: `1` (required,number) - Identificador de usuario
-    + userAcademicLevelId: `1` (required,number) - Identificador de deporte
+    + userAcademicLevelId: `1` (required,number) - Identificador de nivel academico del usuario
     
 + Request (application/json) 
     + Headers
