@@ -1008,32 +1008,37 @@ Lista de servicios Back-End API
 + Response 200 (application/json)   
   + Body
 
-    {
+{
     "user_academic_levels": [
+        {
+            "id": 15,
+            "academicLevelId": 12,
+            "academicLevelName": "Entrenador",
+            "academicLevelInstitutionId": 8,
+            "academicLevelInstitutionName": "IUJO",
+            "beginDate": "2013-01-29 00:00:00",
+            "finalDate": "2019-01-30 23:59:59",
+            "createDate": "2019-01-30 10:56:08",
+            "isPresent": false,
+            "updateDate": "2019-01-30 11:00:12",
+            "avgAcademicLevel": "A"
+        },
         {
             "id": 11,
             "academicLevelId": 1,
-            "academicLevelInstitutionId": 2,
+            "academicLevelName": "student",
+            "academicLevelInstitutionId": 1,
+            "academicLevelInstitutionName": "Standford College",
             "beginDate": "2019-01-20 00:00:00",
             "finalDate": "2021-01-20 23:59:59",
-            "createDate": "2019-01-29 10:25:18",
+            "createDate": "2019-01-30 10:30:23",
             "isPresent": false,
-            "updateDate": "2019-01-29 10:25:18",
-            "avgAcademicLevel": 12
-        },
-        {
-            "id": 10,
-            "academicLevelId": 2,
-            "academicLevelInstitutionId": 2,
-            "beginDate": "2019-01-20 00:00:00",
-            "createDate": "2019-01-29 10:00:35",
-            "isPresent": false,
-            "updateDate": "2019-01-29 10:00:35",
-            "avgAcademicLevel": 12
+            "updateDate": "2019-01-30 10:30:23",
+            "avgAcademicLevel": "12"
         }
     ],
     "total_items_useracademiclevels": 2
-    }
+}
 
 + Response 400 (application/json)         
   El identificador de userId no existe en el sistema
@@ -1078,7 +1083,7 @@ Lista de servicios Back-End API
 
 + Parameters
     + userId: `1` (required,number) - Identificador de usuario
-    + userAcademicLevelId: `2` (required,number) - Identificador de nivel academico del usuario
+    + userAcademicLevelId: `15` (required,number) - Identificador de nivel academico del usuario
     
 + Request (application/json) 
   
@@ -1098,32 +1103,39 @@ Lista de servicios Back-End API
 
 + Response 200 (application/json)   
   + Body   
-  
-    {
+
+
+{
     "user_academic_levels": [
+        {
+            "id": 15,
+            "academicLevelId": 1,
+            "academicLevelName": "student",
+            "academicLevelInstitutionId": 2,
+            "academicLevelInstitutionName": "Columbia University",
+            "beginDate": "2013-01-29 00:00:00",
+            "finalDate": "2019-01-30 23:59:59",
+            "createDate": "2019-01-30 10:56:08",
+            "isPresent": false,
+            "updateDate": "2019-01-31 09:16:06",
+            "avgAcademicLevel": "A"
+        },
         {
             "id": 11,
             "academicLevelId": 1,
-            "academicLevelInstitutionId": 3,
+            "academicLevelName": "student",
+            "academicLevelInstitutionId": 1,
+            "academicLevelInstitutionName": "Standford College",
             "beginDate": "2019-01-20 00:00:00",
-            "createDate": "2019-01-29 10:25:18",
-            "isPresent": true,
-            "updateDate": "2019-01-29 10:32:24",
-            "avgAcademicLevel": 13
-        },
-        {
-            "id": 10,
-            "academicLevelId": 2,
-            "academicLevelInstitutionId": 2,
-            "beginDate": "2019-01-20 00:00:00",
-            "createDate": "2019-01-29 10:00:35",
+            "finalDate": "2021-01-20 23:59:59",
+            "createDate": "2019-01-30 10:30:23",
             "isPresent": false,
-            "updateDate": "2019-01-29 10:00:35",
-            "avgAcademicLevel": 12
+            "updateDate": "2019-01-30 10:30:23",
+            "avgAcademicLevel": "12"
         }
     ],
-    "total_items_useracademiclevels": 2
-    }
+    "total_items_useracademiclevels": 4
+}
 
 + Response 400 (application/json)         
   El identificador de userId no existe en el sistema
@@ -1183,20 +1195,37 @@ Lista de servicios Back-End API
     
 + Response 200 (application/json)   
    + Body
+   
 {
     "user_academic_levels": [
         {
-            "id": 1,
+            "id": 17,
             "academicLevelId": 1,
-            "academicLevelInstitutionId": 2,
+            "academicLevelName": "student",
+            "academicLevelInstitutionId": 10,
+            "academicLevelInstitutionName": "UPTAEB",
             "beginDate": "2019-01-20 00:00:00",
-            "finalDate": "2019-01-25 23:59:59",
-            "createDate": "2019-01-28 09:59:15",
-            "updateDate": "2019-01-28 10:12:48",
-            "avgAcademicLevel": 13
+            "finalDate": "2021-01-20 23:59:59",
+            "createDate": "2019-01-31 09:15:16",
+            "isPresent": false,
+            "updateDate": "2019-01-31 09:15:16",
+            "avgAcademicLevel": "12"
+        },
+        {
+            "id": 16,
+            "academicLevelId": 1,
+            "academicLevelName": "student",
+            "academicLevelInstitutionId": 7,
+            "academicLevelInstitutionName": "IUTEMBI",
+            "beginDate": "2019-01-20 00:00:00",
+            "finalDate": "2021-01-20 23:59:59",
+            "createDate": "2019-01-31 09:07:15",
+            "isPresent": false,
+            "updateDate": "2019-01-31 09:07:15",
+            "avgAcademicLevel": "12"
         }
     ],
-    "total_items_useracademiclevels": 1
+    "total_items_useracademiclevels": 4
 }
 
 + Response 400 (application/json)         
