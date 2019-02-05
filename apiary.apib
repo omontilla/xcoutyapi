@@ -131,11 +131,130 @@ Lista de servicios Back-End API
   + Body
   {"error_code": "M0008","message": "The supplied token is not valid"}
 
+### Solicitar codigo para reiniciar contrasena [POST /user/recoverPassword]
+
++ Request (application/json)
++ Attributes
+    + email: `montilla.t31@gmail.com` (required) - Email del usuario
+    + lenguage: `EN` (enum, optional) - Lenguaje utilizado desde el celular
+      + EN
+      + ES
+
++ Response 200 (application/json)
+   + Body
+    { "error_code": "M0025","message": "A confirmation email has been sent to continue with the process" }
+
++ Response 400 (application/json)         
+  El email suministrado no existe en el sistema
+
+  + Body
+    { "error_code": "M0001","message": "The email montilla.t31@gmail.comm is not registered in the system"}
+
++ Response 400 (application/json)         
+  El correo suministrado no posee el formato correcto
+
+  + Body
+    { "error_code": "M0007","message": "Please enter a valid email address"}
+
+### Validar codigo para reiniciar contrasena [GET /user/recoverPassword]
+
++ Parameters
+    + code: `6589` (required,number) - Codigo para reinicar la contrasena
+    + lenguage: `EN` (enum, optional) - Lenguaje utilizado desde el celular
+        + EN
+        + ES
+
++ Response 200 (application/json)
+   + Body
+   { "user_id":1 }
++ Response 400 (application/json)         
+  El codigo utilizado para reiniciar la contrasena es invalido
+  + Body
+    { "error_code": "M0027","message": "The code used to update the password is not valid" }
+
+### Reiniciar contrasena [PUT /user/recoverPassword]
+
++ Request (application/json)
++ Attributes
+    + user_id: 1  (required) - Identificador de usuario
+    + code: `6589` (required,number) - Codigo para reinicar la contrasena
+    + password: `12345678` (required) - Contraseña de usuario
+    + password_repeated: `12345678` (required) - Campo para repetir contraseña
+    + lenguage: `EN` (enum, optional) - Lenguaje utilizado desde el celular
+      + EN
+      + ES
+
++ Response 200 (application/json)
+   + Body
+    { "error_code": "M0028","message": "Tu contraseña ha sido registrada con exito" }
++ Response 400 (application/json)         
+  El codigo y el user_id no coinciden
+  + Body
+    { "error_code": "M0027","message": "The code used to update the password is not valid" }
+    
++ Response 400 (application/json)     
+  El campo de password no coincide con el campo password_repeated
+  + Body
+  {"error_code": "M0006","fields": [{"code": "M0006","field": "password","issue": "The two passwords supplied do not match"},{"code": "M0006","field": "password_repeated","issue": "The two passwords supplied do not match"}]}
+    
+## Perfil Favoritos [/user/{userId}/favorite]
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario 
+    + userFavoriteId: `2` (required,number) - Identificador de usuario a agregar a favoritos
+
+### Obtener perfiles favoritos de usuario [GET]
+
++ Request (application/json) 
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+
++ Response 200 (application/json)   
+  + Body
+    {"favorites": [{"user_id": 2, "full_name": "Jose Duin","nick_name": "JoseDuin","imagen_profile": "image120181010154016319.jpg","create_date": "2019-02-05 09:42:06"}],"number_favorites": 1}
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+
+### Registrar perfil favorito de usuario [POST /user/{userId}/favorite/{userFavoriteId}]
+
++ Request (application/json) 
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+    + Body
+      {}
++ Response 201 (application/json)  
+
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+  + Body
+  {"error_code": "M0009","message": "no found userId"}    
+
++ Response 400 (application/json)         
+  El identificador de userFavoriteId no existe en el sistema
+  + Body
+  {"error_code": "M0009","message": "no found userFavoriteId"}
+  
+### Eliminar perfil favorito de usuario [DELETE /user/{userId}/favorite/{userFavoriteId}]  
+
++ Request (application/json) 
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+  
++ Response 200 (application/json)  
+  
 ## Ajustes de usuario [/user/{userId}/setting]
 
 + Parameters
     + userId: `1` (required,number) - Identificador de usuario 
 
++ Response 400 (application/json)         
+  El identificador de userFavoriteId o el de userId  no existe en el sistema
+  + Body
+  {"error_code": "M0009","message": "no found userFavoriteId"}
+  
 ### Obtener parametros de ajuste de usuario[GET]
 
 + Request (application/json) 
@@ -523,7 +642,7 @@ Lista de servicios Back-End API
 + Response 200 (application/json)   
  
    + Body
-        {
+              {
             "configuration": {
                 "phone": true,
                 "address": true
@@ -538,13 +657,27 @@ Lista de servicios Back-End API
                 "academic_level_code": "AL001",
                 "gender": "male",
                 "gender_code": "GE001",
-                "image_profile": "http://35.227.223.87/image120181010154016319.jpg",
+                "image_profile": "image120181010154016319.jpg",
                 "name": "oscar",
                 "last_name": "Montilla",
-                "nickname": "omontilla"
-                "weight": "120 Lb",
-                "height": "1.50 ft"
-                 }
+                "nickname": "omontilla",
+                "birth_date": "1989-07-13",
+                "age": "29",
+                "shoe_size_code": "US",
+                "shirt_size_code": "INTERNATIONAL",
+                "number_views_profile": 0,
+                "number_views_search": 0,
+                "favorites": [
+                    {
+                        "user_id": 2,
+                        "full_name": "Jose Duin",
+                        "nick_name": "JoseDuin",
+                        "imagen_profile": "image120181010154016319.jpg",
+                        "create_date": "2019-02-05 09:42:06"
+                    }
+                ],
+                "number_favorites": 1
+            }
         }
 
 + Response 400 (application/json)         
