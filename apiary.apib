@@ -1,7 +1,7 @@
 FORMAT: 1A
 HOST: http://190.216.254.173:3090/businesscore/api/v1
 
-# xcouty-businessCore
+# Lista de servicios Back-End API
 
 Lista de servicios Back-End API
 
@@ -51,7 +51,7 @@ Lista de servicios Back-End API
             }
 
 
-### Registro [POST /user/register]
+### Registro de usuario [POST /user/register]
 
 + Request (application/json)
 + Attributes
@@ -64,22 +64,14 @@ Lista de servicios Back-End API
         + EN
         + ES
  
-+ Response 201 (application/json)
++ Response 200 (application/json)
   
-            {
-                "id": 1,
-                "name": "Oscar",
-                "last_name": "Montilla",
-                "email": "montilla.t31@gmail.com",
-                "image_url": "http://35.227.223.87/image120181010154016319.jpg"
-            }
+     {"error_code": "M0025","message": "A confirmation email has been sent to continue with the process"}
 
 + Response 400 (application/json)         
 
     El email ya se encuentra registrado en el systema
-
   + Body
-
   {"error_code": "M0004","message": "The email (:email) is already registered in our system"}
     
 + Response 400 (application/json)     
@@ -87,8 +79,44 @@ Lista de servicios Back-End API
   El campo de password no coincide con el campo password_repeated
 
   + Body
-
   {"error_code": "M0006","fields": [{"code": "M0006","field": "password","issue": "The two passwords supplied do not match"},{"code": "M0006","field": "password_repeated","issue": "The two passwords supplied do not match"}]}
+  
++ Response 400 (application/json)         
+
+    Ha ocurrido un problema en el envio del correo, por favor intenta nuevamente
+  + Body
+  {"error_code": "M0026","message": "There has been a problem in sending the mail, please try again"}
+
+### Registro de usuario (validacion de codigo de correo) [PUT /user/register]
+
++ Request (application/json)
++ Attributes
+    + code: `Oscar`  (required) - Codigo enviado al correo suministrado por el usuario
+    + lenguage: `EN` (enum, required) -  Lenguaje utilizado desde el celular
+        + EN
+        + ES
+
++ Response 200 (application/json)
+  
+    {
+    "error_code": "M0029",
+    "message": "El registro ha sido completado con éxito",
+    "data": {
+        "id": 3,
+        "name": "Jose",
+        "last_name": "Montilla",
+        "email": "montilla.t31@gmail.com",
+        "image_url": "image120181010154016319.jpg",
+        "language_code": "EN"
+        }
+    }
+    
++ Response 400 (application/json)         
+
+    El codigo utilizado para actualizar la contraseña no es valido
+  + Body
+    {"error_code": "M0027","message": "The code used to update the password is not valid"}
+ 
 
 ### Login/Registro Facebook [POST /user/login/facebook]
 
@@ -197,6 +225,30 @@ Lista de servicios Back-End API
   + Body
   {"error_code": "M0006","fields": [{"code": "M0006","field": "password","issue": "The two passwords supplied do not match"},{"code": "M0006","field": "password_repeated","issue": "The two passwords supplied do not match"}]}
     
+    
+### Reiniciar contrasena dentro de la APP [PUT /v1/user/:userId/changePassword]    
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario 
+    
++ Request (application/json) 
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+    
++ Response 200 (application/json)   
+  + Body
+   {"error_code": "M0028","message": "Your password has been successfully registered"}
+   
++ Response 400 (application/json)     
+  El campo de new_password no coincide con el campo new_password_repeat
+  + Body
+  {"error_code": "M0006","fields": [{"code": "M0006","field": "new_password","issue": "The two passwords supplied do not match"},{"code": "M0006","field": "new_password_repeat","issue": "The two passwords supplied do not match"}]}
+
++ Response 400 (application/json)     
+  La contraseña actual suministrada, no es la correcta
+  + Body
+    {"error_code": "M0031","message": "the current password supplied, is not correct"} 
+   
 ## Perfil Favoritos [/user/{userId}/favorite]
 
 + Parameters
@@ -6188,3 +6240,2218 @@ El identificador de userId no existe en el sistema
 
   + Body
   {"error_code": "M0009","message": "no found userId"}
+
+
+## Retos [/user/{userId}/challenge]
+
+### Registrar Tipo de Video [POST /user/{userId}/challengetype]
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario
+    
++ Request (application/json) 
+  
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+    
+    + Body
+    + Attributes
+        + code: `0001` (required) - Codigo
+        + name: `tipo 1`  (required) - nombre
+        + languageEnum: `ES` (required) - Lenguage
+
+
++ Response 200 (application/json)   
+  + Body
+  
+   {
+    "id": 1,
+    "code": "0001",
+    "name": "Tipo 1",
+    "createDate": "2019-02-25 14:24:35",
+    "updateDate": "2019-02-25 14:24:35",
+    "language": "ES"
+    }
+
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+  
++ Response 400 (application/json) 
+  El o los campos son requeridos
+
+  + Body
+
+  {
+    "error_code": "M0003",
+    "fields": [
+        {
+            "code": "M0003",
+            "field": "code",
+            "issue": "The field is required"
+        }
+    ]
+  }
+
+### Actualizar Tipo de Reto [PUT /user/{userId}/challengetype/{challengeTypeId}]
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario
+    + challengeTypeId: `3` (required,number) - Identificador de tipo de reto
+    
++ Request (application/json) 
+  
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+    
+    + Body
+    + Attributes
+        + code: `0001` (required) - Codigo
+        + name: `tipo 1`  (required) - nombre
+        + languageEnum: `ES` (required) - Lenguage
+
++ Response 200 (application/json)   
+  + Body   
+  
+    {
+    "id": 1,
+    "code": "TC0001",
+    "name": "Tipo II",
+    "createDate": "2019-02-19 14:39:38",
+    "updateDate": "2019-02-25 14:29:02",
+    "language": "ES"
+    }
+
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+  
++ Response 400 (application/json)         
+  El identificador de challengeTypeId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009", "message": "no found challengeTypeId"}
+  
++ Response 400 (application/json) 
+  El o los campos son requeridos
+
+  + Body
+
+
+  {
+    "error_code": "M0003",
+    "fields": [
+        {
+            "code": "M0003",
+            "field": "code",
+            "issue": "The field is required"
+        }
+    ]
+    }
+
+### Obtener Tipos de Retos [GET /user/{userId}/profilevideo]
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario
+    + lat: `19.4284700` (optional,number) - Latitud del usuario
+    + lng: `-99.1276600` (optional,number) - Longitud del usuario
+    + items: `2` (optional,number) - Cantidad de items a consultar, maximo 1000
+    + page: `0` (optional,number) - Numero de pagina
+    + challengetypeid: `1` (optional,number) - Identificador de tipo de reto
+    + name: `Tipo` (optional,string) - Nombre del tipo
+    
++ Request (application/json) 
+  
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+
++ Response 200 (application/json)   
+  + Body   
+
+  
+    {
+    "challengeTypes": [
+        {
+            "id": 2,
+            "code": "TC0002",
+            "name": "Tipo 2",
+            "createDate": "2019-02-25 12:24:35",
+            "updateDate": "2019-02-25 12:24:35",
+            "language": "ES"
+        },
+        {
+            "id": 1,
+            "code": "TC0001",
+            "name": "Tipo II",
+            "createDate": "2019-02-19 12:39:38",
+            "updateDate": "2019-02-25 12:29:02",
+            "language": "ES"
+        }
+    ],
+    "total_items_challengetypes": 2
+    }
+
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+  
++ Response 400 (application/json)         
+  Existe algun error en la peticion y/o se ha generado un error interno
+
+  + Body
+  {"error_code":"M0019","message":"Internal error - Bad request"}
+
+
+### Eliminar Tipo de Reto [DELETE /user/{userId}/challengetype/{challengeTypeId}]
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario
+    + challengeTypeId: `2` (required,number) - Identificador de tipo de reto
+    
++ Request (application/json) 
+  
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+
++ Response 200 (application/json)   
+    Se elimino el tipo de reto
+  + Body
+
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+  
++ Response 400 (application/json)         
+  El identificador de challengeTypeId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009", "message": "no found challengeModalityId"}
+
+### Registrar Modalidad [POST /user/{userId}/challengemodality]
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario
+    
++ Request (application/json) 
+  
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+    
+    + Body
+    + Attributes
+        + code: `0001` (required) - Codigo
+        + name: `modalidad 1`  (required) - nombre
+        + languageEnum: `ES` (required) - Lenguage
+
+
++ Response 200 (application/json)   
+  + Body
+  
+   {
+    "id": 1,
+    "code": "TC0001",
+    "name": "modalidad 1",
+    "createDate": "2019-02-25 14:58:11",
+    "updateDate": "2019-02-25 14:58:11",
+    "language": "ES"
+    }
+
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+  
++ Response 400 (application/json) 
+  El o los campos son requeridos
+
+  + Body
+
+  {
+    "error_code": "M0003",
+    "fields": [
+        {
+            "code": "M0003",
+            "field": "code",
+            "issue": "The field is required"
+        }
+    ]
+  }
+
+### Actualizar Modalidad [PUT /user/{userId}/challengemodality/{challengeModalityId}]
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario
+    + challengeModalityId: `3` (required,number) - Identificador de Modalidad
+    
++ Request (application/json) 
+  
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+    
+    + Body
+    + Attributes
+        + code: `0001` (required) - Codigo
+        + name: `modalidad 1`  (required) - nombre
+        + languageEnum: `ES` (required) - Lenguage
+
++ Response 200 (application/json)   
+  + Body   
+  
+    {
+    "id": 2,
+    "code": "TC0001",
+    "name": "modalidad 1",
+    "createDate": "2019-02-25 14:58:11",
+    "updateDate": "2019-02-25 14:58:11",
+    "language": "ES"
+    }
+
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+  
++ Response 400 (application/json)         
+  El identificador de modalityId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009", "message": "no found modalityId"}
+  
++ Response 400 (application/json) 
+  El o los campos son requeridos
+
+  + Body
+
+
+  {
+    "error_code": "M0003",
+    "fields": [
+        {
+            "code": "M0003",
+            "field": "code",
+            "issue": "The field is required"
+        }
+    ]
+    }
+
+### Obtener Modalidades [GET /user/{userId}/profilevideo]
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario
+    + lat: `19.4284700` (optional,number) - Latitud del usuario
+    + lng: `-99.1276600` (optional,number) - Longitud del usuario
+    + items: `2` (optional,number) - Cantidad de items a consultar, maximo 1000
+    + page: `0` (optional,number) - Numero de pagina
+    + modalityid: `1` (optional,number) - Identificador de modalidad
+    + name: `modalidad` (optional,string) - Nombre de la modalidad
+    
++ Request (application/json) 
+  
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+
++ Response 200 (application/json)   
+  + Body   
+
+  
+    {
+    "challengemodalities": [
+        {
+            "id": 2,
+            "code": "TC0001",
+            "name": "modalidad 1",
+            "createDate": "2019-02-25 12:58:11",
+            "updateDate": "2019-02-25 12:58:11",
+            "language": "ES"
+        },
+        {
+            "id": 1,
+            "code": "TC0001",
+            "name": "modalidad 1",
+            "createDate": "2019-02-19 12:39:52",
+            "updateDate": "2019-02-19 12:39:52",
+            "language": "ES"
+        }
+    ],
+    "total_items_challengemodalities": 2
+}
+
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+  
++ Response 400 (application/json)         
+  Existe algun error en la peticion y/o se ha generado un error interno
+
+  + Body
+  {"error_code":"M0019","message":"Internal error - Bad request"}
+
+
+### Eliminar Modalidad [DELETE /user/{userId}/challengemodality/{challengeModalityId}]
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario
+    + challengeModalityId: `2` (required,number) - Identificador de modalidad
+    
++ Request (application/json) 
+  
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+
++ Response 200 (application/json)   
+    Se elimino la modalidad
+  + Body
+
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+  
++ Response 400 (application/json)         
+  El identificador de challengeModalityId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009", "message": "no found challengeModalityId"}
+
+### Registrar Reto [POST /user/{userId}/challenge]
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario
+    
++ Request (application/json) 
+  
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+    
+    + Body
+    + Attributes
+        + challengeTypeId: `1` (required) - Identificador tipo de reto
+        + modalityId: `1`  (required) - Identificador de modalidad
+        + sportId: `1` (required) - Identificador de deporte
+        + estatusId: `1` (required) - Identificador de estatus
+        + name: `reto numero 1`  (required) - nombre del reto
+        + beginDate: `2019-02-01` (required) - Fecha de inicio
+        + finalDate: `2019-01-15` (required) - Fecha final
+        + votePartesBeginDate: `2019-02-02`  (required) - Fecha de inicio del voto de las partes
+        + votePartesFinalDate: `2019-02-14` (required) - Fecha fin del voto de las partes
+        + votePublicBeginDate: `2019-02-03`  (required) - Fecha inicio voto publico
+        + votePublicFinalDate: `2019-02-13` (required) - Fecha fin voto publico
+        + hall: `false` (required) - Indica si es hall
+
+
++ Response 200 (application/json)   
+  + Body
+  
+   {
+    "id": 2,
+    "challengeTypeId": 1,
+    "modalityId": 1,
+    "sportId": 1,
+    "userId": 1,
+    "estatusId": 1,
+    "name": "Reto 1",
+    "description": "Reto numero 1",
+    "beginDate": "2019-02-01 00:00:00",
+    "finalDate": "2019-01-15 00:00:00",
+    "votePartesBeginDate": "2019-02-02 00:00:00",
+    "votePartesFinalDate": "2019-02-14 00:00:00",
+    "votePublicBeginDate": "2019-02-03 00:00:00",
+    "votePublicFinalDate": "2019-02-13 00:00:00",
+    "hall": false,
+    "createDate": "2019-02-25 16:17:18",
+    "updateDate": "2019-02-25 16:17:18"
+}   }
+
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+  
+  + Response 400 (application/json)         
+  El identificador de modalityId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009", "message": "no found modalityId"}
+  
++ Response 400 (application/json)         
+  El identificador de challengeTypeId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009", "message": "no found challengeTypeId"}
+  
++ Response 400 (application/json)         
+  El identificador de estatusId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009", "message": "no found estatusId"}
+  
++ Response 400 (application/json)         
+  El identificador de sportId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009", "message": "no found sportId"}
+  
++ Response 400 (application/json) 
+  El o los campos son requeridos
+
+  + Body
+
+  {
+    "error_code": "M0003",
+    "fields": [
+        {
+            "code": "M0003",
+            "field": "beginDate",
+            "issue": "The field is required"
+        }
+    ]
+  }
+
+### Actualizar Reto [PUT /user/{userId}/challenge/{challengeId}]
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario
+    + challengeId: `3` (required,number) - Identificador de Reto
+    
++ Request (application/json) 
+  
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+    
+    + Body
+    + Attributes
+        + challengeTypeId: `1` (required) - Identificador tipo de reto
+        + modalityId: `1`  (required) - Identificador de modalidad
+        + sportId: `1` (required) - Identificador de deporte
+        + estatusId: `1` (required) - Identificador de estatus
+        + name: `reto numero 1`  (required) - nombre del reto
+        + beginDate: `2019-02-01` (required) - Fecha de inicio
+        + finalDate: `2019-01-15` (required) - Fecha final
+        + votePartesBeginDate: `2019-02-02`  (required) - Fecha de inicio del voto de las partes
+        + votePartesFinalDate: `2019-02-14` (required) - Fecha fin del voto de las partes
+        + votePublicBeginDate: `2019-02-03`  (required) - Fecha inicio voto publico
+        + votePublicFinalDate: `2019-02-13` (required) - Fecha fin voto publico
+        + hall: `false` (required) - Indica si es hall
+
++ Response 200 (application/json)   
+  + Body   
+  
+     {
+    "id": 2,
+    "challengeTypeId": 1,
+    "modalityId": 1,
+    "sportId": 1,
+    "userId": 1,
+    "estatusId": 1,
+    "name": "Reto 1",
+    "description": "Reto numero 1",
+    "beginDate": "2019-02-01 00:00:00",
+    "finalDate": "2019-01-15 00:00:00",
+    "votePartesBeginDate": "2019-02-02 00:00:00",
+    "votePartesFinalDate": "2019-02-14 00:00:00",
+    "votePublicBeginDate": "2019-02-03 00:00:00",
+    "votePublicFinalDate": "2019-02-13 00:00:00",
+    "hall": false,
+    "createDate": "2019-02-25 16:17:18",
+    "updateDate": "2019-02-25 16:17:18"
+}   }
+
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+  
++ Response 400 (application/json)         
+  El identificador de modalityId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009", "message": "no found modalityId"}
+  
++ Response 400 (application/json)         
+  El identificador de challengeTypeId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009", "message": "no found challengeTypeId"}
+  
++ Response 400 (application/json)         
+  El identificador de estatusId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009", "message": "no found estatusId"}
+  
++ Response 400 (application/json)         
+  El identificador de sportId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009", "message": "no found sportId"}
+  
++ Response 400 (application/json) 
+  El o los campos son requeridos
+
+  + Body
+
+
+  {
+    "error_code": "M0003",
+    "fields": [
+        {
+            "code": "M0003",
+            "field": "beginDate",
+            "issue": "The field is required"
+        }
+    ]
+    }
+
+### Obtener Retos [GET /user/{userId}/challenges]
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario
+    + lat: `19.4284700` (optional,number) - Latitud del usuario
+    + lng: `-99.1276600` (optional,number) - Longitud del usuario
+    + items: `2` (optional,number) - Cantidad de items a consultar, maximo 1000
+    + page: `0` (optional,number) - Numero de pagina
+    + sortby: `-id,+description` (optional,string) - Ordenamiento - es desc y + asc
+    + challengeid: `1` (optional,number) - Identificador de reto
+    + challengetypeid:  `1` (optional,number) - Identificador de tipo de reto
+    + modalityid:  `1` (optional,number) - Identificador de modalidad
+    + sportid:  `1` (optional,number) - Identificador de deporte
+    + userprofileid: `1` (optional,number) - Identificador de video de usuario
+    + estatusid:  `1` (optional,number) - Identificador de estatus 
+    + name:  `reto 1` (optional,string) - Nombre del reto
+    + description:  `el mejor` (optional,string) - Descripcion del reto 
+    + fromBegin:  `2019-01-01` (optional,string) - Fecha de inicio desde YYYY-MM-dd
+    + toBegin:  `2019-01-06` (optional,string) - Fecha de inicio hasta,  YYYY-MM-dd
+    + fromPublic: `2019-01-06` (optional,string) - Fecha de inicio voto publico
+    + toPublic: `2019-01-06` (optional,string) - Fecha de fin voto publico
+    + isHall: `false` (optional,boolean) - Indica si es Hall
+    + typelikeid: `false` (optional,number) - Identificador tipo de like
+  
+    
++ Request (application/json) 
+  
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+
++ Response 200 (application/json)   
+  + Body   
+
+  
+    {
+    "challenges": [
+        {
+            "id": 1,
+            "challengeTypeId": 1,
+            "modalityId": 1,
+            "sportId": 1,
+            "userId": 1,
+            "estatusId": 1,
+            "name": "Reto 1",
+            "description": "Reto numero 1",
+            "beginDate": "2019-02-01 00:00:00",
+            "finalDate": "2019-01-15 00:00:00",
+            "votePartesBeginDate": "2019-02-02 00:00:00",
+            "votePartesFinalDate": "2019-02-14 00:00:00",
+            "votePublicBeginDate": "2019-02-03 00:00:00",
+            "votePublicFinalDate": "2019-02-13 00:00:00",
+            "hall": false,
+            "createDate": "2019-02-19 12:41:09",
+            "updateDate": "2019-02-19 12:41:09",
+            "totalLikes": 1
+        },
+        {
+            "id": 2,
+            "challengeTypeId": 1,
+            "modalityId": 1,
+            "sportId": 1,
+            "userId": 1,
+            "estatusId": 1,
+            "name": "Reto 1",
+            "description": "Reto numero 1",
+            "beginDate": "2019-02-01 00:00:00",
+            "finalDate": "2019-01-15 00:00:00",
+            "votePartesBeginDate": "2019-02-02 00:00:00",
+            "votePartesFinalDate": "2019-02-14 00:00:00",
+            "votePublicBeginDate": "2019-02-03 00:00:00",
+            "votePublicFinalDate": "2019-02-13 00:00:00",
+            "hall": false,
+            "createDate": "2019-02-25 14:17:18",
+            "updateDate": "2019-02-25 14:17:18",
+            "totalLikes": 0
+        }
+    ],
+    "total_items_challenges": 2
+    }
+
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+  
++ Response 400 (application/json)         
+  Existe algun error en la peticion y/o se ha generado un error interno
+
+  + Body
+  {"error_code":"M0019","message":"Internal error - Bad request"}
+
+
+### Eliminar Reto [DELETE /user/{userId}/challenge/{challengeId}]
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario
+    + challengeId: `2` (required,number) - Identificador de reto
+    
++ Request (application/json) 
+  
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+
++ Response 200 (application/json)   
+    Se elimino el reto
+  + Body
+
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+  
++ Response 400 (application/json)         
+  El usuario no es propietario del reto
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+  
++ Response 400 (application/json)         
+  El identificador de challengeId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009", "message": "no found challengeModalityId"}
+  
+
+### Registrar Hall [POST /user/{userId}/challengehall]
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario
+    
++ Request (application/json) 
+  
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+    
+    + Body
+    + Attributes
+        + challengeId: `1` (number, required) - Identificador de reto
+
+
++ Response 200 (application/json)   
+  + Body
+  
+   {
+    "id": 1,
+    "challengeId": 1,
+    "createDate": "2019-02-26 09:10:00",
+    "updateDate": "2019-02-26 09:10:00"
+  }
+
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+
++ Response 400 (application/json)         
+  El identificador de challengeId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found challengeId"}
+  
++ Response 400 (application/json) 
+  El o los campos son requeridos
+
+  + Body
+
+  {
+    "error_code": "M0003",
+    "fields": [
+        {
+            "code": "M0003",
+            "field": "challengeId",
+            "issue": "The field is required"
+        }
+    ]
+  }
+
+### Actualizar Hall [PUT /user/{userId}/challengehall/{challengeHallId}]
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario
+    + challengeHallId: `3` (required,number) - Identificador de Hall
+    
++ Request (application/json) 
+  
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+    
+    + Body
+    + Attributes
+        + challengeId: `1` (number, required) - Identificador de reto
+
++ Response 200 (application/json)   
+  + Body   
+  
+    {
+    "id": 1,
+    "challengeId": 1,
+    "createDate": "2019-02-26 09:10:00",
+    "updateDate": "2019-02-26 09:14:53"
+    }
+
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+  
++ Response 400 (application/json)         
+  El identificador de challengeHallId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009", "message": "no found challengeHallId"}
+  
++ Response 400 (application/json)         
+  El identificador de challengeId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009", "message": "no found challengeId"}
+  
++ Response 400 (application/json) 
+  El o los campos son requeridos
+
+  + Body
+
+  {
+    "error_code": "M0003",
+    "fields": [
+        {
+            "code": "M0003",
+            "field": "challengeHallId",
+            "issue": "The field is required"
+        }
+    ]
+    }
+
+### Obtener Halls [GET /user/{userId}/challengeHall]
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario
+    + lat: `19.4284700` (optional,number) - Latitud del usuario
+    + lng: `-99.1276600` (optional,number) - Longitud del usuario
+    + items: `2` (optional,number) - Cantidad de items a consultar, maximo 1000
+    + page: `0` (optional,number) - Numero de pagina
+    + hallid: `1` (optional,number) - Identificador de hall
+    + challengeid: `modalidad` (optional,string) - Identificador de Reto
+    
++ Request (application/json) 
+  
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+
++ Response 200 (application/json)   
+  + Body     
+  
+    {
+    "challengehalls": [
+        {
+            "id": 2,
+            "challengeId": 1,
+            "createDate": "2019-02-26 07:11:25",
+            "updateDate": "2019-02-26 07:11:25"
+        },
+        {
+            "id": 1,
+            "challengeId": 1,
+            "createDate": "2019-02-26 07:10:00",
+            "updateDate": "2019-02-26 07:14:53"
+        }
+    ],
+    "total_items_challengehalls": 2
+    }
+
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+  
++ Response 400 (application/json)         
+  Existe algun error en la peticion y/o se ha generado un error interno
+
+  + Body
+  {"error_code":"M0019","message":"Internal error - Bad request"}
+
+
+### Eliminar Hall [DELETE /user/{userId}/challenghall/{challengeHallId}]
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario
+    + challengeHallId: `2` (required,number) - Identificador de Hall
+    
++ Request (application/json) 
+  
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+
++ Response 200 (application/json)   
+    Se elimino el hall
+  + Body
+
+### Registrar Plantilla [POST /user/{userId}/challengetemplate]
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario
+    
++ Request (application/json) 
+  
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+    
+    + Body
+    + Attributes
+        + challengeId: `1` (number, required) - Identificador de reto
+        + directedTemplateId: `1` (required,number) - Identificador de plantilla dirigida
+
+
++ Response 200 (application/json)   
+  + Body
+  
+   {
+    "id": 1,
+    "directedTemplateId": 1,
+    "challengeId": 1,
+    "createDate": "2019-02-26 09:43:43",
+    "updateDate": "2019-02-26 09:43:43"
+    }
+
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+
++ Response 400 (application/json)         
+  El identificador de challengeId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found challengeId"}
+  
++ Response 400 (application/json)         
+  El identificador de directedTemplateId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found directedTemplateId"}
+  
++ Response 400 (application/json) 
+  El o los campos son requeridos
+
+  + Body
+
+  {
+    "error_code": "M0003",
+    "fields": [
+        {
+            "code": "M0003",
+            "field": "challengeId",
+            "issue": "The field is required"
+        }
+    ]
+  }
+
+### Actualizar Plantilla [PUT /user/{userId}/challengetemplate/{challengeTemplateId}]
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario
+    + challengeTemplateId: `3` (required,number) - Identificador de Template
+    
++ Request (application/json) 
+  
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+    
+    + Body
+    + Attributes
+        + challengeId: `1` (number, required) - Identificador de reto
+        + directedTemplateId: `1` (number, required) - Identificador de plantilla dirigida
+
++ Response 200 (application/json)   
+  + Body   
+  
+    {
+    "id": 1,
+    "directedTemplateId": 1,
+    "challengeId": 1,
+    "createDate": "2019-02-26 09:43:43",
+    "updateDate": "2019-02-26 09:45:59"
+    }
+
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+  
++ Response 400 (application/json)         
+  El identificador de templateId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009", "message": "no found templateId"}
+  
++ Response 400 (application/json)         
+  El identificador de challengeId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009", "message": "no found challengeId"}
+  
++ Response 400 (application/json)         
+  El identificador de directedTemplateId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009", "message": "no found directedTemplateId"}
+  
++ Response 400 (application/json) 
+  El o los campos son requeridos
+
+  + Body
+
+  {
+    "error_code": "M0003",
+    "fields": [
+        {
+            "code": "M0003",
+            "field": "challengeId",
+            "issue": "The field is required"
+        }
+    ]
+    }
+
+### Obtener Plantillas [GET /user/{userId}/challengetemplate]
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario
+    + lat: `19.4284700` (optional,number) - Latitud del usuario
+    + lng: `-99.1276600` (optional,number) - Longitud del usuario
+    + items: `2` (optional,number) - Cantidad de items a consultar, maximo 1000
+    + page: `0` (optional,number) - Numero de pagina
+    + challengetemplateid: `1` (optional,string) - Identificador de Plantilla
+    
++ Request (application/json) 
+  
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+
++ Response 200 (application/json)   
+  + Body     
+  
+    {
+    "challengeTemplates": [
+        {
+            "id": 1,
+            "directedTemplateId": 1,
+            "challengeId": 1,
+            "createDate": "2019-02-26 07:43:43",
+            "updateDate": "2019-02-26 07:45:59"
+        }
+    ],
+    "total_items_challengetemplates": 1
+    }
+
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+  
++ Response 400 (application/json)         
+  Existe algun error en la peticion y/o se ha generado un error interno
+
+  + Body
+  {"error_code":"M0019","message":"Internal error - Bad request"}
+
+
+### Eliminar Plantilla [DELETE /user/{userId}/challengtemplate/{challengeTemplateId}]
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario
+    + challengeTemplateId: `2` (required,number) - Identificador de plantilla
+    
++ Request (application/json) 
+  
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+
++ Response 200 (application/json)   
+    Se elimino la plantilla
+  + Body
+
+### Registrar Invitacion [POST /user/{userId}/challengeinvitation]
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario
+    
++ Request (application/json) 
+  
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+    
+    + Body
+    + Attributes
+        + challengeId: `1` (number, required) - Identificador de reto
+        + estatusId: `1` (number, required) - Identificador de estatus
+        + userInvitadoId: `1` (required,number) - Identificador de usuario invitado
+
+
++ Response 200 (application/json)   
+  + Body
+  
+   {
+    "id": 1,
+    "estatusId": 1,
+    "challengeId": 1,
+    "userInvitadoId": 2,
+    "createDate": "2019-02-26 10:06:25",
+    "updateDate": "2019-02-26 10:06:25"
+    }
+
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+
++ Response 400 (application/json)         
+  El identificador de challengeId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found challengeId"}
+  
++ Response 400 (application/json)         
+  El identificador de userInvitadoId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userInvitadoId"}
+  
++ Response 400 (application/json)         
+  El identificador de estatusId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found estatusId"}
+  
++ Response 400 (application/json) 
+  El o los campos son requeridos
+
+  + Body
+
+  {
+    "error_code": "M0003",
+    "fields": [
+        {
+            "code": "M0003",
+            "field": "challengeId",
+            "issue": "The field is required"
+        }
+    ]
+  }
+
+### Actualizar Invitacion [PUT /user/{userId}/challengeinvitation/{challengeInvitationId}]
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario
+    + challengeInvitationId: `3` (required,number) - Identificador de Invitacion
+    
++ Request (application/json) 
+  
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+    
+    + Body
+    + Attributes
+        + challengeId: `1` (number, required) - Identificador de reto
+        + estatusId: `1` (number, required) - Identificador de estatus
+        + userInvitadoId: `1` (required,number) - Identificador de usuario invitado
+
++ Response 200 (application/json)   
+  + Body   
+  
+    {
+    "id": 1,
+    "estatusId": 1,
+    "challengeId": 1,
+    "userInvitadoId": 1,
+    "createDate": "2019-02-26 10:06:25",
+    "updateDate": "2019-02-26 10:08:50"
+    }
+    
++ Response 400 (application/json)         
+  El identificador de challengeInvitationId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found challengeInvitationId"}
+
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+
++ Response 400 (application/json)         
+  El identificador de challengeId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found challengeId"}
+  
++ Response 400 (application/json)         
+  El identificador de userInvitadoId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userInvitadoId"}
+  
++ Response 400 (application/json)         
+  El identificador de estatusId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found estatusId"}
+  
++ Response 400 (application/json) 
+  El o los campos son requeridos
+
+  + Body
+
+  {
+    "error_code": "M0003",
+    "fields": [
+        {
+            "code": "M0003",
+            "field": "challengeId",
+            "issue": "The field is required"
+        }
+    ]
+    }
+
+### Obtener Invitaciones [GET /user/{userId}/challengeinvitation]
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario
+    + lat: `19.4284700` (optional,number) - Latitud del usuario
+    + lng: `-99.1276600` (optional,number) - Longitud del usuario
+    + items: `2` (optional,number) - Cantidad de items a consultar, maximo 1000
+    + page: `0` (optional,number) - Numero de pagina
+    + challengeinvitationid: `1` (optional,string) - Identificador de Invitacion
+    + userinvitadoid: `2` (optional,string) - Identificador de usuario invitado
+    
++ Request (application/json) 
+  
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+
++ Response 200 (application/json)   
+  + Body     
+  
+    {
+    "challengeInvitations": [
+        {
+            "id": 1,
+            "estatusId": 1,
+            "challengeId": 1,
+            "userInvitadoId": 1,
+            "createDate": "2019-02-26 08:06:25",
+            "updateDate": "2019-02-26 08:08:50"
+        }
+    ],
+    "total_items_challengeinvitations": 1
+    }
+
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+  
++ Response 400 (application/json)         
+  Existe algun error en la peticion y/o se ha generado un error interno
+
+  + Body
+  {"error_code":"M0019","message":"Internal error - Bad request"}
+
+
+### Eliminar Invitacion [DELETE /user/{userId}/challenginvitation/{challengeInvitationId}]
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario
+    + challengeInvitationId: `2` (required,number) - Identificador de invitacion
+    
++ Request (application/json) 
+  
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+
++ Response 200 (application/json)   
+    Se elimino la invitacion
+  + Body
+
+### Registrar Libre [POST /user/{userId}/challengefree]
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario
+    
++ Request (application/json) 
+  
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+    
+    + Body
+    + Attributes
+        + challengeId: `1` (number, required) - Identificador de reto
+        + title: `mi reto libre` (number, required) - Titulo
+        + description: `este reto es libre` (required,string) - descripcion
+        + video: `data:video/mp4;base64,...` (required,number) - descripcion
+        + videoType: `tipo de videeo` (required,string) - tipo de video
+
+
++ Response 200 (application/json)   
+  + Body
+  
+   {
+    "id": 1,
+    "challengeId": 1,
+    "urlVideo": "Videos/Retos/video120190226150313233.mp4",
+    "title": "guaido challenge",
+    "description": "video sobre reto",
+    "videoType": "mp4",
+    "createDate": "2019-02-26 11:04:04",
+    "updateDate": "2019-02-26 11:04:04"
+    }
+
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+
++ Response 400 (application/json)         
+  El identificador de challengeId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found challengeId"}
+  
+  
++ Response 400 (application/json) 
+  El o los campos son requeridos
+
+  + Body
+
+  {
+    "error_code": "M0003",
+    "fields": [
+        {
+            "code": "M0003",
+            "field": "challengeId",
+            "issue": "The field is required"
+        }
+    ]
+  }
+
+### Actualizar Libre [PUT /user/{userId}/challengefree/{challengeFreeId}]
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario
+    + challengeFreeId: `1` (required,number) - Identificador de Libre
+    
++ Request (application/json) 
+  
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+    
+    + Body
+    + Attributes
+        + challengeId: `1` (number, required) - Identificador de reto
+        + title: `super reto` (number, required) - Titulo
+        + description: `video sobre reto` (required,number) - descripcion
+
++ Response 200 (application/json)   
+  + Body   
+  
+    {
+    "id": 1,
+    "challengeId": 1,
+    "urlVideo": "Videos/Retos/video120190226150313233.mp4",
+    "title": "super reto",
+    "description": "video sobre reto",
+    "videoType": "mp4",
+    "createDate": "2019-02-26 11:04:04",
+    "updateDate": "2019-02-26 11:09:07"
+    }
+    
++ Response 400 (application/json)         
+  El identificador de challengeFreeId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found challengeFreeId"}
+
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+
++ Response 400 (application/json)         
+  El identificador de challengeId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found challengeId"}
+  
+  
++ Response 400 (application/json) 
+  El o los campos son requeridos
+
+  + Body
+
+  {
+    "error_code": "M0003",
+    "fields": [
+        {
+            "code": "M0003",
+            "field": "challengeId",
+            "issue": "The field is required"
+        }
+    ]
+    }
+
+### Obtener Libres [GET /user/{userId}/challengefree]
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario
+    + lat: `19.4284700` (optional,number) - Latitud del usuario
+    + lng: `-99.1276600` (optional,number) - Longitud del usuario
+    + items: `2` (optional,number) - Cantidad de items a consultar, maximo 1000
+    + page: `0` (optional,number) - Numero de pagina
+    + challengefreeid: `1` (optional,string) - Identificador de libre
+    + challengeoid: `2` (optional,string) - Identificador de reto
+    
++ Request (application/json) 
+  
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+
++ Response 200 (application/json)   
+  + Body     
+  
+    {
+    "challenge_frees": [
+        {
+            "id": 1,
+            "challengeId": 1,
+            "urlVideo": "Videos/Retos/video120190226150313233.mp4",
+            "title": "super reto",
+            "description": "video sobre reto",
+            "videoType": "mp4",
+            "createDate": "2019-02-26 09:04:04",
+            "updateDate": "2019-02-26 09:09:52"
+        }
+    ],
+    "total_items_challengefrees": 1
+    }
+
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+  
++ Response 400 (application/json)         
+  Existe algun error en la peticion y/o se ha generado un error interno
+
+  + Body
+  {"error_code":"M0019","message":"Internal error - Bad request"}
+
+
+### Eliminar Libre [DELETE /user/{userId}/challengfree/{challengeFreeId}]
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario
+    + challengeFreenId: `1` (required,number) - Identificador de libre
+    
++ Request (application/json) 
+  
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+
++ Response 200 (application/json)   
+    Se elimino el libre
+  + Body
+
+### Compartir Reto [POST /user/{userId}/challengeshare]
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario
+    
++ Request (application/json) 
+  
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+    
+    + Body
+    + Attributes
+        + challengeId: `1` (number, required) - Identificador de reto
+        + description: `buen reto` (required,string) - descripcion
+
+
++ Response 200 (application/json)   
+  + Body
+  
+   {
+    "id": 1,
+    "challengeId": 1,
+    "userId": 1,
+    "description": "buen reto",
+    "createDate": "2019-02-26 13:34:48",
+    "updateDate": "2019-02-26 13:34:48"
+    }
+
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+
++ Response 400 (application/json)         
+  El identificador de challengeId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found challengeId"}
+  
+  
++ Response 400 (application/json) 
+  El o los campos son requeridos
+
+  + Body
+
+  {
+    "error_code": "M0003",
+    "fields": [
+        {
+            "code": "M0003",
+            "field": "challengeId",
+            "issue": "The field is required"
+        }
+    ]
+  }
+
+### Actualizar Reto Compartido [PUT /user/{userId}/challengeshare/{challengeShareId}]
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario
+    + challengeShareId: `1` (required,number) - Identificador del reto compartido
+    
++ Request (application/json) 
+  
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+    
+    + Body
+    + Attributes
+        + description: `el super mega reto` (required,string) - descripcion
+
++ Response 200 (application/json)   
+  + Body   
+  
+    {
+    "id": 1,
+    "challengeId": 1,
+    "userId": 1,
+    "description": "el super mega reto",
+    "createDate": "2019-02-26 13:34:48",
+    "updateDate": "2019-02-26 13:36:53"
+    }
+    
++ Response 400 (application/json)         
+  El identificador de challengeShareId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found challengeShareId"}
+
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+  
+  
++ Response 400 (application/json) 
+  El o los campos son requeridos
+
+  + Body
+
+  {
+    "error_code": "M0003",
+    "fields": [
+        {
+            "code": "M0003",
+            "field": "description",
+            "issue": "The field is required"
+        }
+    ]
+    }
+
+### Obtener Retos Compartidos [GET /user/{userId}/challengeshare]
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario
+    + lat: `19.4284700` (optional,number) - Latitud del usuario
+    + lng: `-99.1276600` (optional,number) - Longitud del usuario
+    + items: `2` (optional,number) - Cantidad de items a consultar, maximo 1000
+    + page: `0` (optional,number) - Numero de pagina
+    + challengeshareid: `1` (optional,string) - Identificador de reto compartido
+    + userprofileid: `2` (optional,string) - Identificador de usuario
+    
++ Request (application/json) 
+  
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+
++ Response 200 (application/json)   
+  + Body     
+  
+    {
+    "user_challenge_shares": [
+        {
+            "id": 1,
+            "challengeId": 1,
+            "userId": 1,
+            "description": "el super mega reto",
+            "createDate": "2019-02-26 11:34:48",
+            "updateDate": "2019-02-26 11:36:53"
+        }
+    ],
+    "total_items_challengeshare": 1
+    }
+
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+  
++ Response 400 (application/json)         
+  Existe algun error en la peticion y/o se ha generado un error interno
+
+  + Body
+  {"error_code":"M0019","message":"Internal error - Bad request"}
+
+
+### Eliminar Reto Compartido [DELETE /user/{userId}/challengshare/{challengeShareId}]
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario
+    + challengeFreenId: `1` (required,number) - Identificador de libre
+    
++ Request (application/json) 
+  
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+
++ Response 200 (application/json)   
+    Se elimino el libre
+  + Body
+  
+
+### Denunciar Reto [POST /user/{userId}/challengereport]
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario
+    
++ Request (application/json) 
+  
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+    
+    + Body
+    + Attributes
+        + challengeId: `1` (required,number) - Identificador de reto
+        + description: `1` (required,string) - Descripcion de la denuncia
+
+
++ Response 200 (application/json)   
+  + Body
+  
+   {
+    "id": 1,
+    "challengeId": 1,
+    "userProfileId": 1,
+    "description": "denunciado",
+    "createDate": "2019-02-26 14:03:29",
+    "updateDate": "2019-02-26 14:03:29"
+    }
+
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+
++ Response 400 (application/json)         
+  El identificador de challengeId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found challengeId"}
+  
+  
++ Response 400 (application/json) 
+  El o los campos son requeridos
+
+  + Body
+
+  {
+    "error_code": "M0003",
+    "fields": [
+        {
+            "code": "M0003",
+            "field": "challengeId",
+            "issue": "The field is required"
+        }
+    ]
+  }
+
+### Actualizar Denuncia [PUT /user/{userId}/challengeshare/{challengeReportId}]
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario
+    + challengeReportId: `1` (required,number) - Identificador del reto compartido
+    
++ Request (application/json) 
+  
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+    
+    + Body
+    + Attributes
+        + description: `el super denuncia` (required,string) - descripcion
+
++ Response 200 (application/json)   
+  + Body   
+  
+    {
+    "id": 1,
+    "challengeId": 1,
+    "userProfileId": 1,
+    "description": "el super denuncia",
+    "createDate": "2019-02-26 14:03:29",
+    "updateDate": "2019-02-26 14:05:37"
+    }
+    
++ Response 400 (application/json)         
+  El identificador de challengeReportId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found challengeReportId"}
+
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+  
+  
++ Response 400 (application/json) 
+  El o los campos son requeridos
+
+  + Body
+
+  {
+    "error_code": "M0003",
+    "fields": [
+        {
+            "code": "M0003",
+            "field": "description",
+            "issue": "The field is required"
+        }
+    ]
+    }
+
+### Obtener Denuncias [GET /user/{userId}/challengeshare]
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario
+    + lat: `19.4284700` (optional,number) - Latitud del usuario
+    + lng: `-99.1276600` (optional,number) - Longitud del usuario
+    + items: `2` (optional,number) - Cantidad de items a consultar, maximo 1000
+    + page: `0` (optional,number) - Numero de pagina
+    + challengereportid: `1` (optional,string) - Identificador de denuncia
+    + userprofileid: `2` (optional,string) - Identificador de usuario
+    
++ Request (application/json) 
+  
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+
++ Response 200 (application/json)   
+  + Body     
+  
+    {
+    "challenge_reports": [
+        {
+            "id": 2,
+            "challengeId": 1,
+            "userProfileId": 1,
+            "description": "el super denuncia",
+            "createDate": "2019-02-26 12:03:29",
+            "updateDate": "2019-02-26 12:05:37"
+        }
+    ],
+    "total_items_challengereport": 1
+    }
+
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+  
++ Response 400 (application/json)         
+  Existe algun error en la peticion y/o se ha generado un error interno
+
+  + Body
+  {"error_code":"M0019","message":"Internal error - Bad request"}
+
+
+### Eliminar Denuncia [DELETE /user/{userId}/challengshare/{challengeReportId}]
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario
+    + challengeReportId: `1` (required,number) - Identificador de denuncia
+    
++ Request (application/json) 
+  
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+
++ Response 200 (application/json)   
+    Se elimino la denuncia
+  + Body
+
+### Registrar Like [POST /user/{userId}/challengelike]
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario
+    
++ Request (application/json) 
+  
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+    
+    + Body
+    + Attributes
+        + challengeId: `1` (required,number) - Identificador de reto
+        + typeLikeId: `1` (required,string) - Identificador de tipo de like
+
+
++ Response 200 (application/json)   
+  + Body
+  
+   {
+    "id": 1,
+    "challengeId": 1,
+    "userId": 1,
+    "createDate": "2019-02-26 14:25:12",
+    "updateDate": "2019-02-26 14:25:12",
+    "typeLikeId": 1
+    }
+
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+
++ Response 400 (application/json)         
+  El identificador de challengeId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found challengeId"}
+  
++ Response 400 (application/json)         
+  El identificador de typeLikeId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found typeLikeId"}
+  
++ Response 400 (application/json)         
+  Ya existe un like registrado para el reto
+
+  + Body
+  {"error_code": "M0024","message": "You already have a registered typeLike"}
+  
+  
++ Response 400 (application/json) 
+  El o los campos son requeridos
+
+  + Body
+
+  {
+    "error_code": "M0003",
+    "fields": [
+        {
+            "code": "M0003",
+            "field": "challengeId",
+            "issue": "The field is required"
+        }
+    ]
+  }
+
+### Actualizar Like [PUT /user/{userId}/challengelike/{challengeLikeId}]
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario
+    + challengeLikeId: `1` (required,number) - Identificador del reto compartido
+    
++ Request (application/json) 
+  
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+    
+    + Body
+    + Attributes
+        + typeLikeId: `2` (required,string) - Identificador tipo de like
+
++ Response 200 (application/json)   
+  + Body   
+  
+    {
+    "id": 1,
+    "challengeId": 1,
+    "userId": 1,
+    "createDate": "2019-02-26 14:25:12",
+    "updateDate": "2019-02-26 14:29:40",
+    "typeLikeId": 2
+    }
+    
++ Response 400 (application/json)         
+  El identificador de challengeLikeId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found challengeLikeId"}
+  
++ Response 400 (application/json)         
+  El identificador de challengeId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found challengeId"}
+
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+  
++ Response 400 (application/json)         
+  Ya existe un like registrado para el reto
+
+  + Body
+  {"error_code": "M0024","message": "You already have a registered typeLike"}
+  
+  
++ Response 400 (application/json) 
+  El o los campos son requeridos
+
+  + Body
+
+  {
+    "error_code": "M0003",
+    "fields": [
+        {
+            "code": "M0003",
+            "field": "typeLikeId",
+            "issue": "The field is required"
+        }
+    ]
+    }
+
+### Obtener Likes [GET /user/{userId}/challengelike]
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario
+    + lat: `19.4284700` (optional,number) - Latitud del usuario
+    + lng: `-99.1276600` (optional,number) - Longitud del usuario
+    + items: `2` (optional,number) - Cantidad de items a consultar, maximo 1000
+    + page: `0` (optional,number) - Numero de pagina
+    + challengelikeid: `1` (optional,string) - Identificador de like
+    + challengeid: `1` (optional,string) - Identificador de reto
+    + userprofileid: `2` (optional,string) - Identificador de usuario
+    
++ Request (application/json) 
+  
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+
++ Response 200 (application/json)   
+  + Body     
+  
+    {
+    "challenge_likes": [
+        {
+            "id": 3,
+            "challengeId": 1,
+            "userId": 1,
+            "createDate": "2019-02-26 12:25:12",
+            "updateDate": "2019-02-26 12:29:40",
+            "typeLikeId": 2
+        },
+        {
+            "id": 2,
+            "challengeId": 1,
+            "userId": 2,
+            "createDate": "2019-02-20 11:53:08",
+            "updateDate": "2019-02-20 11:53:08",
+            "typeLikeId": 1
+        }
+    ],
+    "total_items_challengelike": 2
+    }
+
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+  
++ Response 400 (application/json)         
+  Existe algun error en la peticion y/o se ha generado un error interno
+
+  + Body
+  {"error_code":"M0019","message":"Internal error - Bad request"}
+
+
+### Eliminar Like [DELETE /user/{userId}/challenglike/{challengeLikeId}]
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario
+    + challengeLikeId: `1` (required,number) - Identificador de like
+    
++ Request (application/json) 
+  
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+
++ Response 200 (application/json)   
+    Se elimino el like
+  + Body
+  
+
+### Comentar Reto [POST /user/{userId}/challenge{challengeId}/comment]
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario
+    + challengeId: `1` (required,number) - Identificador de usuario
+    
++ Request (application/json) 
+  
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+    
+    + Body
+    + Attributes
+        + idPadre: `0` (required,number) - Identificador comentario padre
+        + content: `buen reto` (required,string) - Contenido
+        + level: `0` (required,string) - Nivel del comentario
+
+
++ Response 200 (application/json)   
+  + Body
+  
+   {
+    "id": 1,
+    "content": "buen reto",
+    "createDate": "2019-02-26 15:11:39",
+    "updateDate": "2019-02-26 15:11:39",
+    "isActive": true,
+    "challengeId": 1,
+    "level": 0
+    }
+
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+
++ Response 400 (application/json)         
+  El identificador de challengeId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found challengeId"}
+
++ Response 400 (application/json) 
+  El o los campos son requeridos
+
+  + Body
+
+  {
+    "error_code": "M0003",
+    "fields": [
+        {
+            "code": "M0003",
+            "field": "content",
+            "issue": "The field is required"
+        }
+    ]
+  }
+
+### Actualizar Comentario [PUT /user/{userId}/commentchallenge/{commentChallengeId}]
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario
+    + commentChallengeId: `1` (required,number) - Identificador del comentario
+    
++ Request (application/json) 
+  
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+    
+    + Body
+    + Attributes
+        + content: `muy bueno el reto` (required,string) - Contenido del comentario
+
++ Response 200 (application/json)   
+  + Body   
+  
+    {
+    "id": 1,
+    "content": "muy bueno el reto",
+    "createDate": "2019-02-21 11:31:18",
+    "updateDate": "2019-02-26 15:21:40",
+    "isActive": true,
+    "challengeId": 1,
+    "level": 0
+    }
+    
++ Response 400 (application/json)         
+  El identificador de commentChallengeId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found commentChallengeId"}
+
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+  
++ Response 400 (application/json) 
+  El o los campos son requeridos
+
+  + Body
+
+  {
+    "error_code": "M0003",
+    "fields": [
+        {
+            "code": "M0003",
+            "field": "content",
+            "issue": "The field is required"
+        }
+    ]
+    }
+
+### Obtener Comentarios [GET /user/{userId}/challengelike]
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario
+    + lat: `19.4284700` (optional,number) - Latitud del usuario
+    + lng: `-99.1276600` (optional,number) - Longitud del usuario
+    + items: `2` (optional,number) - Cantidad de items a consultar, maximo 1000
+    + page: `0` (optional,number) - Numero de pagina
+    + challengeid: `1` (optional,string) - Identificador de reto
+    
++ Request (application/json) 
+  
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+
++ Response 200 (application/json)   
+  + Body     
+  
+    {
+    "comments_challenge": [
+        {
+            "id": 1,
+            "content": "muy bueno el reto",
+            "createDate": "2019-02-21 09:31:18",
+            "updateDate": "2019-02-26 13:21:40",
+            "isActive": true,
+            "challengeId": 1,
+            "level": 0,
+            "sonsComment": [
+                {
+                    "id": 3,
+                    "content": "que bueno va a ser",
+                    "createDate": "2019-02-21 11:44:20",
+                    "isActive": true,
+                    "challengeId": 1,
+                    "level": 1
+                }
+            ]
+        },
+        {
+            "id": 4,
+            "content": "que bueno va a ser",
+            "createDate": "2019-02-26 13:11:39",
+            "updateDate": "2019-02-26 13:11:39",
+            "isActive": true,
+            "challengeId": 1,
+            "level": 0
+        }
+    ],
+    "total_items_comments": 2
+    }
+
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+  
++ Response 400 (application/json)         
+  Existe algun error en la peticion y/o se ha generado un error interno
+
+  + Body
+  {"error_code":"M0019","message":"Internal error - Bad request"}
+
+
+### Eliminar Comentario [DELETE /user/{userId}/commentchalleng/{commentChallengeId}]
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario
+    + commentChallengeId: `1` (required,number) - Identificador de comentario
+    
++ Request (application/json) 
+  
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+
++ Response 200 (application/json)   
+    Se elimino el comentario
+  + Body
