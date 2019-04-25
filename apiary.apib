@@ -5263,11 +5263,10 @@ El identificador de userId no existe en el sistema
 
 ## Videos de Perfil [/user/{userId}/profilevideo]
 
-### Registrar Video de Perfil[POST /user/{userId}/profiletype_userprofile/:profileTypeUserProfileId/profilevideo]
+### Registrar Video de Perfil[POST /user/{userId}/profilevideo]
 
 + Parameters
     + userId: `1` (required,number) - Identificador de usuario
-    + profileTypeUserProfileId -  `1` (required,number) - Identificador de tipo de perfil _ perfil de usuario
     
 + Request (application/json) 
   
@@ -5277,10 +5276,12 @@ El identificador de userId no existe en el sistema
     + Body
     + Attributes
         + description: `mi video` (required) - Descripcion del video
+        + userSportId: `1` (required) - Identificador de user_sport
         + video: `data:video/mp4;base64,...`  (required) - video en base64
         + image: `data:image/jpeg;base64,...` (required) - imagen en base64
         + imageType: `jpg` (required) - extension/tipo de la imagen
         + videoType: `mp4` (required) - extension/tipo del video
+        + principal: `true` (optional) - determina si el video es video principal
 
 + Response 200 (application/json)   
   + Body
@@ -5293,7 +5294,9 @@ El identificador de userId no existe en el sistema
         "urlImage": "image120190115124503644.jpg",
         "imageType": "jpg",
         "videoType": "mp4",
-        "active": true
+        "active": true,
+        "principal": true,
+        "userSportId": 1
     }
 
 + Response 400 (application/json)         
