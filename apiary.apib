@@ -3986,11 +3986,15 @@ El identificador de userId no existe en el sistema
     + likeid: `1` (required,number) - Identificador de like de un usuario en una historia
     + likeCode: `CL001` (required,number) - Codigo identificadro de tipo de like
  
- 
+
 ### Obtener Historias de amigos [GET /user/{userId}/histories]
 
++ Parameters
+    + userId: `1` (required,number) - identificador de usuario
+    + full: `true` (optional,boolean) - indica si muestra todas las historias de los amigos
+  
 + Request (application/json) 
-    + Headers
+  + Headers
       Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
 
    
@@ -4024,6 +4028,7 @@ El identificador de userId no existe en el sistema
 ### Obtener Historias de usuario [GET /user/{userId}/history]
 
 + Request (application/json) 
+
     + Headers
       Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
 
