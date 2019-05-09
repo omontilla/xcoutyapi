@@ -4297,10 +4297,12 @@ El identificador de userId no existe en el sistema
         + image: `data:image/jpeg;base64,...` (required) - imagen en base64
         + imageType: `jpg` (required) - extension/tipo de la imagen
         + videoType: `mp4` (required) - extension/tipo del video
-
+        + userSportId: `1` (optional) - Identificador del deporte del usuario
+        + sportCategoryId: `1` (optional) - Identificador de la categoria del deporte
+ 
 + Response 200 (application/json)   
   + Body
-  
+ 
   {
         "id": 4,
         "description": "mi video",
@@ -4309,7 +4311,10 @@ El identificador de userId no existe en el sistema
         "urlImage": "http://35.227.223.87/image120181228133604153.jpg",
         "imageType": "jpg",
         "videoType": "mp4",
-        "active": true
+        "active": true,
+        "userSportId": 1,
+        "sportCategoryId": 1,
+        "category": true
   }
 
 + Response 400 (application/json)         
@@ -4353,15 +4358,18 @@ El identificador de userId no existe en el sistema
   + Body   
   
     {
-    "id": 4,
-    "description": "excelente video",
-    "urlVideo": "http://35.227.223.87/video120181228133600262.mp4",
-    "createDate": "2018-12-28 09:36:04",
-    "updateDate": "2018-12-28 09:41:29",
-    "urlImage": "http://35.227.223.87/image120181228133604153.jpg",
-    "imageType": "jpg",
-    "videoType": "mp4",
-    "active": true
+        "id": 4,
+        "description": "excelente video",
+        "urlVideo": "http://35.227.223.87/video120181228133600262.mp4",
+        "createDate": "2018-12-28 09:36:04",
+        "updateDate": "2018-12-28 09:41:29",
+        "urlImage": "http://35.227.223.87/image120181228133604153.jpg",
+        "imageType": "jpg",
+        "videoType": "mp4",
+        "active": true,
+        "userSportId": 1,
+        "sportCategoryId": 1,
+        "category": true
     }
 
 + Response 400 (application/json)         
@@ -4413,6 +4421,7 @@ El identificador de userId no existe en el sistema
     + from:  `2019-01-01` (optional,string) - Fecha creacion desde, si no se especifica to toma mayor o igual YYYY-MM-dd
     + to:  `2019-01-06` (optional,string) - Fecha de creacion hasta, si no se especifica from toma menor o igual YYYY-MM-dd
     + typelikeid:  `1` (optional,number) - Identificador de tipo de like, si se especifica, retorna los que mas tengan este tipo
+    + userSportId: `1` (optional,number) - Identificador del deporte de usuario
     
 + Request (application/json) 
   
@@ -4426,26 +4435,30 @@ El identificador de userId no existe en el sistema
     {
     "user_videos": [
         {
-            "id": 4,
-            "description": "excelente video",
-            "urlVideo": "http://35.227.223.87/video120181228133600262.mp4",
-            "createDate": "2018-12-28 07:36:04",
-            "urlImage": "http://35.227.223.87/image120181228133604153.jpg",
+            "id": 5,
+            "description": "mi video",
+            "urlVideo": "Videos/Usuarios/video120190508203713125.mp4",
+            "createDate": "2019-05-08 15:37:22",
+            "urlImage": "Imagenes/Usuarios/image120190508203722082.jpg",
             "imageType": "jpg",
             "videoType": "mp4",
             "active": true,
-            "likes": 1
+            "userSportId": 1,
+            "sportCategoryId": 1,
+            "category": true
         },
         {
-            "id": 3,
+            "id": 4,
             "description": "mi video",
-            "urlVideo": "http://35.227.223.87/video120181227144628107.mp4",
-            "createDate": "2018-12-27 08:46:34",
-            "urlImage": "http://35.227.223.87/image120181227144634248.jpg",
+            "urlVideo": "Videos/Usuarios/video120190508203205863.mp4",
+            "createDate": "2019-05-08 15:32:13",
+            "urlImage": "Imagenes/Usuarios/image120190508203212344.jpg",
             "imageType": "jpg",
             "videoType": "mp4",
             "active": true,
-            "likes": 2
+            "userSportId": 1,
+            "sportCategoryId": 0,
+            "category": false
         }
     ],
     "total_items_uservideos": 2
@@ -4490,6 +4503,50 @@ El identificador de userId no existe en el sistema
 
   + Body
   {"error_code": "M0009", "message": "no found userVideoId"}
+
+### Inactivar Video de Usuario[PUT /user/{userId}/uservideo/{userVideoId}/inactive]
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario
+    + userVideoId: `4` (required,number) - Identificador de video
+    
++ Request (application/json) 
+  
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+    
+    + Body
+
++ Response 200 (application/json)   
+  + Body
+
+    {
+        "id": 4,
+        "description": "excelente video",
+        "urlVideo": "http://35.227.223.87/video120181228133600262.mp4",
+        "createDate": "2018-12-28 09:36:04",
+        "updateDate": "2018-12-28 09:41:29",
+        "urlImage": "http://35.227.223.87/image120181228133604153.jpg",
+        "imageType": "jpg",
+        "videoType": "mp4",
+        "active": false,
+        "userSportId": 0,
+        "sportCategoryId": 0,
+        "category": false
+    }
+
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+  
++ Response 400 (application/json)         
+  El identificador de userVideoId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009", "message": "no found userVideoId"}
+  
 
 
 ### Registrar Denuncia[POST /user/{userId}/uservideo/{userVideoId}/report]
