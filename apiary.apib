@@ -4193,6 +4193,7 @@ El identificador de userId no existe en el sistema
   + Body
   {"error_code": "M0009","message": "no found userId"}
   
+
 ### Registrar vista de Usuario [POST /user/{userId}/history/{historyId}/view]
 
 + Request (application/json) 
@@ -4328,6 +4329,151 @@ El identificador de userId no existe en el sistema
     {
         "number_likes": 0
     }
+    
+
+### Registrar Comentario [POST /user/{userId}/history/{userHistoryId}/comment]
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario
+    + userHistoryId: `3` (required,number) - Identificador de historia
+    
++ Request (application/json) 
+  
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+    
+    + Body
+    + Attributes
+        + idPadre: `0` (optional) - identificador del comentario padre
+        + content: `muy bueno el video` (required) - contenido del comentario
+        + level: `0` (required) - nivel del comentario
+
++ Response 200 (application/json)   
+  + Body
+    {
+    "comments_user_history": {
+        "comment_id": 5,
+        "content": "muy bueno el video",
+        "create_date": "2019-05-21 14:11:04",
+        "update_date": "2019-05-21 14:11:04",
+        "level": 0,
+        "comment_sons": [],
+        "is_active": true
+    },
+    "total_items_comments": 5
+    }
+
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+
++ Response 400 (application/json)         
+  El identificador de userVideoId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userHistoryId"}
+  
++ Response 400 (application/json) 
+  El o los campos son requeridos
+
+  + Body
+
+  {
+    "error_code": "M0003",
+    "fields": [
+        {
+            "code": "M0003",
+            "field": "content",
+            "issue": "The field is required"
+        },
+        {
+            "code": "M0003",
+            "field": "level",
+            "issue": "The field is required"
+        }
+    ]
+  }
+  
+### Obtener Comentarios [GET /user/{userId}/history/{userHistoryId}/comment]
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario
+    + userHistoryId: `3` (required,number) - Identificador de historiao de usuario
+    + lat: `19.4284700` (optional,number) - latitud del usuario
+    + lng: `-99.1276600` (optional,number) - longitud del usuario
+    + items: `2` (optional,number) - cantidad de items a consultar, maximo 1000
+    + page: `0` (optional,number) - numero de pagina
+    
++ Request (application/json) 
+  
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+
++ Response 200 (application/json)   
+  + Body   
+
+{
+    "number_comments": 5,
+    "comments": [
+        {
+            "comment_id": 1,
+            "content": "super historia",
+            "create_date": "2019-05-20 10:51:52",
+            "update_date": "2019-05-20 10:51:52",
+            "level": 0,
+            "comment_sons": [],
+            "is_active": true
+        },
+        {
+            "comment_id": 2,
+            "content": "muy bueno el video",
+            "create_date": "2019-05-20 14:16:08",
+            "update_date": "2019-05-20 14:16:08",
+            "level": 0,
+            "comment_sons": [],
+            "is_active": true
+        },
+        {
+            "comment_id": 3,
+            "content": "muy bueno el video",
+            "create_date": "2019-05-20 14:23:25",
+            "update_date": "2019-05-20 14:23:25",
+            "level": 0,
+            "comment_sons": [
+                {
+                    "comment_id": 5,
+                    "content": "muy bueno el video",
+                    "create_date": "2019-05-21 13:11:04",
+                    "comment_sons": [],
+                    "is_active": true
+                },
+                {
+                    "comment_id": 4,
+                    "content": "muy bueno el video",
+                    "create_date": "2019-05-20 14:35:18",
+                    "comment_sons": [],
+                    "is_active": true
+                }
+            ],
+            "is_active": true
+        }
+    ]
+}
+
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+
++ Response 400 (application/json)         
+  El identificador de userVideoId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userVideoId"}
+
 
 ## Videos de Usuario [/user/{userId}/uservideo]
 
