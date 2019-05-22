@@ -1683,107 +1683,7 @@ Lista de servicios Back-End API
   + Body
   {"error_code": "M0009","message": "no found sportId"}
 
-## Localizaciones o Ubicaciones de usuario [/user/{userId}/locations]
-
-### Obtener ubicaciones [GET /user/{userId}/locations]
-+ Parameters
-    + userId: `1` (required,number) - Identificador de usuario.
-    + items: `2` (optional,string) - Cantidad de registros a mostrar hasta un maximo de 1000, si no se envia muestra el mas reciente.
-
-+ Request (application/json)
-    + Headers
-    Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
-
-+ Response 200 (application/json)
-    
-  + Body
-    {
-    "locations_user": [
-        {
-            "id": 12,
-            "lat": "51.5072",
-            "lng": "-0.1275",
-            "createDate": "2018-12-04 18:34:28"
-        },
-        {
-            "id": 11,
-            "lat": "19.4284700",
-            "lng": "-99.1276600",
-            "createDate": "2018-12-04 13:57:11"
-        }
-    ]
-    }
-
-+ Response 400 (application/json)
-El identificador de userId no existe en el sistema
-
-   + Body
-  {"error_code": "M0009","message": "no found userId"}
-
-### Registrar Ubicacion [POST /user/{userId}/locations]
-
-+ Parameters
-    + userId: `1` (required,number) - Identificador de usuario.
-
-+ Request (application/json) 
-    + Headers
-      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
-      
-    + Body
-    + Attributes
-        + lat: `51.5072` (required) - latitud del usuario
-        + lng: `-0.1275` (required) - longitud del usuario
-        
-+ Response 200 (application/json)
-    + Body
-    {
-        "id": 13,
-        "lat": "51.5072",
-        "lng": "-0.1275",
-        "createDate": "2018-12-05 09:25:12"
-    }
-    
-+ Response 400 (application/json)         
-  El identificador de userId no existe en el sistema
-
-  + Body
-  {"error_code": "M0009","message": "no found userId"}
-
-+ Response 400 (application/json)         
-  El campo es requerido, o los campos son requeridos
-
-  + Body
-  {
-    "error_code": "M0003",
-    "fields": [
-        {
-            "code": "M0003",
-            "field": "lng",
-            "issue": "The field is required"
-        }
-    ]
-   }
-
-+ Response 400 (application/json)         
-  El campo es requerido, o los campos son requeridos
-
-  + Body
-  {
-    "error_code": "M0003",
-    "fields": [
-        {
-            "code": "M0003",
-            "field": "lat",
-            "issue": "The field is required"
-        },
-        {
-            "code": "M0003",
-            "field": "lng",
-            "issue": "The field is required"
-        }
-    ]
-  }
-
+  
 ## Certificaciones de un deporte [/user/1/sport/1/certification]
 
 ### Obtener certificaciones [GET /user/{userId}/sport/{sportId}/certification] 
@@ -2159,7 +2059,7 @@ El identificador de userId no existe en el sistema
   + Body
   {"error_code": "M0009","message": "no found careerId"}
 
-## Notificaciones [/user/{userId}/notifications]
+## Notificaciones / Red social [/user/{userId}/notifications]
 
 ### Obtener Notificaciones [GET /user/{userId}/notifications]
 
@@ -2303,6 +2203,162 @@ El identificador de userId no existe en el sistema
   + Body
   {"error_code": "M0009","message": "no found notificationId"}
   
+### Obtener amigos de un usuario [GET /user/{userId}/friends]
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario
+  
++ Request (application/json) 
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+
++ Response 200 (application/json)   
+  + Body
+     {
+    "friends": [
+        {
+            "friend_id": 2,
+            "name": " Duin",
+            "image_profile": "image120181010154016319.jpg",
+            "is_favorite": false
+        }
+    ]
+    }
+
+### Eliminar amigo de un usuario [DELETE /user/{userId}/friends/{friendId}]  
+  
++ Parameters
+   + userId: `1` (required,number) - Identificador de usuario
+   + friendId: `1` (required,number) - Identificador de usuario a eliminar
+  
++ Request (application/json) 
+   + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+
++ Response 200 (application/json)
+
+
+
+## Localizaciones o Ubicaciones de usuario [/user/{userId}/locations]
+
+### Obtener ubicaciones [GET /user/{userId}/locations]
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario.
+    + items: `2` (optional,string) - Cantidad de registros a mostrar hasta un maximo de 1000, si no se envia muestra el mas reciente.
+
++ Request (application/json)
+    + Headers
+    Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+
++ Response 200 (application/json)
+    
+  + Body
+    {
+    "locations_user": [
+        {
+            "lat": 51.5072,
+            "lng": -0.1275
+        },
+        {
+            "lat": 19.4284700,
+            "lng": -99.1276600
+        }
+    ]
+    }
+
++ Response 400 (application/json)
+El identificador de userId no existe en el sistema
+
+   + Body
+  {"error_code": "M0009","message": "no found userId"}
+
+### Registrar Ubicacion [POST /user/{userId}/locations]
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario.
+
++ Request (application/json) 
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+      
+    + Body
+    + Attributes
+        + lat: `51.5072` (required) - latitud del usuario
+        + lng: `-0.1275` (required) - longitud del usuario
+        
++ Response 200 (application/json)
+    + Body
+    {
+        "lat": "51.5072",
+        "lng": "-0.1275"
+    }
+    
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+
++ Response 400 (application/json)         
+  El campo es requerido, o los campos son requeridos
+
+  + Body
+  {
+    "error_code": "M0003",
+    "fields": [
+        {
+            "code": "M0003",
+            "field": "lng",
+            "issue": "The field is required"
+        }
+    ]
+   }
+
++ Response 400 (application/json)         
+  El campo es requerido, o los campos son requeridos
+
+  + Body
+  {
+    "error_code": "M0003",
+    "fields": [
+        {
+            "code": "M0003",
+            "field": "lat",
+            "issue": "The field is required"
+        },
+        {
+            "code": "M0003",
+            "field": "lng",
+            "issue": "The field is required"
+        }
+    ]
+  }
+  
+  
+### Obtener Usuario cercanos [GET /user/{userId}/geolocation/{distance}]
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario.
+    + distance: `2` (optional,string) - Distancia en km en el radio que se quiere buscar usuarios.
+
++ Request (application/json)
+    + Headers
+    Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+
++ Response 200 (application/json)   
+  + Body
+      {
+        "users": [
+            {
+                "user_id": 2,
+                "full_name": "Jose Duin",
+                "photo": "image120181010154016319.jpg",
+                "distance": "423 Km",
+                "user_common": 0
+            }
+        ]
+    }
+
 ## Configuraciones de Sistema [/system/config]
 
 ### Obtener configuraciones de Sistema [GET /system/config]
@@ -5137,7 +5193,7 @@ El identificador de userId no existe en el sistema
     
     + Body
     + Attributes
-        + tipoLikeId: `1` (required) - Descripcion
+        + like_code: `CL001` (required) - code del tipo de like
 
 + Response 200 (application/json)   
   + Body
@@ -6144,7 +6200,7 @@ El identificador de userId no existe en el sistema
     
     + Body
     + Attributes
-        + tipoLikeId: `1` (required) - Descripcion
+        + like_code: `1` (required) - code del tipo de like
 
 + Response 200 (application/json)   
   + Body
