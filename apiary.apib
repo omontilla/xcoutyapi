@@ -1531,6 +1531,7 @@ Lista de servicios Back-End API
                 "active": true,
                 "principal": true,
                 "like": true,
+                "likeCode": "CL001",
                 "comments": []
             },
             "is_principal": true
@@ -1586,6 +1587,7 @@ Lista de servicios Back-End API
                 "active": true,
                 "principal": true,
                 "like": true,
+                "likeCode": "CL001",
                 "comments": []
             },
             "is_principal": false
@@ -3735,6 +3737,7 @@ El identificador de userId no existe en el sistema
             "videoType": "mp4",
             "active": true,
             "like": false,
+            "likeCode": "",
             "comments": []
         },
         {
@@ -3748,6 +3751,7 @@ El identificador de userId no existe en el sistema
             "videoType": "mp4",
             "active": true,
             "like": false,
+            "likeCode": "",
             "comments": []
         },
         {
@@ -3761,6 +3765,7 @@ El identificador de userId no existe en el sistema
             "videoType": "mp4",
             "active": true,
             "like": true,
+            "likeCode": "CL001",
             "comments": []
         }
     ],
@@ -4701,6 +4706,7 @@ El identificador de userId no existe en el sistema
             "sportCategoryId": 0,
             "likes": 2,
             "like": false,
+            "likeCode": "",
             "comments": [],
             "category": false
         },
@@ -4717,6 +4723,7 @@ El identificador de userId no existe en el sistema
             "sportCategoryId": 6,
             "likes": 1,
             "like": true,
+            "likeCode": "CL001",
             "comments": [
                 {
                     "id": 1,
@@ -5762,6 +5769,7 @@ El identificador de userId no existe en el sistema
             "principal": true,
             "likes": 1,
             "like": true,
+            "likeCode": "CL001",
             "comments": []
         },
         {
@@ -5775,7 +5783,8 @@ El identificador de userId no existe en el sistema
             "active": true,
             "principal": true,
             "likes": 2,
-            "like": true,
+            "like": false,
+            "likeCode": "",
             "comments": []
         }
     ],
@@ -6261,7 +6270,7 @@ El identificador de userId no existe en el sistema
     
     + Body
     + Attributes
-        + tipoLikeId: `2` (required) - Descripcion de denuncia
+        + like_code: `CL002` (required) - code del tipo de like
 
 + Response 200 (application/json)   
   + Body   
