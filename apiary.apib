@@ -5852,6 +5852,56 @@ El identificador de userId no existe en el sistema
 
   + Body
   {"error_code":"M0019","message":"Internal error - Bad request"}
+  
+
+### Colocar como video de perfil (o background) [POST /user/{userId}/profilevideo/{profileVideoId}]
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario
+    + profileVideoId: `4` (required,number) - Identificador de video
+    
++ Request (application/json) 
+  
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+    
+    + Body
+    {}
+
++ Response 200 (application/json)   
+  + Body   
+  
+    {
+        "id": 3,
+        "description": "mi video",
+        "urlVideo": "video120190115124459423.mp4",
+        "createDate": "2019-01-15 08:45:04",
+        "urlImage": "image120190115124503644.jpg",
+        "imageType": "jpg",
+        "videoType": "mp4",
+        "active": true,
+        "principal": true,
+        "userSportId": 1
+    }
+
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+  
++ Response 400 (application/json)         
+  El identificador de profileVideoId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009", "message": "no found profileVideoId"}
+
++ Response 400 (application/json)         
+  El video no pertenece a un deporte principal
+
+  + Body
+  {"error_code": "M0034","message": "Sport CS003 is not principal"}
+
 
 
 ### Eliminar Video de Perfil[DELETE /user/{userId}/profilevideo/{profileVideoId}]
