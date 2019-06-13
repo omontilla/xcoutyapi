@@ -1360,8 +1360,6 @@ Lista de servicios Back-End API
         }
     ]
 }
-
-
   
 ### Obtener Niveles Academicos del Usuario [GET /user/{userId}/useracademiclevel]
     
@@ -1418,6 +1416,81 @@ Lista de servicios Back-End API
   
     + Body
     {"error_code": "M0009","message": "no found userId"}
+    
+
+### Establecer visibilidad del Nivel Academico del Usuario [PUT /user/{userId}/useracademiclevel/{userAcademicLevelId}/{isVisible}]
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario
+    + userAcademicLevelId: `15` (required,number) - Identificador de nivel academico del usuario
+    + isVisible: `true` (required,boolean) - Visible true o false
+    
++ Request (application/json) 
+  
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+    
+    + Body
+    {}
+
++ Response 200 (application/json)   
+  + Body   
+
+
+{
+    "user_academic_levels": [
+        {
+            "id": 15,
+            "academicLevelId": 1,
+            "academicLevelName": "student",
+            "academicLevelInstitutionId": 2,
+            "academicLevelInstitutionName": "Columbia University",
+            "beginDate": "2013-01-29 00:00:00",
+            "finalDate": "2019-01-30 23:59:59",
+            "createDate": "2019-01-30 10:56:08",
+            "isPresent": false,
+            "updateDate": "2019-01-31 09:16:06",
+            "avgAcademicLevel": "A",
+            "visible" : true
+        },
+        {
+            "id": 11,
+            "academicLevelId": 1,
+            "academicLevelName": "student",
+            "academicLevelInstitutionId": 1,
+            "academicLevelInstitutionName": "Standford College",
+            "beginDate": "2019-01-20 00:00:00",
+            "finalDate": "2021-01-20 23:59:59",
+            "createDate": "2019-01-30 10:30:23",
+            "isPresent": false,
+            "updateDate": "2019-01-30 10:30:23",
+            "avgAcademicLevel": "12",
+            "visible" : false
+        }
+    ],
+    "total_items_useracademiclevels": 4
+}
+
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+
++ Response 400 (application/json)         
+  El identificador de userAcademicLevelId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userAcademicLevelId"}
+  
++ Response 400 (application/json)         
+  El identificador de academicLevelInstitutionId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found academicLevelInstitutionId"}
+  
+
+
 
 ### Eliminar Nivel Academico del Usuario [DELETE /user/{userId}/useracademicLevel/{userAcademiclevelId}]
 
