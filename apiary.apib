@@ -5978,6 +5978,49 @@ El identificador de userId no existe en el sistema
   + Body
   {"error_code": "M0034","message": "Sport CS003 is not principal"}
 
+### Establecer visibilidad del Video [PUT /user/{userId}/profilevideo/{profileVideoId}/{isVisible}]
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario
+    + profileVideoId: `15` (required,number) - Identificador de nivel academico del usuario
+    + isVisible: `true` (required,boolean) - Visible true o false
+    
++ Request (application/json) 
+  
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+    
+    + Body
+    {}
+
++ Response 200 (application/json)   
+  + Body
+
+    {
+        "id": 3,
+        "description": "mi video",
+        "urlVideo": "video120190115124459423.mp4",
+        "createDate": "2019-01-15 08:45:04",
+        "urlImage": "image120190115124503644.jpg",
+        "imageType": "jpg",
+        "videoType": "mp4",
+        "active": true,
+        "principal": true,
+        "userSportId": 1,
+        "visible" : true
+    }
+
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+
++ Response 400 (application/json)         
+  El identificador de profileVideoId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found profileVideoId"}
 
 
 ### Eliminar Video de Perfil[DELETE /user/{userId}/profilevideo/{profileVideoId}]
