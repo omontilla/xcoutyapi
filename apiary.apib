@@ -583,6 +583,7 @@ Lista de servicios Back-End API
     + userId: `1` (required,number) - Identificador de usuario
     + sportId: `1` (required,number) - Identificador de deporte
   
+
 ### Obtener atributos [GET]
     
 + Parameters    
@@ -671,6 +672,37 @@ Lista de servicios Back-End API
 
   + Body
   {"error_code": "M0019", "message": "El attribute CA029 already register"}
+  
+
+### Establecer visibilidad del Atributo [PUT /user/{userId}/sport/{userSportId}/attribute/{attributeCode}/{isVisible}]
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario
+    + userSportId: `15` (required,number) - Identificador del deporte del usuario
+    + isVisible: `true` (required,boolean) - Visible true o false
+    
++ Request (application/json) 
+  
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+    
+    + Body
+    {}
+
++ Response 200 (application/json)   
+
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+
++ Response 400 (application/json)         
+  El identificador de userSportId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userSportId"}
+  los atributos
 
 
 ### Eliminar atributo [DELETE /user/{userId}/sport/{sportId}/attribute/{attributeCode}]
@@ -1823,6 +1855,7 @@ Lista de servicios Back-End API
   + Body
   {"error_code": "M0009","message": "no found sportId"}
   
+
 ### Registrar certificacion [POST /user/{userId}/sport/{sportId}/certification] 
   
 + Parameters
@@ -1878,6 +1911,7 @@ Lista de servicios Back-End API
   + Body
   {"error_code": "M0009","message": "no found sportId"}
   
+
 ### Actualizar certificacion [PUT /user/{userId}/sport/{sportId}/certification] 
 
 + Parameters
@@ -1932,6 +1966,7 @@ Lista de servicios Back-End API
   + Body
   {"error_code": "M0009","message": "no found certification_id"}
   
+
 ### Eliminar certificacion [DELETE /user/{userId}/sport/{sportId}/certification/{certificationId}] 
 
 + Parameters
