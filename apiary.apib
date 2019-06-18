@@ -289,6 +289,7 @@ Lista de servicios Back-End API
   + Body
   {"error_code": "M0009","message": "no found userFavoriteId"}
   
+
 ### Eliminar perfil favorito de usuario [DELETE /user/{userId}/favorite/{userFavoriteId}]  
 
 + Request (application/json) 
@@ -297,6 +298,7 @@ Lista de servicios Back-End API
   
 + Response 200 (application/json)  
   
+
 ## Ajustes de usuario [/user/{userId}/setting]
 
 + Parameters
@@ -307,6 +309,7 @@ Lista de servicios Back-End API
   + Body
   {"error_code": "M0009","message": "no found userFavoriteId"}
   
+
 ### Obtener parametros de ajuste de usuario[GET]
 
 + Request (application/json) 
@@ -371,6 +374,25 @@ Lista de servicios Back-End API
         "shoe_size_code":"US",
         "shirt_size_code":"IN"
         }
+
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+  
+
+### Establecer visibilidad de settings[PUT /user/{userId}/setting/visibles]
+
++ Attributes
+    + address_visible: `TRUE` (optional,boolean) - visibilidad de la direccion
+    + phone_visible: `TRUE` (optional,boolean) - visibilidad deL phone
+
++ Request (application/json) 
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+
++ Response 200 (application/json)
 
 + Response 400 (application/json)         
   El identificador de userId no existe en el sistema
