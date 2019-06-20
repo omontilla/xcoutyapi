@@ -319,15 +319,29 @@ Lista de servicios Back-End API
 + Response 200 (application/json)   
   + Body
      {
-        "language_code": "EN",
-        "language_name": "ENGLISH",
-        "weight_code": "Lb",
-        "weight_name": "POUNDS",
-        "height_code": "ft",
-        "height_name": "FOOT",
-        "shoe_size_code":"US",
-        "shirt_size_code":"IN"
-        }
+    "setting": {
+        "language_code": "ES",
+        "language_name": "spanish",
+        "measuring_system_id": 1,
+        "measuring_system": "imperial",
+        "phone_visible": true,
+        "address_visible": true,
+        "email_visible": true,
+        "privacy": false,
+        "receive_invitations_challenge": false,
+        "appear_searches": true,
+        "convocatories": true,
+        "only_certified_scouts": true,
+        "reference_attribute": true,
+        "convocatories_notifications": true,
+        "friendship_notifications": true,
+        "challenge_notification": true,
+        "ranking_notifications": true,
+        "searching_scouts_notifications": true,
+        "reference_attribute_notifications": true,
+        "message_notifications": false
+    }
+}
 
 + Response 400 (application/json)         
   El identificador de userId no existe en el sistema
@@ -386,7 +400,39 @@ Lista de servicios Back-End API
 
 + Attributes
     + address_visible: `TRUE` (optional,boolean) - visibilidad de la direccion
-    + phone_visible: `TRUE` (optional,boolean) - visibilidad deL phone
+    + phone_visible: `TRUE` (optional,boolean) - visibilidad del phone
+    + email_visible: `TRUE` (optional,boolean) - visibilidad del mail
+    + privacy: `TRUE` (optional,boolean) - privacidad
+    + receive_invitations_challenge: `TRUE` (optional,boolean) - recibir invitaciones a retos
+    + appear_searches: `TRUE` (optional,boolean) - aparecer en busquedas
+    + convocatories: `TRUE` (optional,boolean) - convocatorias
+    + only_certified_scouts: `TRUE` (optional,boolean) - ser encontrado solo por scouts certificados
+    + reference_attribute: `TRUE` (optional,boolean) - recibir referencias de los atributos
+
++ Request (application/json) 
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+
++ Response 200 (application/json)
+
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+  
+
+### Establecer configuracion de notificaciones[PUT /user/{userId}/setting/notifications]
+
++ Attributes
+    + convocatories: `TRUE` (optional,boolean) - convocatorias
+    + friendship: `TRUE` (optional,boolean) - amistad
+    + email_visible: `TRUE` (optional,boolean) - visibilidad del mail
+    + challenge: `TRUE` (optional,boolean) - retos
+    + ranking: `TRUE` (optional,boolean) - ranking
+    + reference_attribute: `TRUE` (optional,boolean) - recibir referencias en atributos
+    + searching_scouts: `TRUE` (optional,boolean) - buscado por scouts
+    + messages: `TRUE` (optional,boolean) - mensajes
 
 + Request (application/json) 
     + Headers
