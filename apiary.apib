@@ -2279,6 +2279,7 @@ Lista de servicios Back-End API
   + Body
   {"error_code": "M0003","message": "The field is required"}
   
+
 ### Enviar Referencia [POST /user/{userId}/notifications/reference/{userIdInvite}]
 
 + Parameters
@@ -2319,6 +2320,7 @@ Lista de servicios Back-End API
   + Body
   {"error_code": "M0009","message": "no found sport_id"}
   
+
 ### Enviar Solicitud de amistad [POST /user/{userId}/notifications/friend/{userIdInvite}]
 
 + Parameters
@@ -2347,6 +2349,7 @@ Lista de servicios Back-End API
   + Body
   {"error_code": "M0013","message": "You have already sent a friend request"}  
   
+
 ### Aceptar/declinar solicitudes de amistad o referencia [POST /user/{userId}/notifications/{notificationId}/condition/{condition}]
 
 + Parameters
@@ -2381,6 +2384,7 @@ Lista de servicios Back-End API
   + Body
   {"error_code": "M0009","message": "no found notificationId"}
   
+
 ### Obtener amigos de un usuario [GET /user/{userId}/friends]
 
 + Parameters
@@ -2415,7 +2419,44 @@ Lista de servicios Back-End API
 
 + Response 200 (application/json)
 
+## Notificaciones Push [/v1/user/notifications/token]
 
+### Registrar Token [POST /v1/user/notifications/token]
+
++ Request (application/json) 
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+
++ Attributes
+    + user_id: `1` (required,number) - Identificador de usuario
+    + token_type: `2` (required,string) - tipo del token
+    + device_id: `0001` (required, string) - id del dispositivo
+    + token_device: `e1eBDfu0vmU...` (required, string) - token.
+    
++ Response 200 (application/json)
+  Token registrado 
+  + body
+    
++ Response 400 (application/json)         
+  El identificador de user_id no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found user_id"}
+  
++ Response 400 (application/json)         
+  El campo es requerido, o los campos son requeridos
+
+  + Body
+  {
+    "error_code": "M0003",
+    "fields": [
+        {
+            "code": "M0003",
+            "field": "token_device",
+            "issue": "The field is required"
+        }
+    ]
+   } 
 
 ## Localizaciones o Ubicaciones de usuario [/user/{userId}/locations]
 
