@@ -2239,6 +2239,57 @@ Lista de servicios Back-End API
 
 ## Notificaciones / Red social [/user/{userId}/notifications]
 
+
+### Buscar de usuarios [GET /user/{userId}/search/{search}]
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario
+    + search: `0` (optional, string)  - String a buscar
+    + page:   `0` (optional, string)  - Numero de pagina
+    + items: `10` (optional, string) - Cantidad de registros a consultar
+
++ Request (application/json) 
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+
++ Response 200 (application/json)   
+  + Body
+  
+  {
+    "search": [
+        {
+            "user_id": 4,
+            "nick_name": "jduin",
+            "sport": "fútbol",
+            "url_image": "image120181010154016319.jpg",
+            "user_common": 0,
+            "is_favorite": false,
+            "full_name": "Jose Duin Garcia"
+        },
+        {
+            "user_id": 2,
+            "nick_name": "JoseDuin",
+            "url_image": "Imagenes/Presentacion/image120190426034417487.jpg",
+            "status": "Ya son amigos",
+            "status_code": "SS001",
+            "user_common": 0,
+            "is_favorite": false,
+            "full_name": "Jose Duin"
+        },
+        {
+            "user_id": 3,
+            "url_image": "Imagenes/Presentacion/image620190501205205133.jpg",
+            "status": "Ya son amigos",
+            "status_code": "SS001",
+            "user_common": 0,
+            "is_favorite": false,
+            "full_name": "Jose Miguel Duin Garcia"
+        }
+    ],
+    "total_items_search": 3
+}
+
+
 ### Obtener Notificaciones [GET /user/{userId}/notifications]
 
 + Parameters
@@ -2246,7 +2297,52 @@ Lista de servicios Back-End API
     + page: `0` (optional, string)  - Numero de pagina
     + items: `10` (optional, string) - Cantidad de registros a consultar
     + lat: `19.4284700` (required, string) - Latitud del usuario
+    + type: `MN001` (required,number) - Identificador tipo de notificacion, si son notificaciones de amigos(MN001) o notificaciones de referencia(MN002)
     + lng: `99.1276600` (required, string) - Longitud del usuario
+
+    
++ Request (application/json) 
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+
+
+
++ Response 200 (application/json)   
+  + Body
+    {
+    "notifications": [
+        {
+            "notification_id": 1,
+            "code": "MN001",
+            "message": "Jose Duin has sent a reference request about your sport Baseball",
+            "image": "http://35.227.223.87/image120181010154016319.jpg",
+            "time": "2018-11-30 13:02:33"
+        }
+    ],
+    "total_items_notifications": 1
+    }
+
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+  
++ Response 400 (application/json) 
+  faltan campos obligatorios
+  
+  + Body
+  {"error_code": "M0003","message": "The field is required"}
+  
+### Obtener Notificaciones enviadas [GET /user/{userId}/notifications/sent]
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario
+    + page: `0` (optional, string)  - Numero de pagina
+    + items: `10` (optional, string) - Cantidad de registros a consultar
+    + type: `MN001` (required,number) - Identificador tipo de notificacion, si son notificaciones de amigos(MN001) o notificaciones de referencia(MN002)
+    + lng: `99.1276600` (required, string) - Longitud del usuario
+
     
 + Request (application/json) 
     + Headers
@@ -2279,7 +2375,7 @@ Lista de servicios Back-End API
   + Body
   {"error_code": "M0003","message": "The field is required"}
   
-
+  
 ### Enviar Referencia [POST /user/{userId}/notifications/reference/{userIdInvite}]
 
 + Parameters
@@ -2389,6 +2485,7 @@ Lista de servicios Back-End API
 
 + Parameters
     + userId: `1` (required,number) - Identificador de usuario
+    + search: `duin` (optional,number)- Buscador por nombre
   
 + Request (application/json) 
     + Headers
@@ -2396,7 +2493,7 @@ Lista de servicios Back-End API
 
 + Response 200 (application/json)   
   + Body
-     {
+ {
     "friends": [
         {
             "friend_id": 2,
@@ -2404,8 +2501,9 @@ Lista de servicios Back-End API
             "image_profile": "image120181010154016319.jpg",
             "is_favorite": false
         }
-    ]
-    }
+    ],
+    "total_items_friends": 1
+}
 
 ### Eliminar amigo de un usuario [DELETE /user/{userId}/friends/{friendId}]  
   
@@ -2418,6 +2516,65 @@ Lista de servicios Back-End API
       Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
 
 + Response 200 (application/json)
+
+
+### Obtener Usuario cercanos [GET /user/{userId}/geolocation/{distance}]
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario.
+    + distance: `2` (optional,string) - Distancia en km en el radio que se quiere buscar usuarios.
+
++ Request (application/json)
+    + Headers
+    Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+
++ Response 200 (application/json)   
+  + Body
+      {
+        "users": [
+            {
+                "user_id": 2,
+                "full_name": "Jose Duin",
+                "photo": "image120181010154016319.jpg",
+                "distance": "423 Km",
+                "user_common": 0
+            }
+        ]
+    }
+    
+### Obtener Usuario de la libreta de contactos [POST /user/{userId}/friends/contacts]
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario.
+
++ Request (application/json)
+    + Headers
+    Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+
++ Response 200 (application/json)   
+  + Body
+{
+    "contacts": [
+        {
+            "user_id": 1,
+            "email": "montilla.t31111@gmail.com",
+            "nick_name": "omontilla",
+            "sport": "Beisbol",
+            "url_image": "image120181010154016319.jpg",
+            "status": "Ya son amigos",
+            "status_code": "SS001",
+            "user_common": 0,
+            "is_favorite": false,
+            "full_name": "oscar Montilla"
+        },
+        {
+            "email": "montilla.t31@gmail.com",
+            "status": "No se encuentra registrado en la app",
+            "status_code": "SS004"
+        }
+    ],
+    "total_items_contacts": 2
+}
 
 ## Notificaciones Push [/v1/user/notifications/token]
 
@@ -2456,7 +2613,572 @@ Lista de servicios Back-End API
             "issue": "The field is required"
         }
     ]
-   } 
+   }
+   
+
+### Registrar Entidad [POST /v1/user/entity]
+
++ Request (application/json) 
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+
++ Attributes
+    + code: `0007` (required,number) - Codigo de la entidad
+    + name: `CommentUserVideo` (required,string) - Nombre de la clase
+    + canonicalName: `models.comments.CommentUserVideo` (required, string) - Nombre canonico o con paquete
+    + descriptio: `clase comentarios de videos de usuario` (required, string) - descripcion.
+    
++ Response 200 (application/json)
+  + body
+    {
+    "id": 8,
+    "code": "0006",
+    "name": "CommentUserVideo",
+    "canonicalName": "models.comments.CommentUserVideo",
+    "description": "clase comentarios de videos de usuario",
+    "active": true,
+    "creationDate": "2019-07-16 09:42:59",
+    "updateDate": "2019-07-16 09:42:59"
+    }
+    
++ Response 400 (application/json)         
+  Campo excede la longitud permitida
+
+  + Body
+  {
+    "error_code": "M0033",
+    "fields": [
+        {
+            "code": "M0033",
+            "field": "code",
+            "issue": "The length of fields is exceded"
+        }
+    ]
+    }
+  
++ Response 400 (application/json)         
+  El campo es requerido, o los campos son requeridos
+
+  + Body
+  {
+    "error_code": "M0003",
+    "fields": [
+        {
+            "code": "M0003",
+            "field": "canonicalName",
+            "issue": "The field is required"
+        }
+    ]
+    }
+    
+
+### Modificar Entidad [PUT /v1/user/entity{entityId}]
+
++ Request (application/json) 
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+
++ Attributes
+    + entityId: `8` (required,number) - Identificador de la entidad
+    + code: `0007` (required,string) - Codigo de la entidad
+    + name: `CommentUserVideo` (required,string) - Nombre de la clase
+    + canonicalName: `models.comments.CommentUserVideo` (required, string) - Nombre canonico o con paquete
+    + descriptio: `clase comentarios de videos de usuario` (required, string) - descripcion.
+    + active: `false` (required,boolean) - Activo o inactivo
+    
++ Response 200 (application/json)
+  + body
+    {
+    "id": 8,
+    "code": "0006",
+    "name": "CommentUserVideo",
+    "canonicalName": "models.comments.CommentUserVideo",
+    "description": "clase comentarios de videos de usuario",
+    "active": false,
+    "creationDate": "2019-07-16 09:42:59",
+    "updateDate": "2019-07-16 09:49:28"
+    }
+    
++ Response 400 (application/json)         
+  Campo excede la longitud permitida
+
+  + Body
+  {
+    "error_code": "M0033",
+    "fields": [
+        {
+            "code": "M0033",
+            "field": "code",
+            "issue": "The length of fields is exceded"
+        }
+    ]
+    }
+  
++ Response 400 (application/json)         
+  El campo es requerido, o los campos son requeridos
+
+  + Body
+  {
+    "error_code": "M0003",
+    "fields": [
+        {
+            "code": "M0003",
+            "field": "canonicalName",
+            "issue": "The field is required"
+        }
+    ]
+    }
+
+### Obtener entidades [GET /v1/user/entities]
++ Parameters
+    + entidadid: `1` (optional,number) - Identificador de entidad.
+    + items: `2` (optional,string) - Cantidad de registros a mostrar hasta un maximo de 1000, si no se envia muestra el mas reciente.
+    + page: `0` (optional,string) - Numero de pagina
+    + name: `comment` (optional,string) - Nombre de la entidad
+
++ Request (application/json)
+    + Headers
+    Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+
++ Response 200 (application/json)
+    
+  + Body
+    {
+    "entidades": [
+        {
+            "id": 8,
+            "code": "0006",
+            "name": "CommentUserVideo",
+            "canonicalName": "models.comments.CommentUserVideo",
+            "description": "clase comentarios de videos de usuario",
+            "active": false,
+            "creationDate": "2019-07-16 09:42:59",
+            "updateDate": "2019-07-16 09:49:28"
+        },
+        {
+            "id": 7,
+            "code": "0006",
+            "name": "CommentProfileVideo",
+            "canonicalName": "models.comments.CommentProfileVideo",
+            "description": "clase comentario de videos de perfil",
+            "active": true,
+            "creationDate": "2019-07-11 09:52:13",
+            "updateDate": "2019-07-11 09:52:13"
+        }
+    ],
+    "total_items_entidades": 7
+    }
+
++ Response 404 (application/json)
+    error interno o peticion incorrecta
+
+   + Body
+  {"error_code": "M0019","message": "Internal error or bad request"}
+  
+
+### Obtener atributos [GET /v1/user/entity/{entidadId}]
++ Parameters
+    + entidadId: `1` (requerid,number) - Identificador de entidad.
+
++ Request (application/json)
+    + Headers
+    Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+
++ Response 200 (application/json)
+    
+  + Body
+    {
+    "entity": "Entidad",
+    "destinatary_posible": [],
+    "attributes": [
+        ":id",
+        ":code",
+        ":name",
+        ":canonicalName",
+        ":description",
+        ":active",
+        ":creationDate",
+        ":updateDate"
+    ]
+    }
+
++ Response 404 (application/json)
+    error interno o peticion incorrecta
+
+   + Body
+  {"error_code": "M0019","message": "Internal error or bad request"}
+
+### Eliminar Entidad [DELETE /v1/user/entity/{entidadId}]
++ Parameters
+    + entidadId: `8` (required,number) - Identificador de usuario
+    
++ Request (application/json) 
+  
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+
++ Response 200 (application/json)   
+    Se elimino el comentario
+  + Body
+  
+
+### Registrar Configuracion [PUT /v1/user/confignotificationspush]
+
++ Request (application/json) 
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+
++ Attributes
+    + entityId: `7` (required,number) - Identificador de la entidad
+    + operationId: `1` (required,string) - Identificador de la operacion
+    + notificationPushTitle: `comentario de :userProfile.name :userProfile.lastName` (required, string) - Titulo
+    + notificationPushMsg: `:content` (required, string) - mensaje.
+    + destinataryOrigin: `:profileVideo.userProfile.id` (required, string) - variable para obtener id de usuario destinatario
+    + singleMessage: `:false` (required, boolean) - es mensaje simple.
+    + shipType: `1` (required, number) - tipo de envio segun enumerado.
+    + data.keyOrigin: `pathView` (optional, string) - key de origen.
+    + data.valueOrigin: `post` (optional, string) - value de origen.
+    
++ Response 200 (application/json)
+  + body
+    {
+    "id": 20,
+    "entityId": 7,
+    "operationId": 1,
+    "notificationPushMsg": ":content ",
+    "notificationPushTitle": "Tienes un nuevo comentario de :userProfile.name :userProfile.lastName",
+    "destinataryOrigin": ":profileVideo.userProfile.id",
+    "shipType": 0,
+    "active": true,
+    "creationDate": "2019-07-16 14:14:44",
+    "updateDate": "2019-07-16 14:14:44"
+    }
+    
++ Response 400 (application/json)         
+  Campo excede la longitud permitida
+
+  + Body
+  {
+    "error_code": "M0033",
+    "fields": [
+        {
+            "code": "M0033",
+            "field": "notificationPushTitle",
+            "issue": "The length of fields is exceded"
+        }
+    ]
+    }
+  
++ Response 400 (application/json)         
+  El campo es requerido, o los campos son requeridos
+
+  + Body
+  {
+    "error_code": "M0003",
+    "fields": [
+        {
+            "code": "M0003",
+            "field": "notificationPushTitle",
+            "issue": "The field is required"
+        }
+    ]
+    }
+
+
+### Modificar Configuracion [POST /v1/user/confignotificationspush/{configId}]
+
++ Request (application/json) 
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+
++ Attributes
+    + configId: `20` (required,number) - Identificador de la configuracion
+    + entityId: `7` (required,number) - Identificador de la entidad
+    + operationId: `1` (required,string) - Identificador de la operacion
+    + notificationPushTitle: `comentario de :userProfile.name :userProfile.lastName` (required, string) - Titulo
+    + notificationPushMsg: `:content` (required, string) - mensaje.
+    + destinataryOrigin: `:profileVideo.userProfile.id` (required, string) - variable para obtener id de usuario destinatario
+    + singleMessage: `:false` (required, boolean) - es mensaje simple.
+    + shipType: `1` (required, number) - tipo de envio segun enumerado.
+    + active: `true` (required, boolean) - activo o inactivo.
+    
++ Response 200 (application/json)
+  + body
+    {
+    "id": 20,
+    "entityId": 5,
+    "operationId": 1,
+    "notificationPushMsg": "mensaje de la notificacion",
+    "notificationPushTitle": "titulo de notificacion",
+    "destinataryOrigin": "userVideo.userProfile.id",
+    "shipType": 0,
+    "active": true,
+    "creationDate": "2019-07-16 14:14:44",
+    "updateDate": "2019-07-16 14:32:54"
+    }
+    
++ Response 400 (application/json)         
+  Campo excede la longitud permitida
+
+  + Body
+  {
+    "error_code": "M0033",
+    "fields": [
+        {
+            "code": "M0033",
+            "field": "notificationPushTitle",
+            "issue": "The length of fields is exceded"
+        }
+    ]
+    }
+  
++ Response 400 (application/json)         
+  El campo es requerido, o los campos son requeridos
+
+  + Body
+  {
+    "error_code": "M0003",
+    "fields": [
+        {
+            "code": "M0003",
+            "field": "notificationPushTitle",
+            "issue": "The field is required"
+        }
+    ]
+    }
+    
+
+### Obtener configuraciones [GET /v1/user/configsnotificationspush]
++ Parameters
+    + configid: `1` (optional,number) - Identificador de configuracion.
+    + entidadid: `1` (optional,number) - Identificador de entidad.
+    + operationid: `1` (optional,number) - Identificador de operacion.
+    + items: `2` (optional,string) - Cantidad de registros a mostrar hasta un maximo de 1000, si no se envia muestra el mas reciente.
+    + page: `0` (optional,string) - Numero de pagina
+    + title: `comment` (optional,string) - titulo configurado
+
++ Request (application/json)
+    + Headers
+    Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+
++ Response 200 (application/json)
+    
+  + Body
+    {
+    "configs_notifications_push": [
+        {
+            "id": 20,
+            "entityId": 5,
+            "operationId": 1,
+            "notificationPushMsg": "mensaje de la notificacion",
+            "notificationPushTitle": "titulo de notificacion",
+            "destinataryOrigin": "userVideo.userProfile.id",
+            "shipType": 0,
+            "active": true,
+            "creationDate": "2019-07-16 14:14:44",
+            "updateDate": "2019-07-16 14:32:54"
+        },
+        {
+            "id": 19,
+            "entityId": 7,
+            "operationId": 1,
+            "notificationPushMsg": ":content ",
+            "notificationPushTitle": "Tienes un nuevo comentario de :userProfile.name :userProfile.lastName",
+            "destinataryOrigin": ":profileVideo.userProfile.id",
+            "shipType": 0,
+            "active": true,
+            "creationDate": "2019-07-15 09:53:13",
+            "updateDate": "2019-07-15 09:53:13"
+        }
+    ],
+    "total_items_configs": 2
+}
+
++ Response 404 (application/json)
+    error interno o peticion incorrecta
+
+   + Body
+  {"error_code": "M0019","message": "Internal error or bad request"}
+  
+
+### Eliminar Configuracion [DELETE /v1/user/confignotificationspush/{configId}]
++ Parameters
+    + configId: `8` (required,number) - Identificador de usuario
+    
++ Request (application/json) 
+  
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+
++ Response 200 (application/json)   
+    Se elimino el comentario
+  + Body
+
+### Registrar Data [POST /v1/user/confignotificationspushdata]
+
++ Request (application/json) 
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+
++ Attributes
+    + configNotificationsPushId: `7` (required,number) - Identificador de la configuracion
+    + keyOrigin: `pathView` (required, string) - key de origen.
+    + valueOrigin: `post` (required, string) - value de origen.
+    
++ Response 200 (application/json)
+  + body
+    {
+    "id": 11,
+    "keyOrigin": "key",
+    "valueOrigin": "value",
+    "configNotificationPushId": 20,
+    "creationDate": "2019-07-16 14:49:09",
+    "updateDate": "2019-07-16 14:49:09"
+    }
+    
++ Response 400 (application/json)         
+  No se encuentra el id de la configuracion
+
+  + Body
+    {
+    "error_code": "M0009",
+    "message": "no found configNotificationsPushId"
+    }
+  
++ Response 400 (application/json)         
+  El campo es requerido, o los campos son requeridos
+
+  + Body
+  {
+    "error_code": "M0003",
+    "fields": [
+        {
+            "code": "M0003",
+            "field": "keyOrigin",
+            "issue": "The field is required"
+        }
+    ]
+    }
+
+
+### Modificar Data [PUT /v1/user/confignotificationspushdata/{confignotificationspushdataId}]
+
++ Request (application/json) 
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+
++ Attributes
+    + confignotificationspushdataId: `20` (required,number) - Identificador de la configuracion
+    + configNotificationsPushId: `7` (required,number) - Identificador de la configuracion
+    + keyOrigin: `pathView` (required, string) - key de origen.
+    + valueOrigin: `post` (required, string) - value de origen.
+    
++ Response 200 (application/json)
+  + body
+    {
+    "id": 20,
+    "entityId": 5,
+    "operationId": 1,
+    "notificationPushMsg": "mensaje de la notificacion",
+    "notificationPushTitle": "titulo de notificacion",
+    "destinataryOrigin": "userVideo.userProfile.id",
+    "shipType": 0,
+    "active": true,
+    "creationDate": "2019-07-16 14:14:44",
+    "updateDate": "2019-07-16 14:32:54"
+    }
+    
++ Response 400 (application/json)         
+  No se encuentra el id de la configuracion de data
+
+  + Body
+    {
+    "error_code": "M0009",
+    "message": "no found configNotificationsPushDataId"
+    }
+    
++ Response 400 (application/json)         
+  No se encuentra el id de la configuracion
+
+  + Body
+    {
+    "error_code": "M0009",
+    "message": "no found configNotificationsPushId"
+    }
+  
++ Response 400 (application/json)         
+  El campo es requerido, o los campos son requeridos
+
+  + Body
+  {
+    "error_code": "M0003",
+    "fields": [
+        {
+            "code": "M0003",
+            "field": "keyOrigin",
+            "issue": "The field is required"
+        }
+    ]
+    }
+    
+
+### Obtener datas [GET /v1/user/configsnotificationspushdatas]
++ Parameters
+    + configid: `1` (optional,string) - Identificador de configuracion.
+    + dataconfigid: `1` (optional,string) - Identificador de la configuracion de data.
+    + keyorigin: `1` (optional,string) - Key de origen.
+    + items: `2` (optional,string) - Cantidad de registros a mostrar hasta un maximo de 1000, si no se envia muestra el mas reciente.
+    + page: `0` (optional,string) - Numero de pagina
+
++ Request (application/json)
+    + Headers
+    Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+
++ Response 200 (application/json)
+    
+  + Body
+    {
+    "datas_configs_notificationspush": [
+        {
+            "id": 11,
+            "keyOrigin": "key",
+            "valueOrigin": "value",
+            "configNotificationPushId": 20,
+            "creationDate": "2019-07-16 14:49:09",
+            "updateDate": "2019-07-16 14:49:09"
+        },
+        {
+            "id": 9,
+            "keyOrigin": "pathView",
+            "valueOrigin": "post",
+            "configNotificationPushId": 20,
+            "creationDate": "2019-07-16 14:14:44",
+            "updateDate": "2019-07-16 14:14:44"
+        }
+    ],
+    "total_items_datasconfig": 5
+    }
+
++ Response 404 (application/json)
+    error interno o peticion incorrecta
+
+   + Body
+  {"error_code": "M0019","message": "Internal error or bad request"}
+  
+
+### Eliminar Data [DELETE /v1/user/confignotificationspushdata/{confignotificationspushdataId}]
++ Parameters
+    + confignotificationspushdataId: `8` (required,number) - Identificador de configuracion de data
+    
++ Request (application/json) 
+  
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+
++ Response 200 (application/json)   
+    Se elimino la data
+  + Body
+
 
 ## Localizaciones o Ubicaciones de usuario [/user/{userId}/locations]
 
@@ -2553,31 +3275,6 @@ El identificador de userId no existe en el sistema
     ]
   }
   
-  
-### Obtener Usuario cercanos [GET /user/{userId}/geolocation/{distance}]
-
-+ Parameters
-    + userId: `1` (required,number) - Identificador de usuario.
-    + distance: `2` (optional,string) - Distancia en km en el radio que se quiere buscar usuarios.
-
-+ Request (application/json)
-    + Headers
-    Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
-
-+ Response 200 (application/json)   
-  + Body
-      {
-        "users": [
-            {
-                "user_id": 2,
-                "full_name": "Jose Duin",
-                "photo": "image120181010154016319.jpg",
-                "distance": "423 Km",
-                "user_common": 0
-            }
-        ]
-    }
-
 ## Configuraciones de Sistema [/system/config]
 
 ### Obtener configuraciones de Sistema [GET /system/config]
