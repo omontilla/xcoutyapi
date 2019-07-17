@@ -2518,7 +2518,7 @@ Lista de servicios Back-End API
 + Response 200 (application/json)
 
 
-### Obtener Usuario cercanos [GET /user/{userId}/geolocation/{distance}]
+### Obtener Usuarios cercanos [GET /user/{userId}/geolocation/{distance}]
 
 + Parameters
     + userId: `1` (required,number) - Identificador de usuario.
@@ -2530,19 +2530,110 @@ Lista de servicios Back-End API
 
 + Response 200 (application/json)   
   + Body
-      {
-        "users": [
-            {
-                "user_id": 2,
-                "full_name": "Jose Duin",
-                "photo": "image120181010154016319.jpg",
-                "distance": "423 Km",
-                "user_common": 0
-            }
+   {
+    "users": [
+        {
+            "user_id": 1,
+            "full_name": "oscar Montilla",
+            "photo": "image120181010154016319.jpg",
+            "user_common": 3,
+            "commons":"perfil1, perfil2, perfil3",
+            "sport": "Baseball"
+        }
+    ]
+    }
+    
+### Obtener Usuarios recomendados [GET /user/{userId}/geolocation/{distance}]
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario.
+    + distance: `2` (optional,string) - Distancia en km en el radio que se quiere buscar usuarios.
+
++ Request (application/json)
+    + Headers
+    Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+
++ Response 200 (application/json)   
+  + Body
+     {
+    "users": [
+        {
+            "user_id": 11,
+            "full_name": "maholy rada",
+            "photo": "Imagenes/Presentacion/image1120190529003609330.jpg",
+            "user_common": 2,
+            "commons": "image120181010154016319.jpg,Imagenes/Presentacion/image120190715004614248.jpg",
+            "sport": "Basketball"
+        },
+        {
+            "user_id": 12,
+            "full_name": "Marwin  Campos",
+            "photo": "image120181010154016319.jpg",
+            "user_common": 0,
+            "sport": "Volleyball"
+        },
+        {
+            "user_id": 7,
+            "full_name": "Marwin  Campos",
+            "photo": "image120181010154016319.jpg",
+            "user_common": 0,
+            "sport": "fútbol"
+        },
+        {
+            "user_id": 8,
+            "full_name": "Marwin  Hotmail ",
+            "photo": "Imagenes/Presentacion/image820190528212344419.jpg",
+            "user_common": 0,
+            "sport": "Volleyball"
+        },
+        {
+            "user_id": 14,
+            "full_name": "Luis Marin",
+            "photo": "image120181010154016319.jpg",
+            "user_common": 0,
+            "sport": "Baloncesto"
+        }
         ]
     }
     
-### Obtener Usuario de la libreta de contactos [POST /user/{userId}/friends/contacts]
+### Obtener Usuarios de la libreta de contactos [POST /user/{userId}/friends/contacts]
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario.
+
++ Request (application/json)
+    + Headers
+    Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+
++ Attributes
+    + emails: `email1,email2` (required,number) - Identificador de usuario
+    
++ Response 200 (application/json)   
+  + Body
+{
+    "contacts": [
+        {
+            "user_id": 1,
+            "email": "montilla.t31111@gmail.com",
+            "nick_name": "omontilla",
+            "sport": "Beisbol",
+            "url_image": "image120181010154016319.jpg",
+            "status": "Ya son amigos",
+            "status_code": "SS001",
+            "user_common": 0,
+            "is_favorite": false,
+            "full_name": "oscar Montilla"
+        },
+        {
+            "email": "montilla.t31@gmail.com",
+            "status": "No se encuentra registrado en la app",
+            "status_code": "SS004"
+        }
+    ],
+    "total_items_contacts": 2
+}
+
+### Registrar Usuarios de la libreta de contactos [PUT /user/{userId}/friends/contacts]
 
 + Parameters
     + userId: `1` (required,number) - Identificador de usuario.
@@ -2575,6 +2666,50 @@ Lista de servicios Back-End API
     ],
     "total_items_contacts": 2
 }
+
+
+
+### Obtener perfiles comunes de un usuario [PUT /user/{userId}/friends/commons/1{userCompare}]
+
++ Parameters
+    + userId: `2` (required,number) - Identificador de usuario.
+    + userCompare: `11` (required,number) - Identificador de usuario a obtener los usuarios comunes.
+
+
++ Request (application/json)
+    + Headers
+    Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+
++ Response 200 (application/json)   
+  + Body
+  
+        {
+    "commons": [
+        {
+            "user_id": 1,
+            "full_name": "oscar Montilla",
+            "nick_name": "omontilla",
+            "sport": "Beisbol",
+            "url_image": "Imagenes/Presentacion/image120190715004614248.jpg",
+            "status": "Ya son amigos",
+            "status_code": "SS001",
+            "user_common": 0,
+            "is_favorite": false
+        },
+        {
+            "user_id": 13,
+            "full_name": "Zanoni Guevara",
+            "sport": "Voleibol",
+            "url_image": "image120181010154016319.jpg",
+            "status": "Ya son amigos",
+            "status_code": "SS001",
+            "user_common": 1,
+            "commons": "Imagenes/Presentacion/image1120190529003609330.jpg",
+            "is_favorite": false
+        }
+    ],
+    "total_items_commons": 2
+        }
 
 ## Notificaciones Push [/v1/user/notifications/token]
 
@@ -2822,7 +2957,7 @@ Lista de servicios Back-End API
   + Body
   
 
-### Registrar Configuracion [PUT /v1/user/confignotificationspush]
+### Registrar Configuracion [POST /v1/user/confignotificationspush]
 
 + Request (application/json) 
     + Headers
@@ -2885,7 +3020,7 @@ Lista de servicios Back-End API
     }
 
 
-### Modificar Configuracion [POST /v1/user/confignotificationspush/{configId}]
+### Modificar Configuracion [PUT /v1/user/confignotificationspush/{configId}]
 
 + Request (application/json) 
     + Headers
@@ -3011,7 +3146,7 @@ Lista de servicios Back-End API
       Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
 
 + Response 200 (application/json)   
-    Se elimino el comentario
+    Se elimino la configuracion
   + Body
 
 ### Registrar Data [POST /v1/user/confignotificationspushdata]
