@@ -2543,7 +2543,7 @@ Lista de servicios Back-End API
     ]
     }
     
-### Obtener Usuarios recomendados [GET /user/{userId}/geolocation/{distance}]
+### Obtener Usuarios recomendados [GET /user/{userId}/geolocation]
 
 + Parameters
     + userId: `1` (required,number) - Identificador de usuario.
@@ -4541,6 +4541,7 @@ El identificador de userId no existe en el sistema
 }
              
                     
+
 ## Videos Deportivos [/user/{userId}/sportingvideo]
 
 ### Registrar Video Deportivo[POST /user/{userId}/sportingvideo]
@@ -5137,6 +5138,202 @@ El identificador de userId no existe en el sistema
 
   + Body
   {"error_code": "M0009","message": "no found userId"}
+  
+
+### Registrar Like [POST /user/{userId}/sportingvideo/{sportingVideoId}/like]
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario
+    + sportingVideoId: `2` (required,number) - Identificador de video
+    
++ Request (application/json) 
+  
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+    
+    + Body
+    + Attributes
+        + like_code: `CL001` (required) - code del tipo de like
+
++ Response 200 (application/json)   
+  + Body
+
+    {
+    "id": 2,
+    "sportingVideoId": 2,
+    "userId": 1,
+    "createDate": "2019-01-15 09:27:10",
+    "updateDate": "2019-01-15 09:27:10",
+    "typeLikeId": 1
+    }
+
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+
++ Response 400 (application/json)         
+  El identificador de sportingVideoId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found sportingVideoId"}
+
++ Response 400 (application/json)         
+  El identificador de typeLikeCode no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found typeLikeCode"}
+  
++ Response 400 (application/json) 
+  El o los campos son requeridos
+
+  + Body
+
+  {
+    "error_code": "M0003",
+    "fields": [
+        {
+            "code": "M0003",
+            "field": "typeLikeCode",
+            "issue": "The field is required"
+        }
+    ]
+  }
+
+### Actualizar Like [PUT /user/{userId}/sportingvideolike/{sportingVideoLikeId}]
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario
+    + sportingVideoLikeId: `2` (required,number) - Identificador de  like del video
+    
++ Request (application/json) 
+  
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+    
+    + Body
+    + Attributes
+        + like_code: `CL002` (required) - code del tipo de like
+
++ Response 200 (application/json)   
+  + Body   
+  
+    {
+    "id": 2,
+    "sportingVideoId": 2,
+    "userId": 1,
+    "createDate": "2019-01-15 09:27:10",
+    "updateDate": "2019-01-15 09:27:52",
+    "typeLikeId": 2
+    }
+
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+
++ Response 400 (application/json)         
+  El identificador de sportingVideoLikeId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found sportingVideoLikeId"}
+  
++ Response 400 (application/json) 
+  El o los campos son requeridos
+
+  + Body
+
+  {
+    "error_code": "M0003",
+    "fields": [
+        {
+            "code": "M0003",
+            "field": "typeLikeCode",
+            "issue": "The field is required"
+        }
+    ]
+    }
+
+### Obtener Likes [GET /user/{userId}/sportingvideo/{sportingVideoId}/likes]
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario
+    + sportingVideoId: `3` (required,number) - Identificador de video deportivo
+    + lat: `19.4284700` (optional,number) - latitud del usuario
+    + lng: `-99.1276600` (optional,number) - longitud del usuario
+    + items: `2` (optional,number) - cantidad de items a consultar, maximo 1000
+    + page: `0` (optional,number) - numero de pagina
+    
++ Request (application/json) 
+  
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+
++ Response 200 (application/json)   
+  + Body   
+
+    {
+    "sporting_video_likes": [
+        {
+            "id": 2,
+            "sportingVideoId": 2,
+            "userId": 1,
+            "createDate": "2019-01-15 07:27:10",
+            "updateDate": "2019-01-15 07:27:52",
+            "typeLikeId": 2
+        }
+    ],
+    "total_items_sportingvideolike": 1
+    }
+
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+
++ Response 400 (application/json)         
+  El identificador de sportingVideoId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found sportingVideoId"}
+
+
+### Eliminar Like [DELETE /user/{userId}/profilevideo/{sportingVideoId}]
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario
+    + sportingVideoId: `2` (required,number) - Identificador de video
+    
++ Request (application/json) 
+  
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+
++ Response 200 (application/json)   
+    Se elimino el like
+  + Body
+
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+
++ Response 400 (application/json)         
+  El usuario userId no tiene like para el video sportingVideoId
+
+  + Body
+  {"error_code": "M0009","message": "no found sportingVideo"}
+  
++ Response 400 (application/json)         
+  El identificador de profileVideoId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009", "message": "no found sportingVideoId"}
+
 
   
 ## Historias de usuario [/user/{userId}/history]
