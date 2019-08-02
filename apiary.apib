@@ -5855,7 +5855,7 @@ El identificador de userId no existe en el sistema
   {"error_code": "M0009","message": "no found userVideoId"}
 
 
-## Videos de Usuario [/user/{userId}/uservideo]
+## Videos de Ret [/user/{userId}/uservideo]
 
 ### Registrar Video de Usuario[POST /user/{userId}/uservideo]
 
@@ -10269,4 +10269,186 @@ El identificador de userId no existe en el sistema
 
 + Response 200 (application/json)   
     Se elimino el comentario
+  + Body
+
+## Mensajes Usuario [/user/{userId}/message]
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario  
+  
+### Enviar mensaje [POST]
+
++ Request (application/json) 
+  
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+
+  + Body
+    + Attributes
+        + emailsTO: `["joseduin@gmail.com"]` (required,string) - Array de correos a cual desea enviar
+        + message: `Hola mundo` (required,string) - mensaje
+        
++ Response 201 (application/json)   
+  + Body     
+      {
+        "message": {
+            "message_id": 15,
+            "user_id": 1,
+            "full_name": "oscar Montilla",
+            "email": "montilla.t31111@gmail.com",
+            "image": "image120181010154016319.jpg",
+            "participant_photos": "image120181010154016319.jpg",
+            "participant": "joseduin@gmail.com",
+            "pending_read": 0,
+            "last_message_short": "hola",
+            "time": "2019-07-31 16:13:41",
+            "conversation": [
+                {
+                    "message_id": 15,
+                    "user_id": 1,
+                    "full_name": "oscar Montilla",
+                    "email": "montilla.t31111@gmail.com",
+                    "image": "image120181010154016319.jpg",
+                    "message": "hola",
+                    "time": "2019-07-31 16:13:41"
+                }
+            ]
+        }
+     }
+     
+### Responder Mensaje [PUT]
+
++ Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+
+  + Body
+    + Attributes
+        + message_id: `9` (required,string) - Identificador de usuario
+        + message: `lalalalalala` (required,string) - mensaje
+        
++ Response 201 (application/json)   
+  + Body   
+      {
+        "conversation": {
+            "message_id": 18,
+            "full_name": "Jose Duin",
+            "email": "joseduin@gmail.com",
+            "image": "image120181010154016319.jpg",
+            "message": "LALALALALALA"
+        }
+    }
+
+### Obtener conversaciones [GET]
+
+  + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+
++ Response 200 (application/json)   
+  + Body 
+  
+      {
+        "message": [
+            {
+                "message_id": 9,
+                "user_id": 1,
+                "full_name": "oscar Montilla",
+                "email": "montilla.t31111@gmail.com",
+                "image": "image120181010154016319.jpg",
+                "participant_photos": "image120181010154016319.jpg",
+                "participant": "joseduin@gmail.com",
+                "pending_read": 1,
+                "last_message_short": "LALALALALALA",
+                "time": "2019-07-31 07:41:12",
+                "conversation": [
+                    {
+                        "message_id": 11,
+                        "user_id": 2,
+                        "full_name": "Jose Montilla",
+                        "email": "joseduin@gmail.com",
+                        "image": "image120181010154016319.jpg",
+                        "message": "dqwhjodiwqhdjqkodjhwvqghdjokwhgcdwqvjkldpwjqhvgcdhbnwlqkjdhvgcwqhbkd;pwqjhvdbnkwlqdgcwqkpdwhvqd;lwqbhvdk;qwlkdvb qwm,;d bwqnlm;dkqwhvbjdkpwqhghdvbjnwqkioudgwqbjnkdpioqwgjbnkdwqiohgdjbnkwqoiudghwbqjnkodughqwbjnkdouwqghbjdnkwqihgbdjnkwqhjvdbjnwqhgvdbjwqnkhjbdwqdqw repondo",
+                        "time": "2019-07-31 07:41:41"
+                    },
+                    {
+                        "message_id": 12,
+                        "user_id": 2,
+                        "full_name": "Jose Montilla",
+                        "email": "joseduin@gmail.com",
+                        "image": "image120181010154016319.jpg",
+                        "message": "dqwhjodiwqhdjqkodjhwvqghdjokwhgcdwqvjkldpwjqhvgcdhbnwlqkjdhvgcwqhbkd;pwqjhvdbnkwlqdgcwqkpdwhvqd;lwqbhvdk;qwlkdvb qwm,;d bwqnlm;dkqwhvbjdkpwqhghdvbjnwqkioudgwqbjnkdpioqwgjbnkdwqiohgdjbnkwqoiudghwbqjnkodughqwbjnkdouwqghbjdnkwqihgbdjnkwqhjvdbjnwqhgvdbjwqnkhjbdwqdqw repondo",
+                        "time": "2019-07-31 07:41:41"
+                    },
+                    {
+                        "message_id": 13,
+                        "user_id": 2,
+                        "full_name": "Jose Montilla",
+                        "email": "joseduin@gmail.com",
+                        "image": "image120181010154016319.jpg",
+                        "message": "LALALALALALA",
+                        "time": "2019-07-31 07:42:04"
+                    },
+                    {
+                        "message_id": 14,
+                        "user_id": 2,
+                        "full_name": "Jose Montilla",
+                        "email": "joseduin@gmail.com",
+                        "image": "image120181010154016319.jpg",
+                        "message": "LALALALALALA",
+                        "time": "2019-07-31 07:42:04"
+                    },
+                    {
+                        "message_id": 17,
+                        "user_id": 2,
+                        "full_name": "Jose Montilla",
+                        "email": "joseduin@gmail.com",
+                        "image": "image120181010154016319.jpg",
+                        "message": "LALALALALALA",
+                        "time": "2019-07-31 16:18:15"
+                    },
+                    {
+                        "message_id": 18,
+                        "user_id": 2,
+                        "full_name": "Jose Montilla",
+                        "email": "joseduin@gmail.com",
+                        "image": "image120181010154016319.jpg",
+                        "message": "LALALALALALA",
+                        "time": "2019-07-31 16:18:15"
+                    }
+                ]
+            },
+            {
+                "message_id": 15,
+                "user_id": 1,
+                "full_name": "oscar Montilla",
+                "email": "montilla.t31111@gmail.com",
+                "image": "image120181010154016319.jpg",
+                "participant_photos": "image120181010154016319.jpg",
+                "participant": "joseduin@gmail.com",
+                "pending_read": 0,
+                "last_message_short": "hola",
+                "time": "2019-07-31 16:13:41",
+                "conversation": [
+                    {
+                        "message_id": 15,
+                        "user_id": 1,
+                        "full_name": "oscar Montilla",
+                        "email": "montilla.t31111@gmail.com",
+                        "image": "image120181010154016319.jpg",
+                        "message": "hola",
+                        "time": "2019-07-31 16:13:41"
+                    }
+                ]
+            }
+        ]
+    }
+    
+### Registrar vista de conversacion [POST /user/{userId}/message/{messageId}]
+
++ Parameters
+    + messageId: `1` (required,number) - Identificador de mensaje  
+  
+  + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+
++ Response 200 (application/json)   
   + Body
