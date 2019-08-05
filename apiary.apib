@@ -10270,12 +10270,382 @@ El identificador de userId no existe en el sistema
 + Response 200 (application/json)   
     Se elimino el comentario
   + Body
+  
+
+### Registrar Votacion  [POST /user/{userId}/challengevotation]
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario
+    
++ Request (application/json) 
+  
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+    
+    + Body
+    + Attributes
+        + userVideoId: `3` (required,number) - Identificador del video
+
+
++ Response 200 (application/json)   
+  + Body
+  
+   {
+    "id": 7,
+    "userProfileId": 1,
+    "userVideoId": 3,
+    "createDate": "2019-08-05 09:08:26",
+    "updateDate": "2019-08-05 09:08:26",
+    "parte": false
+    }
+
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+
++ Response 400 (application/json)         
+  La votacion esta registrada
+
+  + Body
+  {"error_code": "M0035", "message": "register found" }
+
++ Response 400 (application/json) 
+  El o los campos son requeridos
+
+  + Body
+
+  {
+    "error_code": "M0003",
+    "fields": [
+        {
+            "code": "M0003",
+            "field": "userVideoId",
+            "issue": "The field is required"
+        }
+    ]
+  }
+
+### Actualizar Votacion [PUT /user/{userId}/challengevotation/{challengeVotationId}]
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario
+    + challengeVotationId: `7` (required,number) - Identificador de la votacion
+    
++ Request (application/json) 
+  
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+    
+    + Body
+    + Attributes
+        + userVideoId: `3` (required,string) - Identificador del Video
+
++ Response 200 (application/json)   
+  + Body   
+  
+    {
+    "id": 7,
+    "userProfileId": 1,
+    "userVideoId": 3,
+    "createDate": "2019-08-05 09:08:26",
+    "updateDate": "2019-08-05 09:12:12",
+    "parte": false
+    }
+    
++ Response 400 (application/json)         
+  El identificador de challengeVotationId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found challengeVotationId"}
+
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+  
++ Response 400 (application/json) 
+  El o los campos son requeridos
+
+  + Body
+
+  {
+    "error_code": "M0003",
+    "fields": [
+        {
+            "code": "M0003",
+            "field": "userVideoId",
+            "issue": "The field is required"
+        }
+    ]
+    }
+
+### Obtener Votaciones [GET /user/{userId}/challengevotations]
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario
+    + items: `2` (optional,number) - Cantidad de items a consultar, maximo 1000
+    + page: `0` (optional,number) - Numero de pagina
+    + challengevotationid: `1` (optional,number) - Identificador de votacion
+    + uservideoid: `1` (optional,string) - Identificador de video
+    
++ Request (application/json) 
+  
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+
++ Response 200 (application/json)   
+  + Body     
+  
+    {
+    "challengeVotations": [
+        {
+            "id": 7,
+            "userProfileId": 1,
+            "userVideoId": 3,
+            "createDate": "2019-08-05 09:08:26",
+            "updateDate": "2019-08-05 09:12:12",
+            "parte": false
+        }
+    ],
+    "total_items_challengevotations": 1
+}
+
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+  
++ Response 400 (application/json)         
+  Existe algun error en la peticion y/o se ha generado un error interno
+
+  + Body
+  {"error_code":"M0019","message":"Internal error - Bad request"}
+
+
+### Eliminar Votacion [DELETE /user/{userId}/challengevotation/{challengeVotationId}]
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario
+    + challengeVotationId: `1` (required,number) - Identificador de votacion
+    
++ Request (application/json) 
+  
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+
++ Response 200 (application/json)   
+    Se elimino la votacion
+  + Body
+  
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+  
++ Response 400 (application/json)         
+  El identificador de challengeVotationId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found challengeVotationId"}
+  
+
+### Escrutar Votacion  [POST /user/{userId}/challenge/{challengeId}/scrut]
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario
+    + challengeId: `1` (required,number) - Identificador del reto
+    
++ Request (application/json) 
+  
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+
+
++ Response 200 (application/json)   
+  + Body
+  
+   [
+    {
+        "id": 3,
+        "userProfileId": 1,
+        "votesPartes": 1,
+        "votesPublic": 1,
+        "votesTotals": 2,
+        "winner": true,
+        "challengeId": 2,
+        "createDate": "2019-08-05 09:31:20"
+    },
+    {
+        "id": 4,
+        "userProfileId": 2,
+        "votesPartes": 1,
+        "votesPublic": 0,
+        "votesTotals": 1,
+        "winner": false,
+        "challengeId": 2,
+        "createDate": "2019-08-05 09:31:20"
+    }
+    ]
+
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+
++ Response 400 (application/json)         
+  El identificador de challengeId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found challengeId"}
+
++ Response 400 (application/json)         
+  El escrutinio esta registrada
+
+  + Body
+  {"error_code": "M0035", "message": "register found" }
+  
+
+### Obtener Escrutinios [GET /user/{userId}/challengescrutinies]
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario
+    + items: `2` (optional,number) - Cantidad de items a consultar, maximo 1000
+    + page: `0` (optional,number) - Numero de pagina
+    + challengeid: `1` (optional,number) - Identificador de reto
+    + userprofileid: `1` (optional,number) - Identificador de usuario participante
+    + sinceDate: `2019-08-01` (optional,string) - Fecha desde
+    + untilDate: `2019-08-05` (optional,string) - Fecha hasta
+    
++ Request (application/json) 
+  
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+
++ Response 200 (application/json)   
+  + Body     
+  
+    {
+    "challengeScrutinies": [
+        {
+            "id": 3,
+            "userProfileId": 1,
+            "votesPartes": 1,
+            "votesPublic": 1,
+            "votesTotals": 2,
+            "winner": true,
+            "challengeId": 2,
+            "createDate": "2019-08-05 09:31:20"
+        },
+        {
+            "id": 4,
+            "userProfileId": 2,
+            "votesPartes": 1,
+            "votesPublic": 0,
+            "votesTotals": 1,
+            "winner": false,
+            "challengeId": 2,
+            "createDate": "2019-08-05 09:31:20"
+        }
+    ],
+    "total_items_challengescrutinies": 2
+}
+
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+  
++ Response 400 (application/json)         
+  Existe algun error en la peticion y/o se ha generado un error interno
+
+  + Body
+  {"error_code":"M0019","message":"Internal error - Bad request"}
+  
+
+### Obtener Resumen de Invitaciones [GET /user/{userId}/resumeinvitations]
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario
+    + challengeinvitationid: `1` (optional,number) - Identificador de invitacion
+    + userinvitadoid: `1` (optional,number) - Identificador de usuario participante
+    + numberstatus: `1` (optional,string) - Numero de estatus
+    
++ Request (application/json) 
+  
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+
++ Response 200 (application/json)   
+  + Body     
+  
+   {
+    "total_items_challenges": 2
+    }
+
+
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+  
++ Response 400 (application/json)         
+  Existe algun error en la peticion y/o se ha generado un error interno
+
+  + Body
+  {"error_code":"M0019","message":"Internal error - Bad request"}
+
+
+### Obtener Resumen de Escrutinios [GET /user/{userId}/resumescrutinies]
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario
+    + challengeid: `1` (optional,number) - Identificador de reto
+    + userprofileid: `1` (optional,number) - Identificador de usuario participante
+    + sinceDate: `2019-08-01` (optional,string) - Fecha desde
+    + untilDate: `2019-08-05` (optional,string) - Fecha hasta
+    + winner: `true` (optional,boolean) - Es ganador
+    
++ Request (application/json) 
+  
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+
++ Response 200 (application/json)   
+  + Body     
+  
+   {
+    "total_items_challengescrutinies": 1
+    crutinios, votaciones}
+
+
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+  
++ Response 400 (application/json)         
+  Existe algun error en la peticion y/o se ha generado un error interno
+
+  + Body
+  {"error_code":"M0019","message":"Internal error - Bad request"}
+
+
 
 ## Mensajes Usuario [/user/{userId}/message]
 
 + Parameters
     + userId: `1` (required,number) - Identificador de usuario  
   
+
 ### Enviar mensaje [POST]
 
 + Request (application/json) 
