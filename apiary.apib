@@ -8646,7 +8646,7 @@ El identificador de userId no existe en el sistema
     + modalityid:  `1` (optional,number) - Identificador de modalidad
     + sportid:  `1` (optional,number) - Identificador de deporte
     + userprofileid: `1` (optional,number) - Identificador de video de usuario
-    + estatusid:  `1` (optional,number) - Identificador de estatus 
+    + numberstatus:  `1` (optional,number) - Numero de estatus 
     + name:  `reto 1` (optional,string) - Nombre del reto
     + description:  `el mejor` (optional,string) - Descripcion del reto 
     + fromBegin:  `2019-01-01` (optional,string) - Fecha de inicio desde YYYY-MM-dd
@@ -8655,7 +8655,10 @@ El identificador de userId no existe en el sistema
     + toPublic: `2019-01-06` (optional,string) - Fecha de fin voto publico
     + isHall: `false` (optional,boolean) - Indica si es Hall
     + typelikeid: `false` (optional,number) - Identificador tipo de like
-  
+    + usersbystatusinvitation: `1,2` (optional,string) - Id de usuarios con invitaciones en status numberstatusinvitation
+    + typelikeid: `false` (optional,number) - Identificador tipo de like
+    + numberstatusinvitation: `5` (optional,number) - Numero de status en invitaciones
+    + exist: `false` (optional,boolean) - Existen invitaciones con estatus numberstatusinvitation
     
 + Request (application/json) 
   
@@ -8674,7 +8677,7 @@ El identificador de userId no existe en el sistema
             "modalityId": 1,
             "sportId": 1,
             "userId": 1,
-            "estatusId": 1,
+            "estatusId": 6,
             "name": "Reto 1",
             "description": "Reto numero 1",
             "beginDate": "2019-02-01 00:00:00",
@@ -8684,33 +8687,14 @@ El identificador de userId no existe en el sistema
             "votePublicBeginDate": "2019-02-03 00:00:00",
             "votePublicFinalDate": "2019-02-13 00:00:00",
             "hall": false,
-            "createDate": "2019-02-19 12:41:09",
-            "updateDate": "2019-02-19 12:41:09",
-            "totalLikes": 1
-        },
-        {
-            "id": 2,
-            "challengeTypeId": 1,
-            "modalityId": 1,
-            "sportId": 1,
-            "userId": 1,
-            "estatusId": 1,
-            "name": "Reto 1",
-            "description": "Reto numero 1",
-            "beginDate": "2019-02-01 00:00:00",
-            "finalDate": "2019-01-15 00:00:00",
-            "votePartesBeginDate": "2019-02-02 00:00:00",
-            "votePartesFinalDate": "2019-02-14 00:00:00",
-            "votePublicBeginDate": "2019-02-03 00:00:00",
-            "votePublicFinalDate": "2019-02-13 00:00:00",
-            "hall": false,
-            "createDate": "2019-02-25 14:17:18",
-            "updateDate": "2019-02-25 14:17:18",
+            "userWinnerId": 2,
+            "createDate": "2019-07-29 11:05:01",
+            "updateDate": "2019-07-29 11:05:01",
             "totalLikes": 0
         }
     ],
-    "total_items_challenges": 2
-    }
+    "total_items_challenges": 1
+}
 
 + Response 400 (application/json)         
   El identificador de userId no existe en el sistema
