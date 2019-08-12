@@ -777,7 +777,465 @@ Lista de servicios Back-End API
 
   + Body
   {"error_code": "M0009","message": "no found attributeCode"}
+
+### Comentar Atributo [POST /user/{userId}/attribute/{userAttributeId}/comment]
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario
+    + userAttributeId: `3` (required,number) - Identificador del atributo de usuario
     
++ Request (application/json) 
+  
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+    
+    + Body
+    + Attributes
+        + content: `buen video` (required) - contenido del comentario
+        + level: `0` (required) - Nivel del comentario
+        + idPadre: `0`  (optional) - identificador del comentario padre
+
++ Response 200 (application/json)   
+  + Body
+
+    {
+    "id": 3,
+    "content": "buen drible",
+    "createDate": "2019-08-12 09:27:21",
+    "updateDate": "2019-08-12 09:27:21",
+    "isActive": true,
+    "isAccepted": false,
+    "userSportAttributeId": 1,
+    "level": 0
+    }
+
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+
++ Response 400 (application/json)         
+  El identificador de userAttributeId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userAttributeId"}
+  
++ Response 400 (application/json) 
+  El o los campos son requeridos
+
+  + Body
+
+{
+    "error_code": "M0003",
+    "fields": [
+        {
+            "code": "M0003",
+            "field": "content",
+            "issue": "The field is required"
+        },
+        {
+            "code": "M0003",
+            "field": "level",
+            "issue": "The field is required"
+        }
+    ]
+}
+
+### Modificar Comentario de Atributo [PUT /user/{userId}/commentsattribute/{commentAttributeId}]
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario
+    + commentAttributeId: `3` (required,number) - Identificador del comentario de atributo
+    
++ Request (application/json) 
+  
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+    
+    + Body
+    + Attributes
+        + content: `muy buen video` (required) - contenido del comentario
+        + level: `0` (optional) - Nivel del comentario
+        + idPadre: `0`  (optional) - identificador del comentario padre
+
++ Response 200 (application/json)   
+  + Body
+
+    {
+    "id": 3,
+    "content": "que vas a saber tu de videos",
+    "createDate": "2019-08-12 09:27:21",
+    "updateDate": "2019-08-12 09:31:14",
+    "isActive": true,
+    "isAccepted": false,
+    "userSportAttributeId": 1,
+    "level": 0
+    }
+
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+
++ Response 400 (application/json)         
+  El identificador de commentAttributeId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found commentAttributeId"}
+
++ Response 400 (application/json)         
+  El identificador de userId no es propietario del comentario
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+  
++ Response 400 (application/json) 
+  El o los campos son requeridos
+
+  + Body
+
+{
+    "error_code": "M0003",
+    "fields": [
+        {
+            "code": "M0003",
+            "field": "content",
+            "issue": "The field is required"
+        }
+    ]
+}
+
+### Obtener Comentarios de Atributos [GET /user/{userId}/attribute/{userSportAttributeId}/comment]
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario
+    + userSportAttributeId: `1` (required,number) - Identificador de video deportivo
+    + lat: `19.4284700` (optional,number) - latitud del usuario
+    + lng: `-99.1276600` (optional,number) - longitud del usuario
+    + items: `4` (optional,number) - cantidad de items a consultar
+    + page: `0` (optional,number) - numero de pagina
+    
++ Request (application/json) 
+  
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+
++ Response 200 (application/json)   
+  + Body   
+
+  
+{
+    "comments_attributes": [
+        {
+            "id": 2,
+            "content": "buen drible",
+            "createDate": "2019-08-09 14:14:34",
+            "updateDate": "2019-08-09 14:14:34",
+            "isActive": true,
+            "isAccepted": true,
+            "userSportAttributeId": 1,
+            "level": 0
+        },
+        {
+            "id": 3,
+            "content": "que vas a saber tu de videos",
+            "createDate": "2019-08-12 09:27:21",
+            "updateDate": "2019-08-12 09:31:14",
+            "isActive": true,
+            "isAccepted": true,
+            "userSportAttributeId": 1,
+            "level": 0
+        }
+    ],
+    "total_items_comments": 2
+}
+
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+  
++ Response 400 (application/json)         
+  El identificador de userSportAttributeId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userSportAttributeId"}
+
+  
+### Aceptar Comentario de Atributo [PUT /user/{userId}/commentsattribute/{commentAttributeId}]
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario
+    + commentAttributeId: `3` (required,number) - Identificador del comentario de atributo
+    
++ Request (application/json) 
+  
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+    
+    + Body
+    + Attributes
+        + content: `muy buen video` (required) - contenido del comentario
+        + level: `0` (optional) - Nivel del comentario
+        + idPadre: `0`  (optional) - identificador del comentario padre
+
++ Response 200 (application/json)   
+  + Body
+
+    {
+    "id": 3,
+    "content": "que vas a saber tu de videos",
+    "createDate": "2019-08-12 09:27:21",
+    "updateDate": "2019-08-12 09:48:57",
+    "isActive": true,
+    "isAccepted": true,
+    "userSportAttributeId": 1,
+    "level": 0
+    }
+
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+
++ Response 400 (application/json)         
+  El identificador de commentAttributeId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found commentAttributeId"}
+
++ Response 400 (application/json)         
+  El identificador de userId no es propietario del comentario
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+  
+
+
+### Eliminar Comentario de Atributo [DELETE /user/{userId}/commentsattribute/{userAttributeId}]
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario
+    + commentSportingVideoId: `3` (required,number) - Identificador de video
+    
++ Request (application/json) 
+  
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+
++ Response 200 (application/json)   
+    Se elimino el comentario
+  + Body
+
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+  
++ Response 400 (application/json)         
+  El identificador de commentSportingVideoId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009", "message": "no found commentSportingVideoId"}
+  
++ Response 400 (application/json)         
+  El identificador de userId no es propietario del comentario
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+  
+
+### Registrar Like [POST /user/{userId}/attribute/{userSportAttributeId}/like]
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario
+    + userSportAttributeId: `2` (required,number) - Identificador de atributo
+    
++ Request (application/json) 
+  
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+    
+    + Body
+    + Attributes
+        + like_code: `CL001` (required) - code del tipo de like
+
++ Response 200 (application/json)   
+  + Body
+
+    {
+    "id": 1,
+    "userSportAttributeId": 1,
+    "userId": 1,
+    "createDate": "2019-08-12 10:43:46",
+    "updateDate": "2019-08-12 10:43:46",
+    "typeLikeId": 1
+    }
+
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+
++ Response 400 (application/json)         
+  El identificador de userSportAttributeId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userSportAttributeId"}
+
++ Response 400 (application/json)         
+  El identificador de typeLikeCode no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found typeLikeCode"}
+  
++ Response 400 (application/json) 
+  El o los campos son requeridos
+
+  + Body
+
+  {
+    "error_code": "M0003",
+    "fields": [
+        {
+            "code": "M0003",
+            "field": "typeLikeCode",
+            "issue": "The field is required"
+        }
+    ]
+  }
+
+### Actualizar Like [PUT /user/{userId}/attributelike/{attributeLikeId}]
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario
+    + attributeLikeId: `2` (required,number) - Identificador de  like del atributo
+    
++ Request (application/json) 
+  
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+    
+    + Body
+    + Attributes
+        + like_code: `CL002` (required) - code del tipo de like
+
++ Response 200 (application/json)   
+  + Body   
+  
+    {
+    "id": 1,
+    "userSportAttributeId": 1,
+    "userId": 1,
+    "createDate": "2019-08-12 10:43:46",
+    "updateDate": "2019-08-12 10:54:33",
+    "typeLikeId": 1
+    }
+
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+
++ Response 400 (application/json)         
+  El identificador de attributeLikeId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found attributeLikeId"}
+  
++ Response 400 (application/json) 
+  El o los campos son requeridos
+
+  + Body
+
+  {
+    "error_code": "M0003",
+    "fields": [
+        {
+            "code": "M0003",
+            "field": "like_code",
+            "issue": "The field is required"
+        }
+    ]
+    }
+
+### Obtener Likes [GET /user/{userId}/attribute/:userSportAttributeId/likes]
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario
+    + userSportAttributeId: `3` (required,number) - Identificador de atributo de usuario
+    + lat: `19.4284700` (optional,number) - latitud del usuario
+    + lng: `-99.1276600` (optional,number) - longitud del usuario
+    + items: `2` (optional,number) - cantidad de items a consultar, maximo 1000
+    + page: `0` (optional,number) - numero de pagina
+    
++ Request (application/json) 
+  
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+
++ Response 200 (application/json)   
+  + Body   
+
+    {
+    "usersport_attributes_likes": [
+        {
+            "id": 1,
+            "userSportAttributeId": 1,
+            "userId": 1,
+            "createDate": "2019-08-12 10:43:46",
+            "updateDate": "2019-08-12 10:54:33",
+            "typeLikeId": 1
+        }
+    ],
+    "total_items_likes": 1
+    }
+
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+
++ Response 400 (application/json)         
+  El identificador de userSportAttributeId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found sportingVideoId"}
+
+
+### Eliminar Like [DELETE /user/{userId}/attributelike/{:attributeLikeId}]
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario
+    + attributeLikeId: `2` (required,number) - Identificador de atributo
+    
++ Request (application/json) 
+  
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+
++ Response 200 (application/json)   
+    Se elimino el like
+  + Body
+
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+
++ Response 400 (application/json)         
+  El usuario userId no tiene like para el video attributeLikeId
+
+  + Body
+  {"error_code": "M0009","message": "no found attributeLikeId"}
+
+    
+
 ## Biografia [/user/{userId}/biography]
 
 ### Obtener Biografia [GET]
@@ -10672,7 +11130,9 @@ El identificador de userId no existe en el sistema
      
 ### Responder Mensaje [PUT]
 
-+ Headers
++ Request (application/json) 
+
+    + Headers
       Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
 
   + Body
@@ -10800,7 +11260,9 @@ El identificador de userId no existe en el sistema
 
 + Parameters
     + messageId: `1` (required,number) - Identificador de mensaje  
-  
+
++ Request (application/json) 
+
   + Headers
       Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
 
