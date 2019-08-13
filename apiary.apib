@@ -7425,6 +7425,7 @@ El identificador de userId no existe en el sistema
   + Body
   {"error_code": "M0009","message": "no found userId"}
   
+  
 
 ## Videos de Perfil [/user/{userId}/profilevideo]
 
@@ -8513,6 +8514,146 @@ El identificador de userId no existe en el sistema
 
   + Body
   {"error_code": "M0009","message": "no found userId"}
+
+## Videos [/user/{userId}/genericvideo]
+
+
+### Obtener Videos por tipo [GET /user/{userId}/genericvideo/:typeVideo]
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario
+    + typeVideo: `1` (required,number) - tipo de video 0:perfil, 1:retos, 2:deportivos
+    + lat: `19.4284700` (optional,number) - Latitud del usuario
+    + lng: `-99.1276600` (optional,number) - Longitud del usuario
+    + items: `2` (optional,number) - Cantidad de items a consultar, maximo 1000
+    + page: `0` (optional,number) - Numero de pagina
+    + sortby: `-id,+description` (optional,string) - Ordenamiento - es desc y + asc
+    + videoid: `1` (optional,number) - Identificador de video de usuario
+    + userprofileid:  `1` (optional,number) - Identificador de usuario propietario del video
+    + description:  `1` (optional,string) - Descripcion del video
+    + createdate:  `2019-01-04` (optional,string) - Fecha de creacion del video YYYY-MM-dd 
+    + updatedate: `2019-01-05` (optional,string) - Fecha de ultima actualizacion YYYY-MM-dd
+    + imagetype:  `jpg` (optional,string) - Tipo de imagen 
+    + videotype:  `mp4` (optional,string) - Tipo de video
+    + active:  `true` (optional,boolean) - Estado activo o inactivo 
+    + from:  `2019-01-01` (optional,string) - Fecha creacion desde, si no se especifica to toma mayor o igual YYYY-MM-dd
+    + to:  `2019-01-06` (optional,string) - Fecha de creacion hasta, si no se especifica from toma menor o igual YYYY-MM-dd
+    + typelikeid:  `1` (optional,number) - Identificador de tipo de like, si se especifica, retorna los que mas tengan este tipo
+    + userSportId: `1` (optional,number) - Identificador del deporte de usuario
+    + sportcategoryid: `1` (optional,number) - Identificador de la categoria o habilidad del deporte por ej: drible, chute etc
+    
++ Request (application/json) 
+  
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+
++ Response 200 (application/json)   
+  + Body   
+
+  
+    {
+    "user_videos": [
+        {
+            "id": 2,
+            "description": "mi mejor video",
+            "urlVideo": "Videos/Usuarios/video120181212131633926.mp4",
+            "createDate": "2019-05-14 08:13:07",
+            "urlImage": "Imagenes/Usuarios/image120181210183859001.jpg",
+            "imageType": "jpg",
+            "videoType": "mp4",
+            "active": true,
+            "userSportId": 0,
+            "sportCategoryId": 0,
+            "likes": 2,
+            "like": false,
+            "likeCode": "",
+            "comments": [],
+            "category": false
+        },
+        {
+            "id": 1,
+            "description": "video presentacion",
+            "urlVideo": "Videos/Usuarios/video120181210183631078.mp4",
+            "createDate": "2019-05-14 08:13:07",
+            "urlImage": "Imagenes/Usuarios/image120181210183642342.jpg",
+            "imageType": "jpg",
+            "videoType": "mp4",
+            "active": true,
+            "userSportId": 5,
+            "sportCategoryId": 6,
+            "likes": 1,
+            "like": true,
+            "likeCode": "CL001",
+            "comments": [
+                {
+                    "id": 1,
+                    "content": "buen video",
+                    "createDate": "2019-05-15 14:40:24",
+                    "updateDate": "2019-05-15 14:40:24",
+                    "isActive": true,
+                    "userVideoId": 1,
+                    "level": 0
+                }
+            ],
+            "category": true
+        }
+    ],
+    "total_items_uservideos": 2
+}
+
++ Response 200 (application/json)   
+  + Body   
+
+  
+    {
+    "profile_videos": [
+        {
+            "id": 1,
+            "description": "video presentacion",
+            "urlVideo": "Videos/Perfil/video120181210183631078.mp4",
+            "createDate": "2019-05-14 09:13:07",
+            "urlImage": "Imagenes/Perfil/image120181210183642342.jpg",
+            "imageType": "jpg",
+            "videoType": "mp4",
+            "active": true,
+            "principal": true,
+            "likes": 1,
+            "like": true,
+            "likeCode": "CL001",
+            "comments": []
+        },
+        {
+            "id": 2,
+            "description": "mi mejor video",
+            "urlVideo": "Videos/Perfil/video120181212131633926.mp4",
+            "createDate": "2019-05-14 09:13:07",
+            "urlImage": "Imagenes/Perfil/image120181210195936733.jpg",
+            "imageType": "jpg",
+            "videoType": "mp4",
+            "active": true,
+            "principal": true,
+            "likes": 2,
+            "like": false,
+            "likeCode": "",
+            "comments": []
+        }
+    ],
+    "total_items_profilevideos": 2
+    }
+
+
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+  
++ Response 400 (application/json)         
+  Existe algun error en la peticion y/o se ha generado un error interno
+
+  + Body
+  {"error_code":"M0019","message":"Internal error - Bad request"}
+  
 
 
 ## Retos [/user/{userId}/challenge]
