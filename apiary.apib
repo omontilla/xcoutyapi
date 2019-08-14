@@ -249,6 +249,7 @@ Lista de servicios Back-End API
   + Body
     {"error_code": "M0031","message": "the current password supplied, is not correct"} 
    
+
 ## Perfil Favoritos [/user/{userId}/favorite]
 
 + Parameters
@@ -8737,6 +8738,185 @@ El identificador de userId no existe en el sistema
 
   + Body
   {"error_code": "M0009","message": "no found profileVideoId"}
+  
+
+### Registrar Comentario [POST /user/{userId}/genericvideo/{videoId}/comment/{typeVideo}]
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario
+    + videoId: `3` (required,number) - Identificador de video
+    + typeVideo: `1` (required,number) - Tipo de video
+    
++ Request (application/json) 
+  
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+    
+    + Body
+    + Attributes
+        + idPadre: `0` (optional) - identificador del comentario padre
+        + content: `muy bueno el video` (required) - contenido del comentario
+        + level: `0` (required) - nivel del comentario
+
++ Response 200 (application/json)   
+  + Body
+    {
+    "id": 2,
+    "content": "muy bueno el video",
+    "createDate": "2019-08-14 15:19:01",
+    "updateDate": "2019-08-14 15:19:01",
+    "isActive": true,
+    "userVideoId": 1,
+    "level": 0,
+    "user": {
+        "id": 1,
+        "name": "oscar",
+        "lastName": "Montilla",
+        "nickname": "omontilla",
+        "photo": "image120181010154016319.jpg"
+    }
+    }
+
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+
++ Response 400 (application/json)         
+  El identificador de userVideoId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userVideoId"}
+  
++ Response 400 (application/json)         
+  El identificador de profileVideoId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found profileVideoId"}
+  
++ Response 400 (application/json) 
+  El o los campos son requeridos
+
+  + Body
+
+  {
+    "error_code": "M0003",
+    "fields": [
+        {
+            "code": "M0003",
+            "field": "content",
+            "issue": "The field is required"
+        },
+        {
+            "code": "M0003",
+            "field": "level",
+            "issue": "The field is required"
+        }
+    ]
+  }
+
+### Actualizar Comentario [PUT /user/{userId}/genericvideo/{commentId}/comment/{typeVideo}]
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario
+    + commentId: `3` (required,number) - Identificador de comentario
+    + typeVideo: `2` (required,number) - Tipo de video
+    
++ Request (application/json) 
+  
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+    
+    + Body
+    + Attributes
+        + idPadre: `0` (optional) - identificador del comentario padre
+        + content: `que vas a saber tu de videos` (required) - contenido del comentario
+        + level: `0` (optional) - nivel del comentario
+
++ Response 200 (application/json)   
+  + Body   
+  
+    {
+    "id": 2,
+    "content": "que vas a saber tu de videos",
+    "createDate": "2019-07-05 13:44:51",
+    "updateDate": "2019-08-14 15:52:33",
+    "isActive": true,
+    "profileVideoId": 2,
+    "level": 0,
+    "user": {
+        "id": 1,
+        "name": "oscar",
+        "lastName": "Montilla",
+        "nickname": "omontilla",
+        "photo": "image120181010154016319.jpg"
+    }
+    }
+
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+
++ Response 400 (application/json)         
+  El identificador de commentUserVideoId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found commentUserVideoId"}
+  
++ Response 400 (application/json) 
+  El o los campos son requeridos
+
+  + Body
+
+  {
+    "error_code": "M0003",
+    "fields": [
+        {
+            "code": "M0003",
+            "field": "content",
+            "issue": "The field is required"
+        }
+    ]
+    }
+
+
+### Eliminar Comentario [DELETE /user/{userId}/genericvideo/{commentId}/comment/{typeVideo}]
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario
+    + commentId: `4` (required,number) - Identificador de comentario
+    + typeVideo: `2` (required,number) - Tipo de comentario
+    
++ Request (application/json) 
+  
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+
++ Response 200 (application/json)   
+    Se elimino el comentario
+  + Body
+
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+  
++ Response 400 (application/json)         
+  El identificador de commentUserVideoId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009", "message": "no found commentUserVideoId"}
+ 
++ Response 400 (application/json)         
+  El usuario no es propietario del comentario
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+
 
 ## Retos [/user/{userId}/challenge]
 
