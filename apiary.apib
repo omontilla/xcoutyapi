@@ -6468,52 +6468,57 @@ El identificador de userId no existe en el sistema
 + Response 200 (application/json)   
   + Body   
 
-  
-    {
+{
     "user_videos": [
         {
             "id": 2,
             "description": "mi mejor video",
             "urlVideo": "Videos/Usuarios/video120181212131633926.mp4",
-            "createDate": "2019-05-14 08:13:07",
+            "createDate": "2019-05-14 09:13:07",
             "urlImage": "Imagenes/Usuarios/image120181210183859001.jpg",
             "imageType": "jpg",
             "videoType": "mp4",
             "active": true,
             "userSportId": 0,
             "sportCategoryId": 0,
-            "likes": 2,
-            "like": false,
-            "likeCode": "",
+            "challengeId": 2,
+            "likes": 3,
+            "like": true,
+            "likeCode": "CL001",
             "comments": [],
+            "user": {
+                "id": 2,
+                "name": "Jose",
+                "lastName": "Duin",
+                "nickname": "JoseDuin",
+                "photo": "image120181010154016319.jpg"
+            },
             "category": false
         },
         {
-            "id": 1,
+            "id": 3,
             "description": "video presentacion",
             "urlVideo": "Videos/Usuarios/video120181210183631078.mp4",
-            "createDate": "2019-05-14 08:13:07",
+            "createDate": "2019-05-28 14:03:49",
             "urlImage": "Imagenes/Usuarios/image120181210183642342.jpg",
             "imageType": "jpg",
             "videoType": "mp4",
             "active": true,
-            "userSportId": 5,
-            "sportCategoryId": 6,
-            "likes": 1,
-            "like": true,
-            "likeCode": "CL001",
-            "comments": [
-                {
-                    "id": 1,
-                    "content": "buen video",
-                    "createDate": "2019-05-15 14:40:24",
-                    "updateDate": "2019-05-15 14:40:24",
-                    "isActive": true,
-                    "userVideoId": 1,
-                    "level": 0
-                }
-            ],
-            "category": true
+            "userSportId": 2,
+            "sportCategoryId": 0,
+            "challengeId": 2,
+            "likes": 0,
+            "like": false,
+            "likeCode": "",
+            "comments": [],
+            "user": {
+                "id": 1,
+                "name": "oscar",
+                "lastName": "Montilla",
+                "nickname": "omontilla",
+                "photo": "image120181010154016319.jpg"
+            },
+            "category": false
         }
     ],
     "total_items_uservideos": 2
@@ -7587,41 +7592,65 @@ El identificador de userId no existe en el sistema
   + Body   
 
   
-    {
+   {
     "profile_videos": [
         {
-            "id": 1,
-            "description": "video presentacion",
-            "urlVideo": "Videos/Perfil/video120181210183631078.mp4",
-            "createDate": "2019-05-14 09:13:07",
-            "urlImage": "Imagenes/Perfil/image120181210183642342.jpg",
+            "id": 19,
+            "description": "mi video",
+            "urlVideo": "Videos/Perfil/video220190529205156127.mp4",
+            "createDate": "2019-05-29 16:52:08",
+            "urlImage": "Imagenes/Perfil/image220190529205207421.jpg",
             "imageType": "jpg",
             "videoType": "mp4",
             "active": true,
-            "principal": true,
-            "likes": 1,
-            "like": true,
-            "likeCode": "CL001",
-            "comments": []
-        },
-        {
-            "id": 2,
-            "description": "mi mejor video",
-            "urlVideo": "Videos/Perfil/video120181212131633926.mp4",
-            "createDate": "2019-05-14 09:13:07",
-            "urlImage": "Imagenes/Perfil/image120181210195936733.jpg",
-            "imageType": "jpg",
-            "videoType": "mp4",
-            "active": true,
-            "principal": true,
-            "likes": 2,
+            "principal": false,
+            "visible": false,
+            "userSportId": 17,
+            "sportCategoryId": 0,
+            "sportCategoryName": "",
+            "likes": 0,
             "like": false,
             "likeCode": "",
-            "comments": []
+            "comments": [],
+            "user": {
+                "id": 2,
+                "name": "Jose",
+                "lastName": "Duin",
+                "nickname": "JoseDuin",
+                "photo": "image120181010154016319.jpg"
+            },
+            "category": false
+        },
+        {
+            "id": 21,
+            "description": "mi video",
+            "urlVideo": "Videos/Perfil/video220190529210357361.mp4",
+            "createDate": "2019-05-29 17:04:07",
+            "urlImage": "Imagenes/Perfil/image220190529210406964.jpg",
+            "imageType": "jpg",
+            "videoType": "mp4",
+            "active": true,
+            "principal": false,
+            "visible": false,
+            "userSportId": 0,
+            "sportCategoryId": 3,
+            "sportCategoryName": "Junior",
+            "likes": 0,
+            "like": false,
+            "likeCode": "",
+            "comments": [],
+            "user": {
+                "id": 2,
+                "name": "Jose",
+                "lastName": "Duin",
+                "nickname": "JoseDuin",
+                "photo": "image120181010154016319.jpg"
+            },
+            "category": true
         }
     ],
-    "total_items_profilevideos": 2
-    }
+    "total_items_profilevideos": 5
+}
 
 + Response 400 (application/json)         
   El identificador de userId no existe en el sistema
@@ -8555,52 +8584,33 @@ El identificador de userId no existe en el sistema
     {
     "user_videos": [
         {
-            "id": 2,
-            "description": "mi mejor video",
-            "urlVideo": "Videos/Usuarios/video120181212131633926.mp4",
-            "createDate": "2019-05-14 08:13:07",
-            "urlImage": "Imagenes/Usuarios/image120181210183859001.jpg",
-            "imageType": "jpg",
-            "videoType": "mp4",
-            "active": true,
-            "userSportId": 0,
-            "sportCategoryId": 0,
-            "likes": 2,
-            "like": false,
-            "likeCode": "",
-            "comments": [],
-            "category": false
-        },
-        {
-            "id": 1,
+            "id": 3,
             "description": "video presentacion",
             "urlVideo": "Videos/Usuarios/video120181210183631078.mp4",
-            "createDate": "2019-05-14 08:13:07",
+            "createDate": "2019-05-28 14:03:49",
             "urlImage": "Imagenes/Usuarios/image120181210183642342.jpg",
             "imageType": "jpg",
             "videoType": "mp4",
             "active": true,
-            "userSportId": 5,
-            "sportCategoryId": 6,
-            "likes": 1,
-            "like": true,
-            "likeCode": "CL001",
-            "comments": [
-                {
-                    "id": 1,
-                    "content": "buen video",
-                    "createDate": "2019-05-15 14:40:24",
-                    "updateDate": "2019-05-15 14:40:24",
-                    "isActive": true,
-                    "userVideoId": 1,
-                    "level": 0
-                }
-            ],
-            "category": true
+            "userSportId": 2,
+            "sportCategoryId": 0,
+            "challengeId": 2,
+            "likes": 0,
+            "like": false,
+            "likeCode": "",
+            "comments": [],
+            "user": {
+                "id": 1,
+                "name": "oscar",
+                "lastName": "Montilla",
+                "nickname": "omontilla",
+                "photo": "image120181010154016319.jpg"
+            },
+            "category": false
         }
     ],
     "total_items_uservideos": 2
-}
+    }
 
 + Response 200 (application/json)   
   + Body   
@@ -8609,38 +8619,62 @@ El identificador de userId no existe en el sistema
     {
     "profile_videos": [
         {
-            "id": 1,
-            "description": "video presentacion",
-            "urlVideo": "Videos/Perfil/video120181210183631078.mp4",
-            "createDate": "2019-05-14 09:13:07",
-            "urlImage": "Imagenes/Perfil/image120181210183642342.jpg",
+            "id": 19,
+            "description": "mi video",
+            "urlVideo": "Videos/Perfil/video220190529205156127.mp4",
+            "createDate": "2019-05-29 16:52:08",
+            "urlImage": "Imagenes/Perfil/image220190529205207421.jpg",
             "imageType": "jpg",
             "videoType": "mp4",
             "active": true,
-            "principal": true,
-            "likes": 1,
-            "like": true,
-            "likeCode": "CL001",
-            "comments": []
-        },
-        {
-            "id": 2,
-            "description": "mi mejor video",
-            "urlVideo": "Videos/Perfil/video120181212131633926.mp4",
-            "createDate": "2019-05-14 09:13:07",
-            "urlImage": "Imagenes/Perfil/image120181210195936733.jpg",
-            "imageType": "jpg",
-            "videoType": "mp4",
-            "active": true,
-            "principal": true,
-            "likes": 2,
+            "principal": false,
+            "visible": false,
+            "userSportId": 17,
+            "sportCategoryId": 0,
+            "sportCategoryName": "",
+            "likes": 0,
             "like": false,
             "likeCode": "",
-            "comments": []
+            "comments": [],
+            "user": {
+                "id": 2,
+                "name": "Jose",
+                "lastName": "Duin",
+                "nickname": "JoseDuin",
+                "photo": "image120181010154016319.jpg"
+            },
+            "category": false
+        },
+        {
+            "id": 21,
+            "description": "mi video",
+            "urlVideo": "Videos/Perfil/video220190529210357361.mp4",
+            "createDate": "2019-05-29 17:04:07",
+            "urlImage": "Imagenes/Perfil/image220190529210406964.jpg",
+            "imageType": "jpg",
+            "videoType": "mp4",
+            "active": true,
+            "principal": false,
+            "visible": false,
+            "userSportId": 0,
+            "sportCategoryId": 3,
+            "sportCategoryName": "Junior",
+            "likes": 0,
+            "like": false,
+            "likeCode": "",
+            "comments": [],
+            "user": {
+                "id": 2,
+                "name": "Jose",
+                "lastName": "Duin",
+                "nickname": "JoseDuin",
+                "photo": "image120181010154016319.jpg"
+            },
+            "category": true
         }
     ],
-    "total_items_profilevideos": 2
-    }
+    "total_items_profilevideos": 5
+}
 
 
 + Response 400 (application/json)         
