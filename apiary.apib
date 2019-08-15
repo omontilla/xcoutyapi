@@ -1208,11 +1208,11 @@ Lista de servicios Back-End API
   {"error_code": "M0009","message": "no found sportingVideoId"}
 
 
-### Eliminar Like [DELETE /user/{userId}/attributelike/{:attributeLikeId}]
+### Eliminar Like [DELETE /user/{userId}/attributelike/{:userSportAttributeId}]
 
 + Parameters
     + userId: `1` (required,number) - Identificador de usuario
-    + attributeLikeId: `2` (required,number) - Identificador de atributo
+    + userSportAttributeId: `2` (required,number) - Identificador de atributo
     
 + Request (application/json) 
   
@@ -1230,10 +1230,10 @@ Lista de servicios Back-End API
   {"error_code": "M0009","message": "no found userId"}
 
 + Response 400 (application/json)         
-  El usuario userId no tiene like para el video attributeLikeId
+  El usuario userId no tiene like para el video userSportAttributeId
 
   + Body
-  {"error_code": "M0009","message": "no found attributeLikeId"}
+  {"error_code": "M0009","message": "no found userSportAttributeId"}
 
     
 
