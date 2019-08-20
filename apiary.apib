@@ -8727,6 +8727,7 @@ El identificador de userId no existe en el sistema
 + Response 200 (application/json)   
   + Body  
   
+
 {
     "comments_user_videos": [
         {
@@ -8950,6 +8951,248 @@ El identificador de userId no existe en el sistema
 
   + Body
   {"error_code": "M0009","message": "no found userId"}
+  
+
+### Registrar Like [POST /user/{userId}/genericvideo/{videoId}/like/{typeVideo}]
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario
+    + videoId: `2` (required,number) - Identificador de video
+    + typeVideo: `2` (required,number) - Tipo de video
+    
++ Request (application/json) 
+  
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+    
+    + Body
+    + Attributes
+        + like_code: `1` (required) - code del tipo de like
+
++ Response 200 (application/json)   
+  + Body
+
+    {
+    "id": 2,
+    "profileVideoId": 2,
+    "userId": 1,
+    "createDate": "2019-01-15 09:27:10",
+    "updateDate": "2019-01-15 09:27:10",
+    "typeLikeId": 1
+    }
+    
++ Response 200 (application/json)   
+  + Body
+
+    {
+    "id": 10,
+    "userVideoId": 2,
+    "userId": 1,
+    "createDate": "2019-08-20 09:12:24",
+    "updateDate": "2019-08-20 09:12:24",
+    "typeLikeId": 1
+    }
+
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+
++ Response 400 (application/json)         
+  El identificador de profileVideoId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found profileVideoId"}
+
++ Response 400 (application/json)         
+  El identificador de tipoLikeId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found tipoLikeId"}
+  
++ Response 400 (application/json) 
+  El o los campos son requeridos
+
+  + Body
+
+  {
+    "error_code": "M0003",
+    "fields": [
+        {
+            "code": "M0003",
+            "field": "tipoLikeId",
+            "issue": "The field is required"
+        }
+    ]
+  }
+
+### Actualizar Like [PUT /user/{userId}/genericvideo/{videoId}/like/{typeVideo}]
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario
+    + videoId: `2` (required,number) - Identificador de video
+    + typeVideo: `2` (required,number) - Tipo de video
+    
++ Request (application/json) 
+  
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+    
+    + Body
+    + Attributes
+        + like_code: `CL002` (required) - code del tipo de like
+
++ Response 200 (application/json)   
+  + Body   
+  
+    {
+    "id": 2,
+    "profileVideoId": 2,
+    "userId": 1,
+    "createDate": "2019-01-15 09:27:10",
+    "updateDate": "2019-01-15 09:27:52",
+    "typeLikeId": 2
+    }
+    
++ Response 200 (application/json)   
+  + Body   
+  
+    {
+    "id": 10,
+    "userVideoId": 3,
+    "userId": 1,
+    "createDate": "2019-08-20 09:12:24",
+    "updateDate": "2019-08-20 09:14:31",
+    "typeLikeId": 3
+    }
+
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+
++ Response 400 (application/json)         
+  El identificador de userVideoLikeId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found profileVideoLikeId"}
+  
++ Response 400 (application/json) 
+  El o los campos son requeridos
+
+  + Body
+
+  {
+    "error_code": "M0003",
+    "fields": [
+        {
+            "code": "M0003",
+            "field": "tipoLikeId",
+            "issue": "The field is required"
+        }
+    ]
+    }
+
+### Obtener Likes [GET /user/{userId}/genericvideo/{videoId}/like/{typeVideo}]
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario
+    + userVideoId: `3` (required,number) - Identificador de video de usuario
+    + typeVideo: `2` (required,number) - Tipo de video
+    + lat: `19.4284700` (optional,number) - latitud del usuario
+    + lng: `-99.1276600` (optional,number) - longitud del usuario
+    + items: `2` (optional,number) - cantidad de items a consultar, maximo 1000
+    + page: `0` (optional,number) - numero de pagina
+    
++ Request (application/json) 
+  
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+
++ Response 200 (application/json)   
+  + Body   
+
+    {
+    "profile_video_likes": [
+        {
+            "id": 2,
+            "profileVideoId": 2,
+            "userId": 1,
+            "createDate": "2019-01-15 07:27:10",
+            "updateDate": "2019-01-15 07:27:52",
+            "typeLikeId": 2
+        }
+    ],
+    "total_items_profilevideolike": 1
+    }
+    
++ Response 200 (application/json)   
+  + Body   
+
+    {
+    "user_video_likes": [
+        {
+            "id": 10,
+            "userVideoId": 3,
+            "userId": 1,
+            "createDate": "2019-08-20 09:12:24",
+            "updateDate": "2019-08-20 09:14:31",
+            "typeLikeId": 3
+        }
+    ],
+    "total_items_uservideolike": 1
+    }
+
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+
++ Response 400 (application/json)         
+  El identificador de profileVideoId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found profileVideoId"}
+
+
+### Eliminar Like [DELETE /user/{userId}/genericvideo/{videoId}/like/{typeVideo}]
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario
+    + videoId: `2` (required,number) - Identificador de video
+    + typeVideo: `2` (required,number) - Tipo de video
+    
++ Request (application/json) 
+  
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+
++ Response 200 (application/json)   
+    Se elimino el like
+  + Body
+
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+
++ Response 400 (application/json)         
+  El usuario userId no tiene like para el video profileVideoId
+
+  + Body
+  {"error_code": "M0009","message": "no found profileVideo"}
+  
++ Response 400 (application/json)         
+  El identificador de profileVideoId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009", "message": "no found profileVideoId"}
+  
+
 
 
 ## Retos [/user/{userId}/challenge]
