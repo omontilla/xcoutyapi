@@ -11911,6 +11911,41 @@ El identificador de userId no existe en el sistema
   + Body
   {"error_code":"M0019","message":"Internal error - Bad request"}
 
+### Obtener Home de Retos [GET /user/{userId}/challengehome]
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario
+    + challengeinvitationid: `1` (optional,number) - Identificador de invitacion
+    + userinvitadoid: `1` (optional,number) - Identificador de usuario participante
+    + numberstatus: `1` (optional,string) - Numero de estatus
+    
++ Request (application/json) 
+  
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+
++ Response 200 (application/json)   
+  + Body     
+  
+   {
+    "total_challenges_played": 0,
+    "total_challenges_won": 1,
+    "total_challenges_created": 1,
+    "total_challenges_rejected": 1
+    }
+
+
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+  
++ Response 400 (application/json)         
+  Existe algun error en la peticion y/o se ha generado un error interno
+
+  + Body
+  {"error_code":"M0019","message":"Internal error - Bad request"}
 
 ### Obtener Resumen de Escrutinios [GET /user/{userId}/resumescrutinies]
 
