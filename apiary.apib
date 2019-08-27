@@ -11865,6 +11865,51 @@ El identificador de userId no existe en el sistema
 
   + Body
   {"error_code":"M0019","message":"Internal error - Bad request"}
+  
+
+### Obtener Resumen de Retos [GET /user/{userId}/resumechallenge]
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario
+    + challengeid: `1` (optional,number) - Identificador de reto
+    + challengetypeid:  `1` (optional,number) - Identificador de tipo de reto
+    + modalityid:  `1` (optional,number) - Identificador de modalidad
+    + sportid:  `1` (optional,number) - Identificador de deporte
+    + userprofileid: `1` (optional,number) - Identificador de video de usuario
+    + numberstatus:  `1` (optional,number) - Numero de estatus 
+    + name:  `reto 1` (optional,string) - Nombre del reto
+    + description:  `el mejor` (optional,string) - Descripcion del reto 
+    + fromBegin:  `2019-01-01` (optional,string) - Fecha de inicio desde YYYY-MM-dd
+    + toBegin:  `2019-01-06` (optional,string) - Fecha de inicio hasta,  YYYY-MM-dd
+    + fromPublic:  `2019-01-01` (optional,string) - Fecha de inicio voto publico YYYY-MM-dd
+    + isHall: `false` (optional,boolean) - Indica si es Hall
+    + typelikeid: `false` (optional,number) - Identificador tipo de like
+    + userwinnerid: `1` (optional,number) - Identificador del usuario ganador
+    
++ Request (application/json) 
+  
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+
++ Response 200 (application/json)   
+  + Body     
+  
+   {
+    "total_items_challenges": 2
+    }
+
+
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+  
++ Response 400 (application/json)         
+  Existe algun error en la peticion y/o se ha generado un error interno
+
+  + Body
+  {"error_code":"M0019","message":"Internal error - Bad request"}
 
 
 ### Obtener Resumen de Escrutinios [GET /user/{userId}/resumescrutinies]
