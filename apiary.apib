@@ -11981,6 +11981,44 @@ El identificador de userId no existe en el sistema
 
   + Body
   {"error_code":"M0019","message":"Internal error - Bad request"}
+  
+
+### Obtener Usuario Aleatorio [GET /user/{userId}/randomuser/{userSportId}]
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario
+    + userSportId: `1` (required,number) - Identificador de deporte del usuario
+    
++ Request (application/json) 
+  
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+
++ Response 200 (application/json)   
+  + Body   
+
+  
+    {
+    "user": {
+        "id": 2,
+        "name": "Jose",
+        "lastName": "Duin",
+        "nickname": "JoseDuin",
+        "photo": "image120181010154016319.jpg"
+    }
+    }
+
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+  
++ Response 400 (application/json)         
+  Existe algun error en la peticion y/o se ha generado un error interno
+
+  + Body
+  {"error_code":"M0019","message":"Internal error - Bad request"}
 
 
 
