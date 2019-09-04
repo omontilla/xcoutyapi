@@ -2257,6 +2257,33 @@ Lista de servicios Back-End API
     ]
 }
 
+### Obtener Deportes de usuario [GET /user/{userId}/usersport] 
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario
+    
++ Request (application/json) 
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+        
++ Response 200 (application/json)   
+   + Body
+
+
+{
+    "sports": [
+        {
+            "sport_id": 2,
+            "sport_name": "Basketball",
+            "sport_code": "CS003",
+            "image_url": "https://www.shareicon.net/data/128x128/2016/11/15/852643_game_512x512.png",
+            "profile_video": {},
+            "is_principal": false
+        }
+    ]
+}
+
+
 ### Registrar Deporte [POST /user/{userId}/sport]
 
 + Parameters
