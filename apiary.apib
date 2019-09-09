@@ -9766,13 +9766,10 @@ El identificador de userId no existe en el sistema
         + modalityId: `1`  (required) - Identificador de modalidad
         + sportId: `1` (required) - Identificador de deporte
         + name: `reto numero 1`  (required) - nombre del reto
-        + beginDate: `2019-02-01` (optional) - Fecha de inicio
-        + finalDate: `2019-01-15` (required) - Fecha final
-        + votePartesBeginDate: `2019-02-02`  (optional) - Fecha de inicio del voto de las partes
-        + votePartesFinalDate: `2019-02-14` (optional) - Fecha fin del voto de las partes
-        + votePublicBeginDate: `2019-02-03`  (optional) - Fecha inicio voto publico
-        + votePublicFinalDate: `2019-02-13` (optional) - Fecha fin voto publico
+        + description: `reto numero 1`  (required) - nombre del reto
         + hall: `false` (required) - Indica si es hall
+        + video: `data:video/mp4;base64, eyJ0eXAiOiJKV1QiLCJhbGciOiJIUz...`  (required) - video
+        + image: `data:image/jpg;base64, eyJ0eXAiOiJKV1QiLCJhbGciOiJIUz...`  (required) - video
         
 
 
@@ -9780,24 +9777,41 @@ El identificador de userId no existe en el sistema
   + Body
   
    {
-    "id": 2,
-    "challengeTypeId": 1,
-    "modalityId": 1,
-    "sportId": 1,
-    "userId": 1,
-    "estatusId": 1,
-    "name": "Reto 1",
-    "description": "Reto numero 1",
-    "beginDate": "2019-02-01 00:00:00",
-    "finalDate": "2019-01-15 00:00:00",
-    "votePartesBeginDate": "2019-02-02 00:00:00",
-    "votePartesFinalDate": "2019-02-14 00:00:00",
-    "votePublicBeginDate": "2019-02-03 00:00:00",
-    "votePublicFinalDate": "2019-02-13 00:00:00",
-    "hall": false,
-    "createDate": "2019-02-25 16:17:18",
-    "updateDate": "2019-02-25 16:17:18"
-}   }
+    "challenges": [
+        {
+            "id": 1,
+            "challengeTypeId": 1,
+            "modalityId": 1,
+            "sportId": 1,
+            "userId": 1,
+            "estatus": {
+                "id": 6,
+                "number": 1,
+                "code": "E0001",
+                "name": "APERTURADO",
+                "description": "ESTADO APETURADO",
+                "tables": "CHALLENGE",
+                "languageEnum": "ES"
+            },
+            "name": "Reto 1",
+            "description": "Reto numero 1",
+            "urlVideo": "a",
+            "urlImage": "q",
+            "beginDate": "2019-02-01 00:00:00",
+            "finalDate": "2019-01-15 00:00:00",
+            "votePartesBeginDate": "2019-02-02 00:00:00",
+            "votePartesFinalDate": "2019-02-14 00:00:00",
+            "votePublicBeginDate": "2019-02-03 00:00:00",
+            "votePublicFinalDate": "2019-02-13 00:00:00",
+            "hall": false,
+            "userWinnerId": 2,
+            "createDate": "2019-07-29 11:05:01",
+            "updateDate": "2019-07-29 11:05:01",
+            "totalLikes": 0
+        }
+    ],
+    "total_items_challenges": 1
+    }
 
 + Response 400 (application/json)         
   El identificador de userId no existe en el sistema
@@ -11956,11 +11970,32 @@ El identificador de userId no existe en el sistema
   + Body     
   
    {
-    "total_challenges_played": 0,
-    "total_challenges_won": 1,
-    "total_challenges_created": 1,
-    "total_challenges_rejected": 1
+    "score": {
+        "universo": 42,
+        "efectivos": 20,
+        "porcentaje": 47.62
+    },
+    "total_challenges_played": {
+        "universo": 3,
+        "efectivos": 1,
+        "porcentaje": 33.33
+    },
+    "total_challenges_won": {
+        "universo": 1,
+        "efectivos": 1,
+        "porcentaje": 100.0
+    },
+    "total_challenges_created": {
+        "universo": 1,
+        "efectivos": 1,
+        "porcentaje": 100.0
+    },
+    "total_challenges_rejected": {
+        "universo": 2,
+        "efectivos": 1,
+        "porcentaje": 50.0
     }
+}
 
 
 + Response 400 (application/json)         
