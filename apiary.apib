@@ -10499,7 +10499,7 @@ El identificador de userId no existe en el sistema
     + Body
     + Attributes
         + challengeId: `1` (number, required) - Identificador de reto
-        + estatusId: `1` (number, required) - Identificador de estatus
+        + estatusCode: `1` (string, required) - Code de estatus
         + userInvitadoId: `1` (required,number) - Identificador de usuario invitado
 
 + Response 200 (application/json)   
@@ -10539,10 +10539,10 @@ El identificador de userId no existe en el sistema
   {"error_code": "M0009","message": "no found userInvitadoId"}
   
 + Response 400 (application/json)         
-  El identificador de estatusId no existe en el sistema
+  El identificador de estatusCode no existe en el sistema
 
   + Body
-  {"error_code": "M0009","message": "no found estatusId"}
+  {"error_code": "M0009","message": "no found estatusCode"}
   
 + Response 400 (application/json) 
   El o los campos son requeridos
