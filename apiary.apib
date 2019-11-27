@@ -4016,6 +4016,38 @@ El identificador de userId no existe en el sistema
                 ]
         }
 
+
+### Obtener comboBox de Sistema, Buscando Coincidencias [POST /v1/user/{userId}/system/combox/{comboBox}/search]
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario.
+    + comboBox: `country` (required,enum) - Identificador de notificacion.
+        + country
+        + city
+    + country = true (optional,number, `true`) - Condicion para la busqueda de city, si desea buscar coincidencias de un ciudades de un pais en especifico
+
+    
++ Request (application/json) 
+  
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+    
+    + Body
+    + Attributes
+        + search: `espa` (required) - Caracter para buscar coincidencias        
+        
++ Response 200 (application/json)   
+  + Body
+    {
+        "country": [
+            {
+                "code": "CY006",
+                "name": "España"
+            }
+        ]
+    }
+
+
 ### Obtener comboBox de Sistema [GET /v1/user/{userId}/system/combox/{comboBox}]
 
 + Parameters
@@ -9701,6 +9733,75 @@ El identificador de userId no existe en el sistema
     ],
     "total_items_challengemodalities": 2
 }
+
++ Response 400 (application/json)         
+  El identificador de userId no existe en el sistema
+
+  + Body
+  {"error_code": "M0009","message": "no found userId"}
+  
++ Response 400 (application/json)         
+  Existe algun error en la peticion y/o se ha generado un error interno
+
+  + Body
+  {"error_code":"M0019","message":"Internal error - Bad request"}
+  
+
+### Obtener Plantillas Dirigidas [GET /user/{userId}/directedtemplate]
+
++ Parameters
+    + userId: `1` (required,number) - Identificador de usuario
+    + lat: `19.4284700` (optional,number) - Latitud del usuario
+    + lng: `-99.1276600` (optional,number) - Longitud del usuario
+    + items: `2` (optional,number) - Cantidad de items a consultar, maximo 1000
+    + page: `0` (optional,number) - Numero de pagina
+    + directedtemplateid: `1` (optional,number) - Identificador de la plantilla
+    + descripcion: `plantilla` (optional,string) - Nombre de la plantilla
+    + sportcode: `plantilla` (optional,string) - Codigo del deporte
+    
++ Request (application/json) 
+  
+    + Headers
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJtb250aWxsYS50MzFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiaW9uaWNfYXBwIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImdyb3VwcyI6IiBzdXBlciIsImlhdCI6MTUzNzI4MDY5OSwic3ViIjoibW9udGlsbGEudDMxQGdtYWlsLmNvbSIsImlzcyI6IlN0YWxmeSJ9.I400_t5y6KEpIY586Tv8QCFDirg72TzZgsVSBPLq76mxLxnJsAE0_MURPXLTr1zxv4y6MJdadFDu5dYvTNu7FA
+
++ Response 200 (application/json)   
+  + Body   
+
+  
+    {
+    "directed_templates": [
+        {
+            "id": 2,
+            "urlResource": "b",
+            "urlVideo": "b",
+            "level": 1,
+            "description": "b",
+            "name": "b",
+            "challengeDuration": 2,
+            "participantVotesDuration": 2,
+            "publicVotesDuration": 2,
+            "createDate": "2019-11-27 10:00:36",
+            "updateDate": "2019-11-27 10:00:36",
+            "active": true,
+            "modalityCode": "TC0001",
+            "challengeTypeCode": "TC0002",
+            "hall": true,
+            "language": "EN",
+            "category": {
+                "id": 3,
+                "sportId": 3,
+                "sportCode": "CS002",
+                "name": "Junior",
+                "createDate": "2019-05-14 09:13:07",
+                "updateDate": "2019-05-14 09:13:07",
+                "imageUrl": "https://www.shareicon.net/data/128x128/2016/12/23/866375_ball_512x512.png",
+                "language": "EN",
+                "active": true
+            }
+        }
+    ],
+    "total_items_directedtemplates": 2
+    }
 
 + Response 400 (application/json)         
   El identificador de userId no existe en el sistema
